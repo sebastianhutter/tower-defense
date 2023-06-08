@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="TowerResource" load_steps=3 format=3 uid="uid://cdxecwwfyk2ee"]
+
+[ext_resource type="Script" path="res://resources/tower/tower_resource.gd" id="1_iehy6"]
+[ext_resource type="PackedScene" uid="uid://8550fflfsj0i" path="res://scenes/tower/HQ/hq.tscn" id="2_6s14w"]
+
+[resource]
+script = ExtResource("1_iehy6")
+id = "hq"
+name = "HQ"
+description = "The players HQ"
+tower_scene = ExtResource("2_6s14w")

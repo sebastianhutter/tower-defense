@@ -1,0 +1,30 @@
+[gd_scene load_steps=7 format=3 uid="uid://bpx58yiwwfh5f"]
+
+[ext_resource type="Script" path="res://scenes/main/main.gd" id="1_bwnup"]
+[ext_resource type="Script" path="res://scenes/game_state/game_state_manager.gd" id="3_oydyv"]
+[ext_resource type="PackedScene" uid="uid://ba5tkkbvt76p" path="res://scenes/ui/ui_manager.tscn" id="4_ypglp"]
+[ext_resource type="PackedScene" uid="uid://btsarn8jiclmg" path="res://scenes/menu/menu_manager.tscn" id="5_t8jpj"]
+[ext_resource type="PackedScene" uid="uid://dpmo4hy0f15f0" path="res://scenes/level/level_manager.tscn" id="6_5qmpl"]
+[ext_resource type="PackedScene" uid="uid://dk5xigsupwyai" path="res://scenes/tower/tower_manager.tscn" id="9_vfaom"]
+
+[node name="Main" type="Node"]
+process_mode = 3
+script = ExtResource("1_bwnup")
+game_state = 1
+
+[node name="GameStateManager" type="Node" parent="." node_paths=PackedStringArray("ui_manager", "menu_manager", "level_manager", "tower_manager")]
+unique_name_in_owner = true
+script = ExtResource("3_oydyv")
+ui_manager = NodePath("../UiManager")
+menu_manager = NodePath("../MenuManager")
+level_manager = NodePath("../LevelManager")
+tower_manager = NodePath("../TowerManager")
+
+[node name="MenuManager" parent="." instance=ExtResource("5_t8jpj")]
+
+[node name="UiManager" parent="." instance=ExtResource("4_ypglp")]
+
+[node name="LevelManager" parent="." instance=ExtResource("6_5qmpl")]
+map_size = Vector2i(16, 16)
+
+[node name="TowerManager" parent="." instance=ExtResource("9_vfaom")]

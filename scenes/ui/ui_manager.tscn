@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://ba5tkkbvt76p"]
+
+[ext_resource type="Script" path="res://scenes/ui/ui_manager.gd" id="1_aiddh"]
+[ext_resource type="PackedScene" uid="uid://chm7bv2lj8dcc" path="res://scenes/ui/ability_ui/ability_ui.tscn" id="2_v8r3f"]
+
+[node name="UiManager" type="Node"]
+script = ExtResource("1_aiddh")
+
+[node name="AbilityUi" parent="." instance=ExtResource("2_v8r3f")]
+unique_name_in_owner = true

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="TowerResource" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://resources/tower/tower_resource.gd" id="1_oax8f"]
+[ext_resource type="PackedScene" uid="uid://8550fflfsj0i" path="res://scenes/tower/HQ/hq.tscn" id="2_kysy5"]
+
+[resource]
+script = ExtResource("1_oax8f")
+id = "archer"
+name = "Archer"
+description = "Archer Tower"
+tower_scene = ExtResource("2_kysy5")
