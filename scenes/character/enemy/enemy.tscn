@@ -1,0 +1,39 @@
+[gd_scene load_steps=10 format=3 uid="uid://bq8f3aa221iwo"]
+
+[ext_resource type="Script" path="res://scenes/character/enemy/enemy.gd" id="1_2f2mi"]
+[ext_resource type="Texture2D" uid="uid://eyobscg1qbmf" path="res://icon.svg" id="2_4yp34"]
+[ext_resource type="PackedScene" uid="uid://cvvfxoahfsntu" path="res://scenes/character/enemy/fsm/move.tscn" id="3_0xvtr"]
+[ext_resource type="PackedScene" uid="uid://cbnqesx4jnccb" path="res://scenes/character/enemy/fsm/idle.tscn" id="4_an6hg"]
+[ext_resource type="PackedScene" uid="uid://c6v3fp1xbsrjy" path="res://scenes/components/velocity/velocity_component.tscn" id="4_ewlsu"]
+[ext_resource type="PackedScene" uid="uid://de1pxhvtqpadi" path="res://scenes/components/movement/movement_component.tscn" id="4_rwbg1"]
+[ext_resource type="PackedScene" uid="uid://dgiqi5o1u8u5c" path="res://scenes/components/navigation/navigation_component.tscn" id="5_wathy"]
+[ext_resource type="PackedScene" uid="uid://cmfpp7nn2e1hn" path="res://scenes/components/fsm/enemy_fsm.tscn" id="5_yylhh"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5818s"]
+radius = 21.0238
+
+[node name="Enemy" type="CharacterBody2D"]
+script = ExtResource("1_2f2mi")
+
+[node name="EnemyFSM" parent="." node_paths=PackedStringArray("navigation_component", "movement_component") instance=ExtResource("5_yylhh")]
+navigation_component = NodePath("../NavigationComponent")
+movement_component = NodePath("../MovementComponent")
+
+[node name="Move" parent="EnemyFSM" instance=ExtResource("3_0xvtr")]
+
+[node name="Idle" parent="EnemyFSM" instance=ExtResource("4_an6hg")]
+
+[node name="VelocityComponent" parent="." instance=ExtResource("4_ewlsu")]
+max_speed = 50.0
+
+[node name="MovementComponent" parent="." node_paths=PackedStringArray("velocity_component") instance=ExtResource("4_rwbg1")]
+velocity_component = NodePath("../VelocityComponent")
+
+[node name="NavigationComponent" parent="." instance=ExtResource("5_wathy")]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_4yp34")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_5818s")

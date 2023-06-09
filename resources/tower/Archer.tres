@@ -1,11 +1,15 @@
-[gd_resource type="Resource" script_class="TowerResource" load_steps=3 format=3]
+[gd_resource type="Resource" script_class="TowerResource" load_steps=4 format=3 uid="uid://dtdnex3cguhbk"]
 
 [ext_resource type="Script" path="res://resources/tower/tower_resource.gd" id="1_oax8f"]
-[ext_resource type="PackedScene" uid="uid://8550fflfsj0i" path="res://scenes/tower/HQ/hq.tscn" id="2_kysy5"]
+[ext_resource type="Texture2D" uid="uid://cjmo2hwl4n6fi" path="res://resources/sprite/tower/Archer/archer_level_1.png" id="1_qxb1v"]
+[ext_resource type="PackedScene" uid="uid://bpooopgsgkah0" path="res://scenes/tower/archer/archer.tscn" id="2_miq37"]
 
 [resource]
 script = ExtResource("1_oax8f")
 id = "archer"
 name = "Archer"
 description = "Archer Tower"
-tower_scene = ExtResource("2_kysy5")
+tower_scene = ExtResource("2_miq37")
+is_bulldable = true
+build_costs = 100
+build_icon = ExtResource("1_qxb1v")

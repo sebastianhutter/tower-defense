@@ -18,12 +18,9 @@ class_name GameEvents
 # class signals
 # ========
 
-signal camera_mouse_collision_detected(position: Vector3)
 signal game_state_changed(game_state: Types.GameState, payload: Dictionary)
-signal ability_activated(ability_id: String)
-signal ability_recovery_started(ability_id: String, recovery_time: float)
-signal ability_recovery_complete(ability_id: String)
-
+signal resource_gold_amount_changed(old_amount: int, new_amount: int)
+signal tower_card_clicked(resource: TowerResource)
 # ========
 # class onready vars
 # ========
@@ -42,13 +39,6 @@ signal ability_recovery_complete(ability_id: String)
 # signal handler
 # ========
 
-# TODO: define when to use game events singleton vs. signals between nodes in the same scene?
- 
-func _on_camera_mouse_collision_detected(position: Vector3) -> void:
-	"""Called when the camera mouse collision is detected"""
-
-	print_debug("GameEvents", "_on_camera_mouse_collision_detected", "Camera mouse collision detected: " + str(position))
-	camera_mouse_collision_detected.emit(position)
 
 func _on_game_state_changed(game_state: Types.GameState, payload: Dictionary = {}) -> void:
 	"""Called when the game state changes, proxies signal from gamestatemanager to other nodes"""
@@ -56,23 +46,18 @@ func _on_game_state_changed(game_state: Types.GameState, payload: Dictionary = {
 	print_debug("GameEvents", "_on_game_state_changed", "Game state changed: " + str(game_state))
 	game_state_changed.emit(game_state)
 
-func _on_ability_activated(ability_id: String) -> void:
-	"""Called when an ability is requested"""
 
-	print_debug("GameEvents", "_on_ability_activated", "Ability activated: " + ability_id)
-	ability_activated.emit(ability_id)
+func _on_resource_gold_amount_changed(old_amount: int, new_amount: int) -> void:
+	"""Called when a resource amount changes"""
 
-func _on_ability_recovery_started(ability_id: String, recovery_time: float) -> void:
-	"""Called when an ability started recovery process"""
-	
-	print_debug("GameEvents", "_on_ability_recovery_started", "Ability recovery started: " + ability_id + " - " + str(recovery_time))
-	ability_recovery_started.emit(ability_id, recovery_time)
+	print_debug("GameEvents", "_on_resource_gold_amount_changed", "Resource amount changed: " + str(old_amount) + " -> " + str(new_amount))
+	resource_gold_amount_changed.emit(old_amount, new_amount)
 
-func _on_ability_recovery_complete(ability_id: String) -> void:
-	"""Called when an ability completed recovery process"""
-	
-	print_debug("GameEvents", "_on_ability_recovery_complete", "Ability recovery complete: " + ability_id)
-	ability_recovery_complete.emit(ability_id)
+func _on_tower_card_clicked(resource: TowerResource) -> void:
+	"""Called when a tower card is clicked"""
+
+	print_debug("GameEvents", "_on_tower_card_clicked", "Tower card clicked: " + str(resource))
+	tower_card_clicked.emit(resource)
 
 # ========
 # class functions

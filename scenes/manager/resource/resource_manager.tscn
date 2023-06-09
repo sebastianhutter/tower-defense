@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://pkmm7mbeupn0"]
+
+[ext_resource type="Script" path="res://scenes/manager/resource/resource_manager.gd" id="1_jv3hk"]
+
+[node name="ResourceManager" type="Node"]
+script = ExtResource("1_jv3hk")
+gold_amount = 200
+
+[node name="GoldTimer" type="Timer" parent="."]
+unique_name_in_owner = true

@@ -9,3 +9,4 @@ id = "hq"
 name = "HQ"
 description = "The players HQ"
 tower_scene = ExtResource("2_6s14w")
+is_bulldable = false

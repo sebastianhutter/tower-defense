@@ -1,7 +1,7 @@
 extends Node
 class_name CustomResourceLoader
 
-var ability_resources: Array[AbilityResource]
+var tower_resources: Array[TowerResource]
 
 func find_tres_files(folder: String) -> Array[Resource]:
 	"""returns a list of .tres files in one folder and one level of subfolders"""
@@ -25,21 +25,26 @@ func find_tres_files(folder: String) -> Array[Resource]:
 		
 	return tres_files
 
-func load_ability_resorces(path: String = "res://resources/ability") -> void:
-	"""load all ability resources .tres files"""
+func load_tower_resorces(path: String = "res://resources/tower") -> void:
+	""" load tower resources .tres files """
 
-	for ability_resource in find_tres_files(path):
-		ability_resources.append(ability_resource as AbilityResource)
+	for tower_resource in find_tres_files(path):
+		tower_resources.append(tower_resource as TowerResource)
 
-func get_ability_resource(ability_id: String) -> AbilityResource:
-	"""returns the ability resource with the given id"""
+func get_tower_resources() -> Array[TowerResource]:
+	"""returns all tower resources"""
 
-	for ability_resource in ability_resources:
-		if ability_resource.id == ability_id:
-			return ability_resource
-	
+	return tower_resources
+
+func get_tower_resource(tower_id: String) -> TowerResource:
+	"""returns the tower resource with the given id"""
+
+	for tower_resource in tower_resources:
+		if tower_resource.id == tower_id:
+			return tower_resource
+
 	return null
 
 func _init() -> void:
 	"""preload resources for faster access"""
-	load_ability_resorces()
+	load_tower_resorces()

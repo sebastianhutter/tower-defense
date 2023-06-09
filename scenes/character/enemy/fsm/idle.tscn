@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cbnqesx4jnccb"]
+
+[ext_resource type="Script" path="res://scenes/character/enemy/fsm/idle.gd" id="1_akwxt"]
+
+[node name="Idle" type="Node"]
+script = ExtResource("1_akwxt")

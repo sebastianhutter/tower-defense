@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://b1higgtkcobro"]
+
+[ext_resource type="Script" path="res://scenes/ui/hud/hud.gd" id="1_1ioso"]
+[ext_resource type="PackedScene" uid="uid://f3c0lkg34utv" path="res://scenes/ui/resource_ui/resource_ui.tscn" id="1_li45q"]
+[ext_resource type="PackedScene" uid="uid://droati2fq0r77" path="res://scenes/ui/tower_build_ui/tower_build_ui.tscn" id="2_wdkcv"]
+
+[node name="HUD" type="CanvasLayer"]
+layer = 10
+script = ExtResource("1_1ioso")
+
+[node name="ResourceUi" parent="." instance=ExtResource("1_li45q")]
+unique_name_in_owner = true
+
+[node name="TowerBuildUi" parent="." instance=ExtResource("2_wdkcv")]
+unique_name_in_owner = true

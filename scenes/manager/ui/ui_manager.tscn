@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scenes/manager/ui/ui_manager.gd" id="1_aiddh"]
+[ext_resource type="PackedScene" uid="uid://b1higgtkcobro" path="res://scenes/ui/hud/hud.tscn" id="2_obgl7"]
+
+[node name="UiManager" type="Node"]
+script = ExtResource("1_aiddh")
+
+[node name="HUD" parent="." instance=ExtResource("2_obgl7")]
+unique_name_in_owner = true

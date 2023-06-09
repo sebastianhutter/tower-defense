@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://d2ojaqtkccsll"]
+
+[ext_resource type="Shader" path="res://resources/shader/card_flash/card_flash.gdshader" id="1_7pb8i"]
+
+[resource]
+resource_local_to_scene = true
+shader = ExtResource("1_7pb8i")
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+shader_parameter/lerp_percent = 0.0

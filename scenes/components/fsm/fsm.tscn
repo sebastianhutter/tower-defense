@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://coblmbv40h5bd"]
+
+[ext_resource type="Script" path="res://scenes/components/fsm/fsm.gd" id="1_6ulp5"]
+
+[node name="FSM" type="Node"]
+script = ExtResource("1_6ulp5")

@@ -1,0 +1,6 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://y07s6x6lilfg"]
+
+[ext_resource type="Shader" path="res://resources/shader/card_recovery/card_recovery.gdshader" id="1_wmqoj"]
+
+[resource]
+shader = ExtResource("1_wmqoj")

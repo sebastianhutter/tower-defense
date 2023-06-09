@@ -1,10 +1,21 @@
-[gd_scene load_steps=2 format=3 uid="uid://8550fflfsj0i"]
+[gd_scene load_steps=5 format=3 uid="uid://crx7v2qie73tg"]
 
-[ext_resource type="Texture2D" uid="uid://d04s8kqpd0xe4" path="res://resources/sprite/tower/HQ/HQ.png" id="1_5hh05"]
+[ext_resource type="Script" path="res://scenes/tower/HQ/hq.gd" id="1_bm2he"]
+[ext_resource type="Texture2D" uid="uid://d04s8kqpd0xe4" path="res://resources/sprite/tower/HQ/hq_level_3.png" id="2_85rql"]
+[ext_resource type="Texture2D" uid="uid://cuh4k7x8q4smd" path="res://resources/sprite/tower/HQ/hq_level_1.png" id="2_cwquf"]
+[ext_resource type="Texture2D" uid="uid://b8b5ds1fnrdn7" path="res://resources/sprite/tower/HQ/hq_level_2.png" id="3_xr4my"]
 
 [node name="HQ" type="Node2D" groups=["hq"]]
+script = ExtResource("1_bm2he")
 
 [node name="Body" type="Node2D" parent="."]
+unique_name_in_owner = true
 
-[node name="Sprite2D" type="Sprite2D" parent="Body"]
-texture = ExtResource("1_5hh05")
+[node name="Level1" type="Sprite2D" parent="Body"]
+texture = ExtResource("2_cwquf")
+
+[node name="Level2" type="Sprite2D" parent="Body"]
+texture = ExtResource("3_xr4my")
+
+[node name="Level3" type="Sprite2D" parent="Body"]
+texture = ExtResource("2_85rql")

@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://duy3cv6cgc3ds"]
+
+[ext_resource type="PackedScene" uid="uid://bvawb13hlx1wi" path="res://scenes/character/player/player.tscn" id="1_axwm1"]
+[ext_resource type="Script" path="res://scenes/character/character.gd" id="2_tgwis"]
+
+[node name="helper_functions" type="Node3D"]
+
+[node name="Foreground" type="Node3D" parent="." groups=["layer_foreground"]]
+
+[node name="Player" parent="." instance=ExtResource("1_axwm1")]
+
+[node name="ParentCharacter" type="Node" parent="."]
+
+[node name="ParentCharacterA" type="CharacterBody3D" parent="ParentCharacter"]
+script = ExtResource("2_tgwis")
+
+[node name="ParentCharacterANode" type="Node" parent="ParentCharacter/ParentCharacterA"]
+
+[node name="ParentCharacterB" type="CharacterBody3D" parent="ParentCharacter/ParentCharacterA/ParentCharacterANode"]
+script = ExtResource("2_tgwis")
+
+[node name="ParentCharacterBNode" type="Node" parent="ParentCharacter/ParentCharacterA/ParentCharacterANode/ParentCharacterB"]
+
+[node name="ParentCharacterBNodeNested" type="Node" parent="ParentCharacter/ParentCharacterA/ParentCharacterANode/ParentCharacterB/ParentCharacterBNode"]
