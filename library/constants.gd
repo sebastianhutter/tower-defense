@@ -1,10 +1,7 @@
 class_name Constants
 
-# const LEVEL_ROOT_NODE = 'Level'
-# const LEVEL_ROOT_GROUP = 'LevelGroup'
+const TOWER_RESOURCE_FOLDER = "res://resources/tower"
 
-# const LEVEL_TOWERS_NODE = 'Towers'
-# const LEVEL_TOWERS_GROUP = 'LevelTowers'
-
-# const LEVEL_ENEMIES_NODE = 'Enemies'
-# const LEVEL_ENEMIES_GROUP = 'LevelEnemies'
+const SCENE_TOWER_CARD_SCENE = "res://scenes/ui/tower_card/tower_card.tscn"
+const SCENE_TOWER_BUILD_PREVIEW = "res://scenes/ui/tower_build_preview/tower_build_preview.tscn"
+const SCENE_TOWER_BUILD_CONSTRUCTION_SITE = "res://scenes/tower/construction/tower_under_construction.tscn"

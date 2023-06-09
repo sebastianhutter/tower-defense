@@ -1,5 +1,4 @@
-extends Area2D
-class_name Tower
+extends Node2D
 
 # ========
 # singleton references
@@ -20,17 +19,19 @@ class_name Tower
 # class signals
 # ========
 
-# signal my_custom_signal
+signal tower_build_completed(resource: TowerResource, position: Vector2)
 
 # ========
 # class onready vars
 # ========
 
-# @onready var my_label: Label = $%Label
+@onready var construction_component: ConstructionComponent = $%ConstructionComponent
 
 # ========
 # class vars
 # ========
+
+var resource: TowerResource
 
 # ========
 # godot functions
@@ -39,7 +40,9 @@ class_name Tower
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	
+	construction_component.construction_completed.connect(_on_construction_completed)
+	tower_build_completed.connect(_game_events._on_tower_build_completed)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -50,10 +53,15 @@ func _process(delta):
 # signal handler
 # ========
 
-func _on_custom_signal_event():
-	pass
+func _on_construction_completed() -> void:
+	""" when the construction components timer runs out the tower is constructed and tower manager, build manager etc need to be notified """
+	tower_build_completed.emit(resource, position)
+	queue_free()
 
 # ========
 # class functions
 # ========
 
+func start_construction() -> void:
+	construction_component.timer.wait_time = resource.build_time
+	construction_component.timer.start()

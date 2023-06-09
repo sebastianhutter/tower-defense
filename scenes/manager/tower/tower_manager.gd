@@ -14,7 +14,6 @@ class_name TowerManager
 # export vars
 # ========
 
-@export var available_towers: Array[TowerResource]
 
 # ========
 # class signals
@@ -31,6 +30,8 @@ class_name TowerManager
 # ========
 
 var level_node_towers = null
+var towers: Array[Tower] = []
+
 
 # ========
 # godot functions
@@ -40,21 +41,19 @@ var level_node_towers = null
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	
-	if available_towers.size() == 0:
-		print_debug("TowerManager: no towers specified, retrieving all towers from custom resources")
-		available_towers = _custom_resource_loader.get_tower_resources()
+	if _game_events:
+		_game_events.tower_build_completed.connect(_on_tower_build_completed)
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
 
 # ========
 # signal handler
 # ========
 
-func _on_custom_signal_event():
-	pass
+func _on_tower_build_completed(resource: TowerResource, tower_position: Vector2) -> void:
+	""" game event from build manager - lets place a tower at the given position"""
+
+	spawn_tower(resource, tower_position)
+
 
 # ========
 # class functions
@@ -65,21 +64,30 @@ func find_tower(id: String) -> TowerResource:
 	finds the tower with the given id
 	"""
 
-	for tower in available_towers:
+	for tower in _custom_resource_loader.get_tower_resources():
 		if tower.id == id:
 			return tower
 
 	return null
 
-func spawn_tower(id: String, pos: Vector2i) -> void:
+
+func spawn_tower_by_id(id: String, pos: Vector2) -> void:
 	"""
-	spawns the tower at the given position
+	spawns the tower with the given id at the given position
 	"""
 
 	var tower: TowerResource = find_tower(id)
 	if not tower:
 		print_debug("TowerManager: could not find tower with id: " + id)
 		return
+
+	spawn_tower(tower, pos)
+	
+
+func spawn_tower(resource: TowerResource, pos: Vector2) -> void:
+	"""
+	spawns the tower at the given position
+	"""
 		
 	if level_node_towers == null:
 		level_node_towers = _helper.get_level_node_towers()
@@ -87,7 +95,7 @@ func spawn_tower(id: String, pos: Vector2i) -> void:
 			print_debug("TowerManager: could not find level node towers")
 			return
 
-	var tower_scene: Node2D = tower.tower_scene.instantiate()
-	
+	var tower_scene: Tower = resource.tower_scene.instantiate() as Tower
 	level_node_towers.add_child(tower_scene)
 	tower_scene.position = pos
+	towers.append(tower_scene)

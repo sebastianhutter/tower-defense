@@ -56,7 +56,7 @@ func _ready():
 	mouse_exited.connect(_gui_mouse_exited)
 
 func _gui_input(event):
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed  and can_be_build:
 		tower_card_clicked.emit(resource)
 
 # ========

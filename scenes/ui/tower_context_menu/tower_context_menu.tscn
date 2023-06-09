@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://cmu573y7fbw32"]
+
+[ext_resource type="Script" path="res://scenes/ui/tower_context_menu/tower_context_menu.gd" id="1_xlibt"]
+
+[node name="TowerContextMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_xlibt")

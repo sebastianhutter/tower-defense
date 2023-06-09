@@ -12,4 +12,5 @@ description = "Archer Tower"
 tower_scene = ExtResource("2_miq37")
 is_bulldable = true
 build_costs = 100
+build_time = 1.0
 build_icon = ExtResource("1_qxb1v")

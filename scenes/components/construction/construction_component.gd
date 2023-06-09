@@ -1,6 +1,5 @@
-extends Area2D
-class_name Tower
-
+extends Node2D
+class_name ConstructionComponent
 # ========
 # singleton references
 # ========
@@ -20,13 +19,14 @@ class_name Tower
 # class signals
 # ========
 
-# signal my_custom_signal
+signal construction_completed
 
 # ========
 # class onready vars
 # ========
 
-# @onready var my_label: Label = $%Label
+@onready var timer: Timer = $%Timer
+@onready var progress_bar: ProgressBar = $%ProgressBar
 
 # ========
 # class vars
@@ -36,24 +36,30 @@ class_name Tower
 # godot functions
 # ========
 
-
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	timer.timeout.connect(_on_timer_timeout)
 
+func _physics_process(_delta: float) -> void:
+	if timer.is_stopped():
+		return
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+	progress_bar.value = 1 - (timer.time_left / timer.wait_time)
 
 # ========
 # signal handler
 # ========
 
-func _on_custom_signal_event():
-	pass
+func _on_timer_timeout() -> void:
+	"""hide and emit signal"""
+	hide()
+	construction_completed.emit()
 
 # ========
 # class functions
 # ========
 
+func set_timer(time: float) -> void:
+	timer.set_wait_time(time)
+
+func start_timer() -> void:
+	timer.start()

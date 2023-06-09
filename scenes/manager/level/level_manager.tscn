@@ -1,28 +1,16 @@
-[gd_scene load_steps=6 format=3]
+[gd_scene load_steps=5 format=3 uid="uid://dv4at2dpsr0gq"]
 
 [ext_resource type="Script" path="res://scenes/manager/level/level_manager.gd" id="1_j6eud"]
-[ext_resource type="TileSet" uid="uid://chi0m1r446bdv" path="res://resources/tileset/tileset.tres" id="2_htpco"]
+[ext_resource type="PackedScene" uid="uid://2c848wdr7l8r" path="res://scenes/tilemap/tile_map.tscn" id="2_2220a"]
 [ext_resource type="PackedScene" uid="uid://cbq3r0r2rnp01" path="res://scenes/game_camera/game_camera.tscn" id="3_pdo0c"]
 [ext_resource type="PackedScene" uid="uid://confljugi6357" path="res://scenes/background/background.tscn" id="4_khsos"]
-
-[sub_resource type="CanvasTexture" id="CanvasTexture_itjjg"]
 
 [node name="LevelManager" type="Node2D"]
 script = ExtResource("1_j6eud")
 
-[node name="TileMap" type="TileMap" parent="."]
+[node name="TileMap" parent="." instance=ExtResource("2_2220a")]
 unique_name_in_owner = true
-editor_description = "the tilemap is moved 125px to the left so the the center of the middle tile witll be at 0,0
-
-(this as the tiles are 250px in witdh"
-y_sort_enabled = true
-position = Vector2(-125, 2.08165e-12)
-tile_set = ExtResource("2_htpco")
-format = 2
-layer_0/y_sort_enabled = true
-
-[node name="Background" type="Sprite2D" parent="TileMap"]
-texture = SubResource("CanvasTexture_itjjg")
+position = Vector2(2.08165e-12, 2.08165e-12)
 
 [node name="Towers" type="Node2D" parent="." groups=["towers"]]
 unique_name_in_owner = true

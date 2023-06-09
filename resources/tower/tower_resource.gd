@@ -13,5 +13,6 @@ class_name TowerResource
 # tower meta information
 @export var is_bulldable: bool
 @export var build_costs: int
+@export var build_time: float
 @export var build_icon: Texture
 

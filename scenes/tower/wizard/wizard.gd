@@ -1,6 +1,5 @@
 extends Tower
-class_name ArcherTower
-
+class_name WizardTower
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

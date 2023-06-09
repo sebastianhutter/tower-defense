@@ -2,14 +2,15 @@
 
 [ext_resource type="Texture2D" uid="uid://btmg2e8ioglt" path="res://resources/sprite/tower/Wizard/wizard_level_1.png" id="1_p8ir7"]
 [ext_resource type="Script" path="res://resources/tower/tower_resource.gd" id="2_a2i4c"]
-[ext_resource type="PackedScene" uid="uid://bpooopgsgkah0" path="res://scenes/tower/archer/archer.tscn" id="3_fh0yn"]
+[ext_resource type="PackedScene" uid="uid://dwagv13554c74" path="res://scenes/tower/wizard/wizard.tscn" id="3_7dp2t"]
 
 [resource]
 script = ExtResource("2_a2i4c")
 id = "wizard"
 name = "Wizard"
 description = "Wizard Tower"
-tower_scene = ExtResource("3_fh0yn")
+tower_scene = ExtResource("3_7dp2t")
 is_bulldable = true
 build_costs = 250
+build_time = 15.0
 build_icon = ExtResource("1_p8ir7")

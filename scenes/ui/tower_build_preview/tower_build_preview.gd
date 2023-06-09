@@ -1,5 +1,5 @@
-extends Area2D
-class_name Tower
+extends Node2D
+class_name TowerBuildPreview
 
 # ========
 # singleton references
@@ -14,46 +14,50 @@ class_name Tower
 # export vars
 # ========
 
-# @export var my_export_var = 0
-
 # ========
 # class signals
 # ========
-
-# signal my_custom_signal
 
 # ========
 # class onready vars
 # ========
 
-# @onready var my_label: Label = $%Label
+@onready var preview: Sprite2D = $%Preview
 
 # ========
 # class vars
 # ========
 
+var is_buildable: bool = false
+
 # ========
 # godot functions
 # ========
 
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+func _process(_delta) -> void:
+	set_highlight_color(is_buildable)
 
 # ========
 # signal handler
 # ========
 
-func _on_custom_signal_event():
-	pass
-
 # ========
 # class functions
 # ========
 
+func set_highlight_color(is_buildable: bool) -> void:
+	""" set green highlight color for shader """
+
+	if is_buildable:
+		preview.material.set('shader_parameter/highlight_color', Color8(0,255,0,100))
+	else:
+		preview.material.set('shader_parameter/highlight_color', Color8(255,0,0,100))
+
+
+func set_preview_image(texture: Texture) -> void:
+	
+	if not preview:
+		print_debug("preview not found")
+		return
+	
+	preview.texture = texture

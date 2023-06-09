@@ -18,6 +18,7 @@ class_name GameStateManager
 @export var level_manager: LevelManager
 @export var tower_manager: TowerManager
 @export var resource_manager: ResourceManager
+@export var build_manager: BuildManager
 
 # ========
 # class signals
@@ -122,9 +123,8 @@ func enter_game_loop() -> void:
 	# pass the game state to the game loop
 	
 	level_manager.load_level()
-	tower_manager.spawn_tower('hq', Vector2i(0,0))
+	tower_manager.spawn_tower_by_id('hq', Vector2.ZERO)
 	resource_manager.increase_gold(0) # fake gold amount change to send signal to everyone who's listening
-	
 	get_tree().paused = true
 	_game_events.game_state_changed.emit(Types.GameState.GAME_LOOP)
 
@@ -145,6 +145,7 @@ func game_loop() -> void:
 	menu_manager.hide_menus()
 	ui_manager.show_ui()
 	ui_manager.enable_ui()
+	build_manager.enable_building()
 	resource_manager.start_gold_timer()
 	get_tree().paused = false
 

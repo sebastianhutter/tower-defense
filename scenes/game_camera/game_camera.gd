@@ -48,7 +48,7 @@ func _ready() -> void:
 func _physics_process(delta):
 	zoom = lerp(zoom, target_zoom_level * Vector2.ONE, zoom_speed * delta)
 
-func _unhandled_input(event: InputEvent) -> void:
+func _input(event: InputEvent) -> void:
 	pan_camera_with_mouse(event)
 	pan_camera_with_keyboard(event)
 	zoom_camera(event)

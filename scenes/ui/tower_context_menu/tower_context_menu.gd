@@ -1,5 +1,4 @@
-extends CanvasLayer
-class_name TowerBuildUI
+extends Control
 
 # ========
 # singleton references
@@ -26,8 +25,7 @@ class_name TowerBuildUI
 # class onready vars
 # ========
 
-@onready var tower_card_container: HBoxContainer = $%TowerCardContainer
-@onready var tower_card_scene: PackedScene = preload(Constants.SCENE_TOWER_CARD_SCENE)
+# @onready var my_label: Label = $%Label
 
 # ========
 # class vars
@@ -37,33 +35,24 @@ class_name TowerBuildUI
 # godot functions
 # ========
 
+
+# Called when the node enters the scene tree for the first time.
 func _ready():
-	load_tower_cards()
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
 
 # ========
 # signal handler
 # ========
 
+func _on_custom_signal_event():
+	pass
+
 # ========
 # class functions
 # ========
 
-func load_tower_cards() -> void:
-	""" loads the available tower cards to allow for building"""
-
-	# only do this once!
-	if tower_card_container.get_child_count() > 0:
-		return
-
-	var towers: Array[TowerResource] = _custom_resource_loader.get_tower_resources()
-
-	if towers == null:
-		return
-
-	for tower in towers:
-		if tower.is_bulldable == false:
-			continue
-
-		var tower_card = tower_card_scene.instantiate() as TowerCard
-		tower_card_container.add_child(tower_card)
-		tower_card.initialize(tower)

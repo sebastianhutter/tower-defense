@@ -25,7 +25,7 @@ func find_tres_files(folder: String) -> Array[Resource]:
 		
 	return tres_files
 
-func load_tower_resorces(path: String = "res://resources/tower") -> void:
+func load_tower_resorces(path: String = Constants.TOWER_RESOURCE_FOLDER) -> void:
 	""" load tower resources .tres files """
 
 	for tower_resource in find_tres_files(path):

@@ -21,6 +21,8 @@ class_name GameEvents
 signal game_state_changed(game_state: Types.GameState, payload: Dictionary)
 signal resource_gold_amount_changed(old_amount: int, new_amount: int)
 signal tower_card_clicked(resource: TowerResource)
+signal tower_build_started(resource: TowerResource, position: Vector2)
+signal tower_build_completed(resource: TowerResource, position: Vector2)
 # ========
 # class onready vars
 # ========
@@ -58,6 +60,18 @@ func _on_tower_card_clicked(resource: TowerResource) -> void:
 
 	print_debug("GameEvents", "_on_tower_card_clicked", "Tower card clicked: " + str(resource))
 	tower_card_clicked.emit(resource)
+
+func _on_tower_build_started(resource: TowerResource, position: Vector2) -> void:
+	"""Called when a tower is built"""
+
+	print_debug("GameEvents", "_on_tower_build", "Tower built: " + str(resource) + " at " + str(position))
+	tower_build_started.emit(resource, position)
+
+func _on_tower_build_completed(resource: TowerResource, position: Vector2) -> void:
+	"""Called when a tower is built"""
+
+	print_debug("GameEvents", "_on_tower_build", "Tower built: " + str(resource) + " at " + str(position))
+	tower_build_completed.emit(resource, position)
 
 # ========
 # class functions

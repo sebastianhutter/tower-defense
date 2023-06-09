@@ -42,6 +42,7 @@ class_name LevelManager
 enum TileSetOrigins {
 	CONSTRUCTION = 100,
 	FLOOR = 110,
+	FOUNDATION = 120,
 	ROAD1 = 200,
 	ROAD2 = 210,
 	ROAD3 = 220,
@@ -61,14 +62,8 @@ enum TilesetBiome {
 	WINTER,
 }
 
-var level_root: Node2D = null
-var level_towers: Node2D = null
-var level_enemies: Node2D = null
-var level_tilemap: TileMap = null
-
 
 var level_floor: Array[Vector2i] = [Vector2i(), Vector2i()]
-
 
 var floor_height: Vector2i = Vector2i(0, 0)
 var floor_width: Vector2i = Vector2i(0, 0)
@@ -85,6 +80,49 @@ var floor_east_tile: Vector2i
 func _ready():
 	"""initialize local objects"""
 
+	_game_events.tower_build_started.connect(_on_tower_build_started)
+	_game_events.tower_build_completed.connect(_on_tower_build_completed)
+	calculate_floor()
+
+
+
+# ========
+# signal handler
+# ========
+
+func _on_tower_build_started(resource: TowerResource, tower_position: Vector2) -> void:
+	""" replace the tile with the construction tile """
+
+	if not tilemap:
+		print_debug("LevelManager: No tilemap node found")
+		return
+
+	tilemap.set_cell(
+		0,
+		tilemap.local_to_map(tower_position),
+		TileSetOrigins.CONSTRUCTION+tile_set_biome,
+		Vector2i(0,0),
+	)
+
+func _on_tower_build_completed(resource: TowerResource, tower_position: Vector2) -> void:
+	""" replace the tile with the foundation tile """
+
+	if not tilemap:
+		print_debug("LevelManager: No tilemap node found")
+		return
+
+	tilemap.set_cell(
+		0,
+		tilemap.local_to_map(tower_position),
+		TileSetOrigins.FOUNDATION+tile_set_biome,
+		Vector2i(0,0),
+	)
+	
+# ========
+# class functions
+# ========
+
+func calculate_floor() -> void:
 	if map_size.x % 2 != 0:
 		print_debug("LevelManager: Map size must be odd")
 		map_size.x += 1
@@ -113,13 +151,6 @@ func _ready():
 	floor_west_tile = Vector2i(floor_width.x,floor_height.y-1)
 	floor_east_tile = Vector2i(floor_width.y-1,floor_height.x+1)
 
-# ========
-# signal handler
-# ========
-
-# ========
-# class functions
-# ========
 
 func generate_floor() -> void:
 	""" generate a square flooor """
@@ -201,7 +232,7 @@ func generate_roads() -> void:
 	tilemap.set_cell(
 		0,
 		Vector2i(0, 0),
-		TileSetOrigins.ROAD3+tile_set_biome,
+		TileSetOrigins.FOUNDATION+tile_set_biome,
 		Vector2i(0,0),
 	)
 

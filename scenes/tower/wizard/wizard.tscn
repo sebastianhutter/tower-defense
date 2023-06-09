@@ -1,0 +1,28 @@
+[gd_scene load_steps=6 format=3 uid="uid://dwagv13554c74"]
+
+[ext_resource type="Script" path="res://scenes/tower/wizard/wizard.gd" id="1_wq3v4"]
+[ext_resource type="Texture2D" uid="uid://btmg2e8ioglt" path="res://resources/sprite/tower/Wizard/wizard_level_1.png" id="2_mcfjm"]
+[ext_resource type="Texture2D" uid="uid://bu3schdvuv0rf" path="res://resources/sprite/tower/Wizard/wizard_level_2.png" id="3_pnegu"]
+[ext_resource type="Texture2D" uid="uid://dk1csb8la4vhg" path="res://resources/sprite/tower/Wizard/wizard_level_3.png" id="4_kdnkf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wyi7q"]
+
+[node name="Wizard" type="Area2D"]
+script = ExtResource("1_wq3v4")
+
+[node name="Body" type="Node2D" parent="."]
+unique_name_in_owner = true
+editor_description = "The body contains all tower images for each potential upgrade. by default level 1 will be displayed
+ATTENTION: name of the nodes need to match the names defined in the custom toiwer resource"
+
+[node name="Level1" type="Sprite2D" parent="Body"]
+texture = ExtResource("2_mcfjm")
+
+[node name="Level2" type="Sprite2D" parent="Body"]
+texture = ExtResource("3_pnegu")
+
+[node name="Level3" type="Sprite2D" parent="Body"]
+texture = ExtResource("4_kdnkf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_wyi7q")
