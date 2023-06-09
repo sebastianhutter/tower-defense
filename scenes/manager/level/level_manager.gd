@@ -82,6 +82,7 @@ func _ready():
 
 	_game_events.tower_build_started.connect(_on_tower_build_started)
 	_game_events.tower_build_completed.connect(_on_tower_build_completed)
+	_game_events.tower_sold.connect(_on_tower_sold)
 	calculate_floor()
 
 
@@ -117,7 +118,22 @@ func _on_tower_build_completed(resource: TowerResource, tower_position: Vector2)
 		TileSetOrigins.FOUNDATION+tile_set_biome,
 		Vector2i(0,0),
 	)
-	
+
+func _on_tower_sold(sell_value: int, tower_position: Vector2) -> void:
+	""" replace the foundation tile with a floor tile"""
+
+	if not tilemap:
+		print_debug("LevelManager: No tilemap node found")
+		return
+
+	tilemap.set_cell(
+		0,
+		tilemap.local_to_map(tower_position),
+		TileSetOrigins.FLOOR+tile_set_biome,
+		Vector2i(0,0),
+	)
+
+
 # ========
 # class functions
 # ========
@@ -245,10 +261,6 @@ func load_level() -> void:
 	generate_floor()
 	# generate roads originating from the center tile
 	generate_roads()
-	# place spawn points
-	# todo: 
-
-
 
 func unload_level() -> void:
 	

@@ -1,8 +1,38 @@
-[gd_resource type="Resource" script_class="TowerResource" load_steps=4 format=3 uid="uid://dtdnex3cguhbk"]
+[gd_resource type="Resource" script_class="TowerResource" load_steps=10 format=3 uid="uid://dtdnex3cguhbk"]
 
 [ext_resource type="Script" path="res://resources/tower/tower_resource.gd" id="1_oax8f"]
 [ext_resource type="Texture2D" uid="uid://cjmo2hwl4n6fi" path="res://resources/sprite/tower/Archer/archer_level_1.png" id="1_qxb1v"]
 [ext_resource type="PackedScene" uid="uid://bpooopgsgkah0" path="res://scenes/tower/archer/archer.tscn" id="2_miq37"]
+[ext_resource type="Script" path="res://resources/tower/tower_level.gd" id="2_rp58k"]
+[ext_resource type="Texture2D" uid="uid://yk8sbft4s6k0" path="res://resources/sprite/tower/Archer/archer_level_2.png" id="3_7l1ew"]
+[ext_resource type="Texture2D" uid="uid://do1wr32j0edla" path="res://resources/sprite/tower/Archer/archer_level_3.png" id="4_m5aii"]
+
+[sub_resource type="Resource" id="Resource_3nc2e"]
+script = ExtResource("2_rp58k")
+level = 1
+body = ExtResource("1_qxb1v")
+build_costs = 100
+build_time = 5.0
+sell_value = 80
+damage = 0
+
+[sub_resource type="Resource" id="Resource_6yxto"]
+script = ExtResource("2_rp58k")
+level = 2
+body = ExtResource("3_7l1ew")
+build_costs = 150
+build_time = 10.0
+sell_value = 120
+damage = 0
+
+[sub_resource type="Resource" id="Resource_vbk0c"]
+script = ExtResource("2_rp58k")
+level = 3
+body = ExtResource("4_m5aii")
+build_costs = 200
+build_time = 15.0
+sell_value = 160
+damage = 0
 
 [resource]
 script = ExtResource("1_oax8f")
@@ -10,7 +40,8 @@ id = "archer"
 name = "Archer"
 description = "Archer Tower"
 tower_scene = ExtResource("2_miq37")
-is_bulldable = true
-build_costs = 100
-build_time = 1.0
+can_be_build = true
+can_be_sold = true
+can_be_upgraded = true
 build_icon = ExtResource("1_qxb1v")
+levels = Array[ExtResource("2_rp58k")]([SubResource("Resource_3nc2e"), SubResource("Resource_6yxto"), SubResource("Resource_vbk0c")])

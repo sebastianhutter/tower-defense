@@ -205,9 +205,14 @@ func get_buildability() -> bool:
 		print_debug("no resource manager found")
 		return false
 
+	# we aleays build a level 1 tower!
+	var tower_costs = (tower_build_resource.get_level(0) as TowerLevel).build_costs
+	if not tower_costs:
+		print_debug("no tower costs found")
+		return false
 
 	var mouse_tile_pos: Vector2i = level_manager.tilemap.local_to_map(get_local_mouse_position())
-	if level_manager.tilemap.is_tile_buildable(mouse_tile_pos) and tower_build_resource.build_costs <= resource_manager.get_gold_amount():
+	if level_manager.tilemap.is_tile_buildable(mouse_tile_pos) and tower_costs <= resource_manager.get_gold_amount():
 		return true
 
 	return false

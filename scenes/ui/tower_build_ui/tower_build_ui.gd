@@ -61,7 +61,7 @@ func load_tower_cards() -> void:
 		return
 
 	for tower in towers:
-		if tower.is_bulldable == false:
+		if tower.can_be_build == false:
 			continue
 
 		var tower_card = tower_card_scene.instantiate() as TowerCard

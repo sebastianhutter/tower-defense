@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scenes/main/main.gd" id="1_bwnup"]
 [ext_resource type="Script" path="res://scenes/manager/game_state/game_state_manager.gd" id="3_oydyv"]
-[ext_resource type="PackedScene" path="res://scenes/manager/ui/ui_manager.tscn" id="4_ypglp"]
+[ext_resource type="PackedScene" uid="uid://bevcgquu3wyft" path="res://scenes/manager/ui/ui_manager.tscn" id="4_ypglp"]
 [ext_resource type="PackedScene" path="res://scenes/manager/menu/menu_manager.tscn" id="5_t8jpj"]
 [ext_resource type="PackedScene" uid="uid://dv4at2dpsr0gq" path="res://scenes/manager/level/level_manager.tscn" id="6_5qmpl"]
 [ext_resource type="PackedScene" uid="uid://pkmm7mbeupn0" path="res://scenes/manager/resource/resource_manager.tscn" id="7_t35dh"]
@@ -33,5 +33,6 @@ map_size = Vector2i(16, 16)
 [node name="TowerManager" parent="." instance=ExtResource("9_vfaom")]
 
 [node name="ResourceManager" parent="." instance=ExtResource("7_t35dh")]
+gold_increase_time = 3.0
 
 [node name="BuildManager" parent="." instance=ExtResource("8_xgqvl")]

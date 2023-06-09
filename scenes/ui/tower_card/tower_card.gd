@@ -83,36 +83,10 @@ func _gui_mouse_exited() -> void:
 	background.modulate.a = 0
 
 func _on_resource_gold_amount_changed(old_amount: int, new_amount: int) -> void:
-	if new_amount >= resource.build_costs:
+	if new_amount >= resource.get_level(0).build_costs:
 		enable_build()
 	else:
 		disable_build()
-
-
-
-# func _on_ability_activated(ability_id: String) -> void:
-# 	"""flash the card if the ability was activated"""
-
-# 	if ability_id != self.ability_id:
-# 		return
-
-# 	flash()
-
-# func _on_ability_recovery_started(ability_id: String, recovery_time: float) -> void:
-# 	"""flash the card if the ability was activated"""
-
-# 	if ability_id != self.ability_id:
-# 		return
-
-# 	pass
-
-# func _on_ability_recovrty_complete(ability_id: String) -> void:
-# 	"""flash the card if the ability was activated"""
-
-# 	if ability_id != self.ability_id:
-# 		return
-
-# 	pass
 
 # ========
 # class functions
@@ -150,7 +124,7 @@ func set_tower_cost() -> void:
 		print_debug("TowerCard: tower_cost_label is null")
 		return
 
-	tower_cost_label.text = 'Gold: ' + str(resource.build_costs)
+	tower_cost_label.text = 'Gold: ' + str(resource.get_level(0).build_costs)
 
 func enable_build() -> void:
 	"""enable the card to be build"""
@@ -166,32 +140,3 @@ func disable_build() -> void:
 	if tower_cost_label:
 		tower_cost_label.modulate = Color(0,100,100,255)
 
-# func set_card_material(material_resource: Resource) -> void:
-# 	"""
-# 	set the shader material of the card
-# 	"""
-
-# 	material = material_resource 
-
-
-# func clear_card_material() -> void:
-# 	"""
-# 	removes the material from the card
-# 	"""
-
-# 	material = null
-
-
-# func flash() -> void:
-# 	"""flash the card"""
-
-# 	pass
-# 	# if ability_card_flash_tween != null and ability_card_flash_tween.is_valid():
-# 	# 	ability_card_flash_tween.kill()
-
-# 	# set_card_material(ability_card_flash_material)
-# 	# (material as ShaderMaterial).set_shader_parameter("lerp_percent", 1.0)
-# 	# ability_card_flash_tween = create_tween()	
-# 	# ability_card_flash_tween.tween_property(material, "shader_parameter/lerp_percent", 0.0, 0.1) 
-# 	# ability_card_flash_tween.tween_callback(clear_card_material)
-	

@@ -1,11 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://c556pp4o708an"]
+[gd_scene load_steps=4 format=3 uid="uid://dkcytg270t2nf"]
 
 [ext_resource type="Script" path="res://scenes/ui/tower_build_preview/tower_build_preview.gd" id="1_a4msf"]
-[ext_resource type="Shader" path="res://resources/shader/tower_build_preview/tower_build_preview.gdshader" id="2_soe3q"]
+[ext_resource type="Shader" path="res://resources/shader/highlight/highlight.gdshader" id="2_r4yuu"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_hurwh"]
 resource_local_to_scene = true
-shader = ExtResource("2_soe3q")
+shader = ExtResource("2_r4yuu")
 shader_parameter/enabled = true
 shader_parameter/highlight_color = Color(1, 1, 1, 1)
 

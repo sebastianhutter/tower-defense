@@ -30,7 +30,6 @@ class_name TowerManager
 # ========
 
 var level_node_towers = null
-var towers: Array[Tower] = []
 
 
 # ========
@@ -96,6 +95,7 @@ func spawn_tower(resource: TowerResource, pos: Vector2) -> void:
 			return
 
 	var tower_scene: Tower = resource.tower_scene.instantiate() as Tower
+	tower_scene.set_tower_resource(resource)
 	level_node_towers.add_child(tower_scene)
 	tower_scene.position = pos
-	towers.append(tower_scene)
+

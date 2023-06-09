@@ -11,8 +11,21 @@ class_name TowerResource
 @export var tower_scene: PackedScene
 
 # tower meta information
-@export var is_bulldable: bool
-@export var build_costs: int
-@export var build_time: float
+@export var can_be_build: bool
+@export var can_be_sold: bool
+@export var can_be_upgraded: bool = true
+
+# icon to use for build preview
 @export var build_icon: Texture
 
+# tower level definitions
+# each tower should have at least one level defined
+# to make it placeable!
+@export var levels: Array[TowerLevel] = []
+
+func get_level(level_number: int) -> TowerLevel:
+
+	if level_number >= len(levels):
+		return null
+
+	return levels[level_number]

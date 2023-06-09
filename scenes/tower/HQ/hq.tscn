@@ -1,26 +1,29 @@
 [gd_scene load_steps=6 format=3 uid="uid://crx7v2qie73tg"]
 
 [ext_resource type="Script" path="res://scenes/tower/HQ/hq.gd" id="1_bm2he"]
-[ext_resource type="Texture2D" uid="uid://d04s8kqpd0xe4" path="res://resources/sprite/tower/HQ/hq_level_3.png" id="2_85rql"]
+[ext_resource type="Shader" path="res://resources/shader/highlight/highlight.gdshader" id="1_ecwd0"]
 [ext_resource type="Texture2D" uid="uid://cuh4k7x8q4smd" path="res://resources/sprite/tower/HQ/hq_level_1.png" id="2_cwquf"]
-[ext_resource type="Texture2D" uid="uid://b8b5ds1fnrdn7" path="res://resources/sprite/tower/HQ/hq_level_2.png" id="3_xr4my"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_68nu3"]
+resource_local_to_scene = true
+shader = ExtResource("1_ecwd0")
+shader_parameter/enabled = false
+shader_parameter/highlight_color = Color(1, 1, 1, 0.0980392)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yrhwt"]
+size = Vector2(138, 148)
 
 [node name="HQ" type="Area2D" groups=["hq"]]
+position = Vector2(0, 1)
+collision_mask = 0
 script = ExtResource("1_bm2he")
 
-[node name="Body" type="Node2D" parent="."]
+[node name="Body" type="Sprite2D" parent="."]
 unique_name_in_owner = true
-
-[node name="Level1" type="Sprite2D" parent="Body"]
+material = SubResource("ShaderMaterial_68nu3")
 texture = ExtResource("2_cwquf")
 
-[node name="Level2" type="Sprite2D" parent="Body"]
-texture = ExtResource("3_xr4my")
-
-[node name="Level3" type="Sprite2D" parent="Body"]
-texture = ExtResource("2_85rql")
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0, -3)
 shape = SubResource("RectangleShape2D_yrhwt")
