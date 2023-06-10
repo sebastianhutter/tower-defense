@@ -6,7 +6,7 @@ import click
 
 # GitHub repository details
 owner = 'sebastianhutter'
-repo = 'tower-travel'
+repo = 'tower-defense'
 
 # GitHub access token with "repo" scope
 access_token = os.getenv('PAT')

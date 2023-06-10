@@ -1,5 +1,5 @@
 //
-// test and build pipeline for tower-travel
+// test and build pipeline for tower-defense
 //
 
 pipeline {
@@ -131,10 +131,10 @@ spec:
                                         def fileName = null
                                         switch(env.PLATFORM) {
                                             case "linux":
-                                                fileName = "tower-travel.x86_64.bin";
+                                                fileName = "tower-defense.x86_64.bin";
                                                 break;
                                             case "windows":
-                                                fileName = "tower-travel.exe";
+                                                fileName = "tower-defense.exe";
                                                 break;
                                             default:
                                                 throw new Exception ("Unknown platform")
