@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://crx7v2qie73tg"]
+[gd_scene load_steps=11 format=3 uid="uid://crx7v2qie73tg"]
 
 [ext_resource type="Script" path="res://scenes/tower/HQ/hq.gd" id="1_bm2he"]
 [ext_resource type="Shader" path="res://resources/shader/highlight/highlight.gdshader" id="1_ecwd0"]
@@ -16,6 +16,9 @@ shader_parameter/highlight_color = Color(1, 1, 1, 0.0980392)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yrhwt"]
 size = Vector2(138, 148)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_ndovr"]
+polygon = PackedVector2Array(24, -69.2, 24, -67.8, 29, -62.8, 29, -59, 29.7, -55, 30.7, -55, 35.7, -51, 36.5, -51, 49, -56, 49, -53.1, 71, -40.3, 71, 9, 65, 13, 65, 41.5, 62.2, 47, 60.5, 47, 11.8, 77, -11.9, 77, -63, 46.1, -63, 43, -64.9, 14, -65.7, 14, -71, 9.6, -71, -40, -67, -45, -64.5, -45, -47.5, -55, -42.4, -55, -36.4, -51, -35.5, -51, -33, -52.2, -33, -53.4, -30, -54.4, -30, -59.6, -23.1, -70, -20.5, -70, -9.2, -77, 9.4, -77)
 
 [node name="HQ" type="Area2D" groups=["hq"]]
 position = Vector2(0, 1)
@@ -45,3 +48,6 @@ shape = SubResource("RectangleShape2D_yrhwt")
 unique_name_in_owner = true
 
 [node name="TowerContextMenu" parent="." instance=ExtResource("7_g6bsv")]
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_ndovr")
