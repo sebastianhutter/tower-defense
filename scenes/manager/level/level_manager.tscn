@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://dv4at2dpsr0gq"]
+[gd_scene load_steps=6 format=3 uid="uid://dv4at2dpsr0gq"]
 
 [ext_resource type="Script" path="res://scenes/manager/level/level_manager.gd" id="1_j6eud"]
 [ext_resource type="PackedScene" uid="uid://2c848wdr7l8r" path="res://scenes/tilemap/tile_map.tscn" id="2_2220a"]
 [ext_resource type="PackedScene" uid="uid://cbq3r0r2rnp01" path="res://scenes/game_camera/game_camera.tscn" id="3_pdo0c"]
+[ext_resource type="PackedScene" uid="uid://bq8f3aa221iwo" path="res://scenes/character/enemy/enemy.tscn" id="3_t3xyt"]
 [ext_resource type="PackedScene" uid="uid://confljugi6357" path="res://scenes/background/background.tscn" id="4_khsos"]
 
 [node name="LevelManager" type="Node2D"]
@@ -17,6 +18,18 @@ unique_name_in_owner = true
 
 [node name="Enemies" type="Node2D" parent="." groups=["enemies"]]
 unique_name_in_owner = true
+
+[node name="Enemy" parent="Enemies" instance=ExtResource("3_t3xyt")]
+position = Vector2(-755, 527)
+
+[node name="Enemy2" parent="Enemies" instance=ExtResource("3_t3xyt")]
+position = Vector2(915, 468)
+
+[node name="Enemy3" parent="Enemies" instance=ExtResource("3_t3xyt")]
+position = Vector2(901, -490)
+
+[node name="Enemy4" parent="Enemies" instance=ExtResource("3_t3xyt")]
+position = Vector2(-763, -499)
 
 [node name="GameCamera" parent="." instance=ExtResource("3_pdo0c")]
 zoom = Vector2(0.5, 0.5)

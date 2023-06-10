@@ -62,23 +62,13 @@ func move(body: Character, direction: Vector2, delta: float) -> void:
 	velocity_component.fall(body.is_on_floor(), gravity * delta)
 	velocity_component.move(body)
 
-func look_at(body: Character, pos: Vector2, delta: float, lerp_factor: float = 0.0) -> void:
+func look_at(body: Character, pos: Vector2, delta: float) -> void:
 	""" look at the given position"""
 
 	if pos.x == body.global_position.x and pos.y == body.global_position.y:
 		print_debug("MovementComponent: look_at: positions overlap")
 		return
 
-	if lerp_factor > 0:
-		if not tween_look_at:
-			# calculate the current look_at_vector to pass to the tween
-			var look_at_vector := Vector2(cos(body.rotation), sin(body.rotation))
-		
-			tween_look_at = create_tween()
-			tween_look_at.tween_method(
-				look_at.bind(Vector2.ONE), look_at_vector, pos, lerp_factor
-			) 
-	else:
 		body.look_at(pos)
 
 
