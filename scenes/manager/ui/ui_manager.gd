@@ -58,12 +58,18 @@ func _ready():
 func hide_ui() -> void:
 	"""hide all game ui elements"""
 
-	hud.visible = false
+	if not hud:
+		return
+
+	hud.hide_all_uis()
 
 func show_ui() -> void:
 	"""show all game ui elements"""
 
-	hud.visible = true
+	if not hud:
+		return
+
+	hud.show_all_uis()
 
 func disable_ui() -> void:
 	""" disables mouse handling for the ui chiildren """

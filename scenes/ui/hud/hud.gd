@@ -56,3 +56,14 @@ func _on_custom_signal_event():
 # class functions
 # ========
 
+func hide_all_uis():
+	""" hide all child uis of the hud """
+
+	for child in get_children():
+		child.hide()
+
+func show_all_uis():
+	""" show all child uis of the hud """
+
+	for child in get_children():
+		child.show()

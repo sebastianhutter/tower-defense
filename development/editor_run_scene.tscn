@@ -11,7 +11,6 @@
 
 [node name="Main" type="Node"]
 script = ExtResource("1_bwnup")
-game_state = 1
 
 [node name="GameStateManager" type="Node" parent="." node_paths=PackedStringArray("ui_manager", "menu_manager", "level_manager", "tower_manager", "resource_manager", "build_manager")]
 unique_name_in_owner = true

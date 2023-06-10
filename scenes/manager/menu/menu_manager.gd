@@ -25,8 +25,8 @@ class_name MenuManager
 @onready var main_menu: GameMainMenu = $%MainMenu
 @onready var pause_menu: GamePauseMenu = $%PauseMenu
 @onready var options_menu: GameOptionsMenu = $%OptionsMenu
-@onready var ability_select_menu: GameAbilitySelectMenu = $%AbilitySelectMenu
-@onready var level_select_menu: GameLevelSelectMenu = $%LevelSelectMenu
+#@onready var ability_select_menu: GameAbilitySelectMenu = $%AbilitySelectMenu
+#@onready var level_select_menu: GameLevelSelectMenu = $%LevelSelectMenu
 
 # ========
 # class vars
@@ -47,10 +47,10 @@ func _ready():
 	pause_menu.options_button_pressed.connect(_on_any_options_button_pressed)
 	pause_menu.quit_to_menu_button_pressed.connect(_on_pause_menu_quit_to_menu_button_pressed)
 	options_menu.back_button_pressed.connect(_on_any_back_button_pressed)
-	ability_select_menu.level_select_button_pressed.connect(_on_ability_select_menu_level_selected_button_pressed)
-	ability_select_menu.back_button_pressed.connect(_on_any_back_button_pressed)
-	level_select_menu.enter_tower_button_pressed.connect(_on_level_select_menu_enter_tower_button_pressed)
-	level_select_menu.back_button_pressed.connect(_on_any_back_button_pressed)
+	#ability_select_menu.level_select_button_pressed.connect(_on_ability_select_menu_level_selected_button_pressed)
+	#ability_select_menu.back_button_pressed.connect(_on_any_back_button_pressed)
+	#level_select_menu.enter_tower_button_pressed.connect(_on_level_select_menu_enter_tower_button_pressed)
+	#level_select_menu.back_button_pressed.connect(_on_any_back_button_pressed)
 
 	hide_menus()
 
@@ -85,15 +85,16 @@ func _on_main_menu_play_button_pressed() -> void:
 	# set the game state to playing
 	#_game_events.game_state_changed.emit(Types.GameState.ABILITY_SELECT_MENU)
 
-	show_menu(Types.Menu.ABILITY_SELECT_MENU)
+	#show_menu(Types.Menu.ABILITY_SELECT_MENU)
+	_game_events.game_state_changed.emit(Types.GameState.ENTER_GAME_LOOP)	
 
-func _on_ability_select_menu_level_selected_button_pressed() -> void:
-	"""called when the level select button is pressed in the ability select menu"""
+# func _on_ability_select_menu_level_selected_button_pressed() -> void:
+# 	"""called when the level select button is pressed in the ability select menu"""
 
-	# set the game state to playing
-	#_game_events.game_state_changed.emit(Types.GameState.LEVEL_SELECT_MENU)	
+# 	# set the game state to playing
+# 	#_game_events.game_state_changed.emit(Types.GameState.LEVEL_SELECT_MENU)	
 
-	show_menu(Types.Menu.LEVEL_SELECT_MENU)
+# 	show_menu(Types.Menu.LEVEL_SELECT_MENU)
 
 func _on_main_menu_quit_button_pressed() -> void:
 	"""called when the quit button is pressed on the main menu"""
@@ -112,11 +113,11 @@ func _on_pause_menu_quit_to_menu_button_pressed() -> void:
 	# set the game state to playing
 	_game_events.game_state_changed.emit(Types.GameState.EXIT_GAME_LOOP)
 
-func _on_level_select_menu_enter_tower_button_pressed() -> void:
-	"""called when the enter tower button is pressed in the level select menu"""
+# func _on_level_select_menu_enter_tower_button_pressed() -> void:
+# 	"""called when the enter tower button is pressed in the level select menu"""
 
-	# set the game state to playing
-	_game_events.game_state_changed.emit(Types.GameState.ENTER_GAME_LOOP)	
+# 	# set the game state to playing
+# 	_game_events.game_state_changed.emit(Types.GameState.ENTER_GAME_LOOP)	
 
 
 # ========
@@ -133,10 +134,10 @@ func resolve_menu_enum(menu: Types.Menu) -> Menu:
 			return pause_menu
 		Types.Menu.OPTIONS_MENU:
 			return options_menu
-		Types.Menu.ABILITY_SELECT_MENU:
-			return ability_select_menu
-		Types.Menu.LEVEL_SELECT_MENU:	
-			return level_select_menu
+		# Types.Menu.ABILITY_SELECT_MENU:
+		# 	return ability_select_menu
+		# Types.Menu.LEVEL_SELECT_MENU:	
+		# 	return level_select_menu
 		_:
 			print_debug("MenuManager: menu enum not found")
 			return null

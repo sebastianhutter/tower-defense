@@ -4,7 +4,7 @@
 [ext_resource type="Shader" path="res://resources/shader/highlight/highlight.gdshader" id="1_ecwd0"]
 [ext_resource type="Texture2D" uid="uid://cuh4k7x8q4smd" path="res://resources/sprite/tower/HQ/hq_level_1.png" id="2_cwquf"]
 [ext_resource type="PackedScene" uid="uid://brvdk3kevx3q2" path="res://scenes/components/tower_action/tower_action_component.tscn" id="2_e20d0"]
-[ext_resource type="PackedScene" uid="uid://dsj880miek66l" path="res://scenes/components/tower_upgrade_component/tower_upgrade_component.tscn" id="3_p7x2y"]
+[ext_resource type="PackedScene" uid="uid://dsj880miek66l" path="res://scenes/components/tower_upgrade/tower_upgrade_component.tscn" id="3_p7x2y"]
 [ext_resource type="PackedScene" uid="uid://bqbkecclfiqvn" path="res://scenes/components/construction/construction_component.tscn" id="4_bfj0v"]
 [ext_resource type="PackedScene" uid="uid://cmu573y7fbw32" path="res://scenes/ui/tower_context_menu/tower_context_menu.tscn" id="7_g6bsv"]
 
