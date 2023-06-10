@@ -16,15 +16,6 @@ enum Menu {
 	MAIN_MENU,
 	OPTIONS_MENU,
 	PAUSE_MENU,
-	# ABILITY_SELECT_MENU,
-	# LEVEL_SELECT_MENU,
-	# LEVEL_END_MENU,
+	LEVEL_END_MENU,
 	GAME_OVER_MENU,
-}
-
-# map group names to layer names
-const LayerGroups = {
-	"foreground": "layer_foreground",
-	"entity": "layer_entity",
-	'player': 'player',
 }
