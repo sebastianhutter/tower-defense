@@ -112,3 +112,10 @@ func enable_sell_button(sell_is_enabled: bool) -> void:
 		sell_button.show()
 	else:
 		sell_button.hide()
+
+func enable_upgrade_button(can_upgrade: bool) -> void:
+
+	if not upgrade_button:
+		return
+
+	upgrade_button.disabled = not can_upgrade

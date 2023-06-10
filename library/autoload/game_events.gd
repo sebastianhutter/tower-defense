@@ -23,8 +23,7 @@ signal resource_gold_amount_changed(old_amount: int, new_amount: int)
 signal tower_card_clicked(resource: TowerResource)
 signal tower_build_started(resource: TowerResource, position: Vector2)
 signal tower_build_completed(resource: TowerResource, position: Vector2)
-signal tower_upgrade_started()
-signal tower_upgrade_finished()
+signal tower_upgrade_started(build_costs: int)
 signal tower_sold(sell_value: int, position: Vector2)
 
 
@@ -83,6 +82,12 @@ func _on_tower_sold(sell_value: int, position: Vector2) -> void:
 
 	print_debug("GameEvents", "_on_tower_sold", "Tower sold: " + str(sell_value))
 	tower_sold.emit(sell_value, position)
+
+func _on_tower_upgrade_started(build_costs: int) -> void:
+	"""Called when a tower is upgraded"""
+
+	print_debug("GameEvents", "_on_tower_upgrade_started", "Tower upgrade started: " + str(build_costs))
+	tower_upgrade_started.emit(build_costs)
 
 # ========
 # class functions

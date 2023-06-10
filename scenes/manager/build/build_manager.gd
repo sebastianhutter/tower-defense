@@ -184,8 +184,8 @@ func get_build_position() -> Vector2:
 
 
 	var mouse_tile_pos: Vector2i = level_manager.tilemap.local_to_map(get_local_mouse_position())
-	var snapped_pos: Vector2 = level_manager.tilemap.map_to_local(mouse_tile_pos) 
-
+	var snapped_pos: Vector2 = level_manager.tilemap.map_to_local(mouse_tile_pos)
+	
 	return snapped_pos
 
 func get_buildability() -> bool:

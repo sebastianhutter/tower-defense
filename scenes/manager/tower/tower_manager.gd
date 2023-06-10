@@ -94,8 +94,9 @@ func spawn_tower(resource: TowerResource, pos: Vector2) -> void:
 			print_debug("TowerManager: could not find level node towers")
 			return
 
+	#var pos_with_offset = pos + TOWER_BUILD_OFFSET
 	var tower_scene: Tower = resource.tower_scene.instantiate() as Tower
-	tower_scene.set_tower_resource(resource)
+	tower_scene.initialize(resource)
 	level_node_towers.add_child(tower_scene)
 	tower_scene.position = pos
 

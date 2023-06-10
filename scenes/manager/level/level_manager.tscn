@@ -19,6 +19,6 @@ unique_name_in_owner = true
 unique_name_in_owner = true
 
 [node name="GameCamera" parent="." instance=ExtResource("3_pdo0c")]
-zoom = Vector2(0.25, 0.25)
+zoom = Vector2(0.5, 0.5)
 
 [node name="Background" parent="." instance=ExtResource("4_khsos")]

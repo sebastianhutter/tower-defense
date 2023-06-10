@@ -9,30 +9,30 @@
 
 [sub_resource type="Resource" id="Resource_l2dt8"]
 script = ExtResource("2_jcyuq")
-level = 1
 body = ExtResource("1_netkh")
 build_costs = 0
 build_time = 0.0
 sell_value = 0
 damage = 0
+shoot_speed = 1.0
 
 [sub_resource type="Resource" id="Resource_xjrfn"]
 script = ExtResource("2_jcyuq")
-level = 2
 body = ExtResource("3_lbqit")
 build_costs = 500
 build_time = 30.0
 sell_value = 0
 damage = 0
+shoot_speed = 1.0
 
 [sub_resource type="Resource" id="Resource_udmyh"]
 script = ExtResource("2_jcyuq")
-level = 3
 body = ExtResource("4_0k1h2")
 build_costs = 1000
 build_time = 60.0
 sell_value = 0
 damage = 0
+shoot_speed = 1.0
 
 [resource]
 script = ExtResource("1_iehy6")
@@ -42,5 +42,5 @@ description = "The players HQ"
 tower_scene = ExtResource("2_6s14w")
 can_be_build = false
 can_be_sold = false
-can_be_upgraded = true
+can_be_upgraded = false
 levels = Array[ExtResource("2_jcyuq")]([SubResource("Resource_l2dt8"), SubResource("Resource_xjrfn"), SubResource("Resource_udmyh")])

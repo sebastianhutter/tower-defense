@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://brvdk3kevx3q2"]
+
+[ext_resource type="Script" path="res://scenes/components/tower_action/tower_action_component.gd" id="1_3i2on"]
+
+[node name="TowerActionComponent" type="Node"]
+editor_description = "Tower Action Component handles user input actions
+like displaying the context menu, managing upgrading and selling of the tower"
+script = ExtResource("1_3i2on")

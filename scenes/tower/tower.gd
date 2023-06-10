@@ -19,107 +19,109 @@ class_name Tower
 # ========
 
 signal tower_sold(sell_value: int, position: Vector2)
-signal tower_upgrade_started()
-signal tower_upgrade_finished()
+signal tower_upgrade_started(build_costs: int)
 
 # ========
 # class onready vars
 # ========
 
-@onready var context_menu_scene = preload(Constants.SCENE_TOWER_CONTEXT_MENU)
 @onready var body: Sprite2D = $%Body
+@onready var tower_action_component: TowerActionComponent = $%TowerActionComponent
+@onready var tower_upgrade_component: TowerUpgradeComponent = $%TowerUpgradeComponent
 
 # ========
 # class vars
 # ========
 
+# store the tower resource and the current level of the tower
 var tower_resource: TowerResource = null
 var tower_level: TowerLevel = null
-
-
-var is_hovering_over_tower: bool = false
-var tower_context_menu: TowerContextMenu = null
+var tower_current_level = 0
 
 
 # ========
 # godot functions
 # ========
 
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	mouse_entered.connect(_on_mouse_entered)
-	mouse_exited.connect(_on_mouse_exited)
-	highligh_tower(is_hovering_over_tower)
 
+	# ensure no shader is highlightng the tower
+	highligh_tower(false)
 
-	# instance the context menu for the tower in the background
-	# this allows feeding info into it but simply not displaying it.
-	# makes the logic easier, but not as clean, the neat thing would be to
-	# push the handling of the context ui to the ui manager, but that
-	# makes it more complicated (e.g. what happens when the ui is open and the tower gets destroyed etc.)
-	tower_context_menu = context_menu_scene.instantiate() as TowerContextMenu
-	tower_context_menu.hide()
-	add_child(tower_context_menu)
-
-	tower_context_menu.upgrade_button_pressed.connect(_on_upgrade_button_pressed)
-	tower_context_menu.sell_button_pressed.connect(_on_sell_button_pressed)
-
-	# ensure we check the current gold resource amount to see if we can upgrade the tower or not
-	_game_events.resource_gold_amount_changed.connect(_on_resource_gold_amount_changed)
-	
+	# connect game event signals
 	tower_sold.connect(_game_events._on_tower_sold)
+	tower_upgrade_started.connect(_game_events._on_tower_upgrade_started)
 
-func _unhandled_input(event):
-	if Input.is_action_pressed("Interact"):
-		display_context_menu(is_hovering_over_tower)
+	# if the tower supports user actions
+	if tower_action_component:
+		# enable highlighing of tower by hover
+		mouse_entered.connect(_on_mouse_entered)
+		mouse_exited.connect(_on_mouse_exited)
 
+		# pass mouse entered and exited signal to component
+		mouse_entered.connect(tower_action_component._on_parent_mouse_entered)
+		mouse_exited.connect(tower_action_component._on_parent_mouse_exited)
 
+		# connect action component signals
+		tower_action_component.tower_action_is_sold.connect(_on_tower_action_is_sold)
+
+	if tower_upgrade_component:
+		tower_upgrade_component.tower_upgrade_started.connect(_on_tower_upgrade_started)
+		tower_upgrade_component.tower_upgrade_finished.connect(_on_tower_upgrade_finished)
+		
 # ========
 # signal handler
 # ========
 
 func _on_mouse_entered() -> void:
-	is_hovering_over_tower = true
-	highligh_tower(is_hovering_over_tower)
+	highligh_tower(true)
 
 func _on_mouse_exited() -> void:
-	is_hovering_over_tower = false
-	highligh_tower(is_hovering_over_tower)
+	highligh_tower(false)
 
-func _on_resource_gold_amount_changed(old_amount: int, new_amount: int) -> void:
+func _on_tower_action_is_sold() -> void:
+	""" tower action component signal handler for selling the tower"""
+	sell_tower()
 
-	if not tower_level:
-		print_debug("Tower: no tower level set, cannot check if we can upgrade the tower")
+func _on_tower_upgrade_started() -> void:
+	""" pass signal along with tower costs """
+	start_upgrade_tower()
 
-	
-	if new_amount >= tower_level.build_costs:
-		tower_context_menu.activate_upgrade_button(true)
-	else:
-		tower_context_menu.activate_upgrade_button(false)
-
-func _on_upgrade_button_pressed() -> void:
-	pass
-
-func _on_sell_button_pressed() -> void:
-
-	if not tower_level:
-		print_debug("Tower: no tower level set, cannot sell the tower")
-		return
-
-	tower_sold.emit(tower_level.sell_value, position)
-	queue_free()
+func _on_tower_upgrade_finished() -> void:
+	""" pass signal along with tower costs """
+	finish_upgrade_tower()
 
 
 # ========
 # class functions
 # ========
 
-func set_tower_resource(resource: TowerResource, level_number: int = 0) -> void:
-	""" set the tower resource and apply the data to the tower """
+func initialize(resource: TowerResource) -> void:
+	""" initialize the tower object """
 
 	tower_resource = resource
-	tower_level = tower_resource.get_level(level_number)
+	set_tower_level()
+
+
+func set_tower_level() -> void:
+	if not tower_resource:
+		print_debug("Tower: no tower resource set, cannot set the tower level")
+		return
+
+	tower_level = tower_resource.get_level(tower_current_level)
+
+func get_tower_resource() -> TowerResource:
+	return tower_resource
+
+func get_tower_level() -> int:
+	return tower_current_level
+
+func get_tower_level_resource() -> TowerLevel:
+	return tower_resource.get_level(tower_current_level)
+
+func get_next_tower_level_resource() -> TowerLevel:
+	return tower_resource.get_level(tower_current_level+1)
 
 func highligh_tower(is_higlighted: bool) -> void:
 
@@ -128,30 +130,46 @@ func highligh_tower(is_higlighted: bool) -> void:
 
 	body.material.set('shader_parameter/enabled', is_higlighted)
 
-func display_context_menu(is_displayed: bool) -> void:
-	if is_displayed:
-		tower_context_menu.offset = get_global_transform_with_canvas().origin
-		update_context_menu()
-		tower_context_menu.show()
-	else:
-		tower_context_menu.hide()
+func sell_tower() -> void:
 
-func update_context_menu() -> void:
-	""" update the context menu with the current tower data """
-	
 	if not tower_level:
-		print_debug("Tower: no tower level set, cannot update the context menu")
+		print_debug("Tower: no tower level set, cannot sell the tower")
 		return
 
-	# if the tower can be sold ensure the sell button is active and shown
-	if tower_resource.can_be_sold:
-		tower_context_menu.enable_sell_button(true)
-	else:
-		tower_context_menu.enable_sell_button(false)
+	tower_sold.emit(tower_level.sell_value, position)
+	queue_free()
+
+func start_upgrade_tower() -> void:
+
+	var next_level: TowerLevel = get_next_tower_level_resource()
+	if not next_level:
+		print_debug("Tower: no next tower level set, cannot upgrade the tower")
+		return
+
+	tower_upgrade_started.emit(next_level.build_costs)
+
+func finish_upgrade_tower() -> void:
+	""" finish the upgrade of the tower """
+
+	tower_current_level += 1
+	set_tower_level()
+	set_tower_body_texture()
 
 
-	tower_context_menu.set_tower_name('name')
-	tower_context_menu.set_damage(tower_level.damage)
-	tower_context_menu.set_speed(tower_level.shoot_speed)
-	tower_context_menu.set_upgrade_cost(tower_level.build_costs)
-	tower_context_menu.set_sell_value(tower_level.sell_value)
+func set_tower_body_texture() -> void:
+	""" set the body texture of the tower """
+
+	if not body:
+		print_debug("Tower: no body set, cannot set the texture")
+		return
+
+	if not tower_level:
+		print_debug("Tower: no tower level set, cannot set the texture")
+		return
+
+	var texture: Texture = tower_level.body
+	if not texture:
+		print_debug("Tower: no texture set, cannot set the texture")
+		return
+
+	body.texture = texture

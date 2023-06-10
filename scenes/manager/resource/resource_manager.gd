@@ -46,6 +46,7 @@ func _ready():
 		resource_gold_amount_changed.connect(_game_events._on_resource_gold_amount_changed)
 		_game_events.tower_build_started.connect(_on_tower_build_started)
 		_game_events.tower_sold.connect(_on_tower_sold)
+		_game_events.tower_upgrade_started.connect(_on_tower_upgrade_started)
 		
 	if gold_timer:
 		gold_timer.timeout.connect(_on_gold_timer_timeout)
@@ -71,6 +72,11 @@ func _on_tower_sold(sell_value: int, pos: Vector2) -> void:
 	""" increase the gold resource by amount """
 
 	increase_gold(sell_value)
+
+func _on_tower_upgrade_started(build_costs: int) -> void:
+	""" decrease the gold resource by amount """
+
+	decrease_gold(build_costs)	
 
 # ========
 # class functions
