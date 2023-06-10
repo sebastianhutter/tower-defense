@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bns5gw22psqm3"]
+
+[ext_resource type="Script" path="res://scenes/components/tower_sell/tower_sell_component.gd" id="1_xsagx"]
+
+[node name="TowerSellComponent" type="Node"]
+script = ExtResource("1_xsagx")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bpooopgsgkah0"]
+[gd_scene load_steps=11 format=3 uid="uid://bpooopgsgkah0"]
 
 [ext_resource type="Script" path="res://scenes/tower/archer/archer.gd" id="1_3cfng"]
 [ext_resource type="Texture2D" uid="uid://cjmo2hwl4n6fi" path="res://resources/sprite/tower/Archer/archer_level_1.png" id="2_42bef"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://brvdk3kevx3q2" path="res://scenes/components/tower_action/tower_action_component.tscn" id="2_r7ndq"]
 [ext_resource type="Shader" path="res://resources/shader/highlight/highlight.gdshader" id="2_tboa3"]
 [ext_resource type="PackedScene" uid="uid://dsj880miek66l" path="res://scenes/components/tower_upgrade/tower_upgrade_component.tscn" id="3_ig1fk"]
+[ext_resource type="PackedScene" uid="uid://bns5gw22psqm3" path="res://scenes/components/tower_sell/tower_sell_component.tscn" id="4_7onuw"]
 [ext_resource type="PackedScene" uid="uid://cmu573y7fbw32" path="res://scenes/ui/tower_context_menu/tower_context_menu.tscn" id="7_1dej5"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_p3not"]
@@ -21,14 +22,18 @@ size = Vector2(125, 160)
 collision_mask = 0
 script = ExtResource("1_3cfng")
 
-[node name="TowerActionComponent" parent="." node_paths=PackedStringArray("context_menu", "tower_upgrade_component") instance=ExtResource("2_r7ndq")]
+[node name="TowerActionComponent" parent="." node_paths=PackedStringArray("context_menu", "tower_upgrade_component", "tower_sell_compoonent") instance=ExtResource("2_r7ndq")]
 unique_name_in_owner = true
 context_menu = NodePath("../TowerContextMenu")
 tower_upgrade_component = NodePath("../TowerUpgradeComponent")
+tower_sell_compoonent = NodePath("../TowerSellComponent")
 
 [node name="TowerUpgradeComponent" parent="." node_paths=PackedStringArray("construction_component") instance=ExtResource("3_ig1fk")]
 unique_name_in_owner = true
 construction_component = NodePath("../ConstructionComponent")
+
+[node name="TowerSellComponent" parent="." instance=ExtResource("4_7onuw")]
+unique_name_in_owner = true
 
 [node name="Body" type="Sprite2D" parent="."]
 unique_name_in_owner = true

@@ -28,6 +28,7 @@ signal tower_upgrade_started(build_costs: int)
 @onready var body: Sprite2D = $%Body
 @onready var tower_action_component: TowerActionComponent = $%TowerActionComponent
 @onready var tower_upgrade_component: TowerUpgradeComponent = $%TowerUpgradeComponent
+@onready var tower_sell_component: TowerSellComponent = $%TowerSellComponent
 
 # ========
 # class vars
@@ -63,12 +64,12 @@ func _ready():
 		mouse_entered.connect(tower_action_component._on_parent_mouse_entered)
 		mouse_exited.connect(tower_action_component._on_parent_mouse_exited)
 
-		# connect action component signals
-		tower_action_component.tower_action_is_sold.connect(_on_tower_action_is_sold)
-
 	if tower_upgrade_component:
 		tower_upgrade_component.tower_upgrade_started.connect(_on_tower_upgrade_started)
 		tower_upgrade_component.tower_upgrade_finished.connect(_on_tower_upgrade_finished)
+
+	if tower_sell_component:
+		tower_sell_component.tower_sold.connect(_on_tower_sold)
 		
 # ========
 # signal handler
@@ -80,7 +81,7 @@ func _on_mouse_entered() -> void:
 func _on_mouse_exited() -> void:
 	highligh_tower(false)
 
-func _on_tower_action_is_sold() -> void:
+func _on_tower_sold() -> void:
 	""" tower action component signal handler for selling the tower"""
 	sell_tower()
 

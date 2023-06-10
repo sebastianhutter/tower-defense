@@ -16,13 +16,12 @@ class_name TowerActionComponent
 
 @export var context_menu: TowerContextMenu
 @export var tower_upgrade_component: TowerUpgradeComponent
+@export var tower_sell_compoonent: TowerSellComponent
 
 
 # ========
 # class signals
 # ========
-
-signal tower_action_is_sold()
 
 # ========
 # class onready vars
@@ -47,6 +46,8 @@ func _ready():
 		context_menu.sell_button_pressed.connect(_on_sell_button_pressed)
 	if tower_upgrade_component:
 		tower_upgrade_component.can_upgrade.connect(_on_can_upgrade)
+	if tower_sell_compoonent:
+		pass
 
 func _unhandled_input(event):
 	if Input.is_action_pressed("Interact"):
@@ -120,5 +121,9 @@ func _on_upgrade_button_pressed() -> void:
 func _on_sell_button_pressed() -> void:
 	""" sell all the things !!! """
 
-	tower_action_is_sold.emit()
+	if not tower_sell_compoonent:
+		print_debug("TowerActionComponent: no tower sell component set")
+		return
+
+	tower_sell_compoonent.sell_tower()
 	context_menu.hide()

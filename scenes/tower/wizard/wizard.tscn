@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://dwagv13554c74"]
+[gd_scene load_steps=11 format=3 uid="uid://dwagv13554c74"]
 
 [ext_resource type="Script" path="res://scenes/tower/wizard/wizard.gd" id="1_wq3v4"]
 [ext_resource type="Texture2D" uid="uid://btmg2e8ioglt" path="res://resources/sprite/tower/Wizard/wizard_level_1.png" id="2_mcfjm"]
 [ext_resource type="Shader" path="res://resources/shader/highlight/highlight.gdshader" id="2_pdnoi"]
 [ext_resource type="PackedScene" uid="uid://dsj880miek66l" path="res://scenes/components/tower_upgrade/tower_upgrade_component.tscn" id="3_2rln4"]
+[ext_resource type="PackedScene" uid="uid://bns5gw22psqm3" path="res://scenes/components/tower_sell/tower_sell_component.tscn" id="4_7kyg7"]
 [ext_resource type="PackedScene" uid="uid://bqbkecclfiqvn" path="res://scenes/components/construction/construction_component.tscn" id="4_23su2"]
 [ext_resource type="PackedScene" uid="uid://cmu573y7fbw32" path="res://scenes/ui/tower_context_menu/tower_context_menu.tscn" id="5_6qd1s"]
 [ext_resource type="PackedScene" uid="uid://brvdk3kevx3q2" path="res://scenes/components/tower_action/tower_action_component.tscn" id="6_6bwql"]
@@ -21,14 +22,18 @@ size = Vector2(104, 98)
 collision_mask = 0
 script = ExtResource("1_wq3v4")
 
-[node name="TowerActionComponent" parent="." node_paths=PackedStringArray("context_menu", "tower_upgrade_component") instance=ExtResource("6_6bwql")]
+[node name="TowerActionComponent" parent="." node_paths=PackedStringArray("context_menu", "tower_upgrade_component", "tower_sell_compoonent") instance=ExtResource("6_6bwql")]
 unique_name_in_owner = true
 context_menu = NodePath("../TowerContextMenu")
 tower_upgrade_component = NodePath("../TowerUpgradeComponent")
+tower_sell_compoonent = NodePath("../TowerSellComponent")
 
 [node name="TowerUpgradeComponent" parent="." node_paths=PackedStringArray("construction_component") instance=ExtResource("3_2rln4")]
 unique_name_in_owner = true
 construction_component = NodePath("../ConstructionComponent")
+
+[node name="TowerSellComponent" parent="." instance=ExtResource("4_7kyg7")]
+unique_name_in_owner = true
 
 [node name="Body" type="Sprite2D" parent="."]
 unique_name_in_owner = true
