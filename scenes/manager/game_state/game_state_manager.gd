@@ -123,7 +123,8 @@ func enter_game_loop() -> void:
 	# pass the game state to the game loop
 	
 	level_manager.load_level()
-	tower_manager.spawn_tower_by_id('hq', Vector2.ZERO + Constants.TOWER_BUILD_OFFSET)
+	#tower_manager.spawn_tower_by_id('hq', Vector2.ZERO + Constants.TOWER_BUILD_OFFSET)
+	tower_manager.spawn_tower_by_id('hq', Vector2.ZERO)
 	resource_manager.increase_gold(0) # fake gold amount change to send signal to everyone who's listening
 	get_tree().paused = true
 	_game_events.game_state_changed.emit(Types.GameState.GAME_LOOP)

@@ -1,10 +1,17 @@
-[gd_scene load_steps=6 format=3 uid="uid://crde1qxwqli1i"]
+[gd_scene load_steps=8 format=3 uid="uid://crde1qxwqli1i"]
 
 [ext_resource type="PackedScene" uid="uid://cbq3r0r2rnp01" path="res://scenes/game_camera/game_camera.tscn" id="1_qnpjk"]
 [ext_resource type="PackedScene" uid="uid://2c848wdr7l8r" path="res://scenes/tilemap/tile_map.tscn" id="2_ek14y"]
 [ext_resource type="PackedScene" uid="uid://crx7v2qie73tg" path="res://scenes/tower/HQ/hq.tscn" id="3_5xbpu"]
 [ext_resource type="PackedScene" uid="uid://bq8f3aa221iwo" path="res://scenes/character/enemy/enemy.tscn" id="4_3okhv"]
 [ext_resource type="PackedScene" uid="uid://bpooopgsgkah0" path="res://scenes/tower/archer/archer.tscn" id="5_s5x0b"]
+[ext_resource type="Shader" path="res://resources/shader/highlight/highlight.gdshader" id="6_kv66f"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8qvc8"]
+resource_local_to_scene = true
+shader = ExtResource("6_kv66f")
+shader_parameter/enabled = false
+shader_parameter/highlight_color = Color(1, 1, 1, 0.0980392)
 
 [node name="Node2D" type="Node2D"]
 position = Vector2(-63, -42)
@@ -37,13 +44,20 @@ position = Vector2(353, 643)
 position = Vector2(124, 127)
 
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
-visible = false
 position = Vector2(2.08165e-12, 2.08165e-12)
-rotation = -1.57778
+rotation = -1.3247
 shadow_enabled = true
 
 [node name="HQ" parent="." instance=ExtResource("3_5xbpu")]
 
+[node name="HQ2" parent="." instance=ExtResource("3_5xbpu")]
+position = Vector2(124, -75)
+
+[node name="Body" parent="HQ2" index="2"]
+material = SubResource("ShaderMaterial_8qvc8")
+
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 visible = false
 color = Color(1, 1, 0.443137, 1)
+
+[editable path="HQ2"]
