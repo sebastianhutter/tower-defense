@@ -1,0 +1,32 @@
+[gd_scene load_steps=7 format=3 uid="uid://dhmk82a7o8f6u"]
+
+[ext_resource type="Script" path="res://scenes/portal/portal.gd" id="1_wyidj"]
+[ext_resource type="Shader" path="res://resources/shader/portal/portal.gdshader" id="2_pn18f"]
+[ext_resource type="Texture2D" uid="uid://cp7h0ob77fnip" path="res://resources/sprite/portal/portal.svg" id="3_r24i1"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_gwdod"]
+seed = 12354
+fractal_octaves = 10
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ja3is"]
+generate_mipmaps = false
+noise = SubResource("FastNoiseLite_gwdod")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xjprc"]
+shader = ExtResource("2_pn18f")
+shader_parameter/effect_color = Color(0, 0.584689, 0.877234, 1)
+shader_parameter/amplitude = 1.64
+shader_parameter/frequency = 6.48
+shader_parameter/rippleRate = 5.0
+shader_parameter/waveAmplitude = 0.3
+shader_parameter/waveFrequency = 2.0
+shader_parameter/blendingAmount = 0.5
+shader_parameter/noise = SubResource("NoiseTexture2D_ja3is")
+
+[node name="Portal" type="Node2D"]
+script = ExtResource("1_wyidj")
+
+[node name="Portal" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_xjprc")
+position = Vector2(2.08165e-12, 2.08165e-12)
+texture = ExtResource("3_r24i1")

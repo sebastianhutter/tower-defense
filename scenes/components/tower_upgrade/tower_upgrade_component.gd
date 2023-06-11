@@ -61,7 +61,12 @@ func _ready():
 		construction_component.construction_completed.connect(_on_construction_completed)
 	
 	# get current gold amount from resource manager and check if tower can be upgraded
-	check_if_tower_can_upgrade(_helper.get_resource_manager().gold_amount)
+	var resource_manager: ResourceManager = _helper.get_resource_manager()
+	if not resource_manager:
+		print_debug("TowerUpgradeComponent: no resource manager")
+		return
+
+	check_if_tower_can_upgrade(resource_manager.gold_amount)
 
 # ========
 # signal handler

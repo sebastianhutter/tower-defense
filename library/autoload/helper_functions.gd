@@ -59,12 +59,26 @@ func get_level_node_enemies() -> Node2D:
 	""" return the node containing all enemies"""
 	return get_tree().get_first_node_in_group('enemies')
 
+func get_main_node() -> Node:
+	""" return the main node """
+	return get_tree().get_root().get_node('Main')
+
 func get_resource_manager() -> ResourceManager:
 	""" return the resource manager """
 
-	return get_tree().get_root().get_node('Main').get_node('ResourceManager') as ResourceManager
+	var main: Node = get_main_node()
+	if not main:
+		print_debug("Main node not found")
+		return null
+
+	return main.get_node('ResourceManager') as ResourceManager
 
 func get_level_manager() -> LevelManager:
 	""" return the level manager """
 
-	return get_tree().get_root().get_node('Main').get_node('LevelManager') as LevelManager
+	var main: Node = get_main_node()
+	if not main:
+		print_debug("Main node not found")
+		return null
+
+	return main.get_node('LevelManager') as LevelManager
