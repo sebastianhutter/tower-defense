@@ -1,18 +1,21 @@
-[gd_resource type="Resource" script_class="FloorResource" load_steps=3 format=3 uid="uid://7vrl87q7m2uv"]
+[gd_resource type="Resource" script_class="FloorResource" load_steps=4 format=3 uid="uid://7vrl87q7m2uv"]
 
 [ext_resource type="Script" path="res://resources/floor/floor_resource.gd" id="1_3mnoq"]
 [ext_resource type="PackedScene" uid="uid://em8prdtptc5y" path="res://scenes/floor/desert/desert_floor.tscn" id="1_w1yj0"]
+[ext_resource type="Texture2D" uid="uid://tku0y80i0il1" path="res://resources/sprite/landscape/desert/cactus_1.png" id="2_48po2"]
 
 [resource]
 script = ExtResource("1_3mnoq")
 id = 2
 enabled = true
 name = "Desert"
-description = "Yarp"
+description = "Not alot of resources but many portals! This level was never really tested ... so ..."
 floor_scene = ExtResource("1_w1yj0")
-gold_amount = 5000
-gold_increase_time = 30.0
-gold_increase_amount = 100
+preview = ExtResource("2_48po2")
+gold_starting_amount = 250
+gold_auto_increase_enabled = false
+gold_auto_increase_time = 0.0
+gold_auto_increase_amount = 0
 portal_delay = 5.0
 time = 0.0
 waves = 0

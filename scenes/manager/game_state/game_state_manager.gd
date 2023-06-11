@@ -83,7 +83,7 @@ func _on_game_state_changed(game_state: Types.GameState, payload: Dictionary = {
 				print("GameStateManager: no floor specified in payload")
 				return
 
-			await enter_game_loop(payload["floor"])
+			enter_game_loop(payload["floor"])
 			return
 		Types.GameState.EXIT_GAME_LOOP:
 			exit_game_loop()
@@ -122,12 +122,10 @@ func enter_game_loop(floor_resource: FloorResource) -> void:
 	
 	# load floor plan
 	level_manager.load_floor(floor_resource)
+	# setup the resource manager
+	resource_manager.load_floor(floor_resource)
 	# spawn our hq building
 	tower_manager.spawn_tower_by_id(Types.Tower.HQ, Vector2.ZERO+Constants.TOWER_HQ_OFFSET)
-	# setup resource manager
-	resource_manager.load_floor(floor_resource)
-	# for some reason i need to fire the event twice (load_floor is already firing the amount changed event ...§)
-	resource_manager.increase_gold(0) # fake gold amount change to send signal to everyone who's listening
 
 	get_tree().paused = true
 	_game_events.game_state_changed.emit(Types.GameState.GAME_LOOP)

@@ -31,6 +31,8 @@ class_name UiManager
 # class vars
 # ========
 
+var floor_resource: FloorResource = null
+
 # ========
 # godot functions
 # ========
@@ -49,6 +51,13 @@ func _ready():
 # ========
 # class functions
 # ========
+
+func load_floor(floor_resource: FloorResource) -> void:
+	"""load the given floor information into the UI """
+
+	self.floor_resource = floor_resource
+
+
 
 # func load_ability_cards() -> void:
 # 	"""load the ability cards into the ui"""

@@ -14,10 +14,6 @@ class_name ResourceManager
 # export vars
 # ========
 
-@export var gold_increase_time: float = 5.0
-@export var gold_increase_amount: int = 100
-@export var gold_amount: int = 1000
-
 # ========
 # class signals
 # ========
@@ -33,6 +29,9 @@ signal resource_gold_amount_changed(old_amount: int, new_amount: int)
 # ========
 # class vars
 # ========
+
+var floor_resource: FloorResource = null
+var gold_amount: int = 0 
 
 # ========
 # godot functions
@@ -50,8 +49,6 @@ func _ready():
 		
 	if gold_timer:
 		gold_timer.timeout.connect(_on_gold_timer_timeout)
-		gold_timer.wait_time = gold_increase_time
-
 
 # ========
 # signal handler
@@ -61,7 +58,7 @@ func _on_gold_timer_timeout():
 	""" increase the gold resource by amount """
 
 	print_debug("_on_gold_timer_timeout")
-	increase_gold(gold_increase_amount)
+	increase_gold(floor_resource.gold_auto_increase_amount)
 
 func _on_tower_build_started(resource: TowerResource, position: Vector2):
 	""" decrease the gold resource by amount """
@@ -85,18 +82,23 @@ func _on_tower_upgrade_started(build_costs: int) -> void:
 func load_floor(floor_resource: FloorResource):
 	""" configure the resource manager with the given floor resource """
 
-	if floor_resource.gold_amount:
-		set_gold_amount(floor_resource.gold_amount)
-	if floor_resource.gold_increase_time:
-		gold_increase_time = floor_resource.gold_increase_time
-	if floor_resource.gold_increase_amount:
-		gold_increase_amount = floor_resource.gold_increase_amount
-	
+	self.floor_resource = floor_resource
+
+	if floor_resource.gold_starting_amount:
+		set_gold_amount(floor_resource.gold_starting_amount)
+
+	if floor_resource.gold_auto_increase_time:
+		gold_timer.wait_time = floor_resource.gold_auto_increase_time
+		
 func start_gold_timer():
 	""" start the gold timer """
 
 	if not gold_timer:
 		print_debug("gold_timer is not set")
+		return
+
+	if not floor_resource.gold_auto_increase_enabled:
+		print_debug("gold_auto_increase_enabled is not set")
 		return
 
 	gold_timer.start()

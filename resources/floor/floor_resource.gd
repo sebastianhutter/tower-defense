@@ -8,12 +8,13 @@ class_name FloorResource
 @export var floor_scene: PackedScene
 @export var preview: Texture 
 
-# level resources
-@export var gold_amount: int
-@export var gold_increase_time: float
-@export var gold_increase_amount: int
+# starting gold resources
+@export var gold_starting_amount: int
+@export var gold_auto_increase_enabled: bool
+@export var gold_auto_increase_time: float
+@export var gold_auto_increase_amount: int
 
-# level "difficulty"
+# enemy wave setup
 @export var portal_delay: float 
 @export var time: float
 @export var waves: int
