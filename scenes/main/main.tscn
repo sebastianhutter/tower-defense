@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" path="res://scenes/main/main.gd" id="1_jel8x"]
 [ext_resource type="PackedScene" path="res://scenes/manager/game_state/game_state_manager.tscn" id="2_6hwx1"]
-[ext_resource type="PackedScene" uid="uid://ba5tkkbvt76p" path="res://scenes/manager/ui/ui_manager.tscn" id="3_vlkaw"]
+[ext_resource type="PackedScene" uid="uid://bevcgquu3wyft" path="res://scenes/manager/ui/ui_manager.tscn" id="3_vlkaw"]
 [ext_resource type="PackedScene" path="res://scenes/menu/menu_manager.tscn" id="4_2orsr"]
-[ext_resource type="PackedScene" path="res://scenes/manager/level/level_manager.tscn" id="5_bkrfv"]
+[ext_resource type="PackedScene" uid="uid://dv4at2dpsr0gq" path="res://scenes/manager/floor/level_manager.tscn" id="5_bkrfv"]
 [ext_resource type="PackedScene" path="res://scenes/level/demo_level/demo_level.tscn" id="6_qxmm1"]
 
 [node name="Main" type="Node"]

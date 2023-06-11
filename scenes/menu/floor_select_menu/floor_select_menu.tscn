@@ -1,0 +1,36 @@
+[gd_scene load_steps=2 format=3 uid="uid://cpkolce580a7b"]
+
+[ext_resource type="Script" path="res://scenes/menu/floor_select_menu/floor_select_menu.gd" id="1_0jmnw"]
+
+[node name="FloorSelectMenu" type="CanvasLayer"]
+process_mode = 3
+script = ExtResource("1_0jmnw")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="FloorSelectContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="StartGameButton" type="Button" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "START GAME"
+
+[node name="BackButton" type="Button" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "BACK TO MAIN MENU"

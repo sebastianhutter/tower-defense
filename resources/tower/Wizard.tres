@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://btmg2e8ioglt" path="res://resources/sprite/tower/Wizard/wizard_level_1.png" id="1_p8ir7"]
 [ext_resource type="Script" path="res://resources/tower/tower_resource.gd" id="2_a2i4c"]
-[ext_resource type="Script" path="res://resources/tower/tower_level.gd" id="2_rlftv"]
+[ext_resource type="Script" path="res://resources/tower/tower_level_resource.gd" id="2_rlftv"]
 [ext_resource type="PackedScene" uid="uid://dwagv13554c74" path="res://scenes/tower/wizard/wizard.tscn" id="3_7dp2t"]
 [ext_resource type="Texture2D" uid="uid://bu3schdvuv0rf" path="res://resources/sprite/tower/Wizard/wizard_level_2.png" id="3_cuqlw"]
 [ext_resource type="Texture2D" uid="uid://dk1csb8la4vhg" path="res://resources/sprite/tower/Wizard/wizard_level_3.png" id="4_3qw8n"]
@@ -36,7 +36,7 @@ shoot_speed = 1.0
 
 [resource]
 script = ExtResource("2_a2i4c")
-id = "wizard"
+id = 2
 name = "Wizard"
 description = "Wizard Tower"
 tower_scene = ExtResource("3_7dp2t")
@@ -44,4 +44,4 @@ can_be_build = true
 can_be_sold = true
 can_be_upgraded = true
 build_icon = ExtResource("1_p8ir7")
-levels = Array[ExtResource("2_rlftv")]([SubResource("Resource_q6qrh"), SubResource("Resource_gido3"), SubResource("Resource_yoroq")])
+levels = Array[Resource]([SubResource("Resource_q6qrh"), SubResource("Resource_gido3"), SubResource("Resource_yoroq")])

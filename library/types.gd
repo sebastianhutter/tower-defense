@@ -14,8 +14,23 @@ enum GameState {
 
 enum Menu {
 	MAIN_MENU,
+	FLOOR_SELECT_MENU,
 	OPTIONS_MENU,
 	PAUSE_MENU,
 	LEVEL_END_MENU,
 	GAME_OVER_MENU,
+}
+
+# tower types for easier configuration
+enum Tower {
+	HQ,
+	ARCHER,
+	WIZARD,
+}
+
+# floor ids for easier configuration
+enum Floor {
+	GRASS,
+	WINTER,
+	DESERT,
 }

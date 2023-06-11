@@ -2,6 +2,18 @@ extends Node
 class_name CustomResourceLoader
 
 var tower_resources: Array[TowerResource]
+var floor_resources: Array[FloorResource]
+
+func _sort_by_int_id(a: Resource, b: Resource) -> bool:
+	"""sorts resources by their id"""
+
+	var a_id = a.get("id")
+	var b_id = b.get("id")
+
+	if a_id < b_id:
+		return true
+	
+	return false
 
 func find_tres_files(folder: String) -> Array[Resource]:
 	"""returns a list of .tres files in one folder and one level of subfolders"""
@@ -25,7 +37,7 @@ func find_tres_files(folder: String) -> Array[Resource]:
 		
 	return tres_files
 
-func load_tower_resorces(path: String = Constants.TOWER_RESOURCE_FOLDER) -> void:
+func load_tower_resources(path: String = Constants.TOWER_RESOURCE_FOLDER) -> void:
 	""" load tower resources .tres files """
 
 	for tower_resource in find_tres_files(path):
@@ -36,15 +48,25 @@ func get_tower_resources() -> Array[TowerResource]:
 
 	return tower_resources
 
-func get_tower_resource(tower_id: String) -> TowerResource:
-	"""returns the tower resource with the given id"""
+func load_floor_resources(path: String = Constants.FLOOR_RESOURCE_FOLDER) -> void:
+	""" load floor resources .tres files """
 
-	for tower_resource in tower_resources:
-		if tower_resource.id == tower_id:
-			return tower_resource
+	print(find_tres_files(path)[0].name)
 
-	return null
+	for floor_resource in find_tres_files(path):
+		floor_resources.append(floor_resource as FloorResource)
+
+	floor_resources.sort_custom(_sort_by_int_id)
+	print(floor_resources[0].name)
+
+func get_floor_resources() -> Array[FloorResource]:
+	"""returns all tower resources"""
+
+	return floor_resources
+
 
 func _init() -> void:
 	"""preload resources for faster access"""
-	load_tower_resorces()
+	load_tower_resources()
+	load_floor_resources()
+

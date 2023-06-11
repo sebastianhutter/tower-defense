@@ -1,5 +1,5 @@
 extends TileMap
-class_name LevelTileMap
+class_name FloorTileMap
 
 # ========
 # singleton references
@@ -14,6 +14,8 @@ class_name LevelTileMap
 # export vars
 # ========
 
+@export var tilemap_biome: TilesetBiomes
+
 # ========
 # class signals
 # ========
@@ -25,6 +27,37 @@ class_name LevelTileMap
 # ========
 # class vars
 # ========
+
+# the tilemap biome (grass, winter or desert)
+# this is used to offset the tileset origins
+# to autoplace the correct tiles when a tower is placed or sold
+enum TilesetBiomes {
+	GRASS = 0,
+	DESERT = 1,
+	WINTER = 2,
+}
+
+# the origins equal the tilemap tile ids
+# adding the tiilesetbiome offset to it will tile for
+# the selected biome
+enum TileSetOrigins {
+	SPAWNER = 90,
+	CONSTRUCTION = 100,
+	FLOOR = 110,
+	FOUNDATION = 120,
+	ROAD1 = 200,
+	ROAD2 = 210,
+	ROAD3 = 220,
+	ROAD4 = 230,
+	ROAD5 = 240,
+	ROAD6 = 250,
+	ROAD7 = 260,
+	ROAD8 = 270,
+	ROAD9 = 280,
+	ROAD10 = 290,
+	ROAD11 = 300,
+}
+
 
 # ========
 # godot functions

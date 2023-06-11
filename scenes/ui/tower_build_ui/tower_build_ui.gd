@@ -27,7 +27,7 @@ class_name TowerBuildUI
 # ========
 
 @onready var tower_card_container: HBoxContainer = $%TowerCardContainer
-@onready var tower_card_scene: PackedScene = preload(Constants.SCENE_TOWER_CARD_SCENE)
+@onready var tower_card_scene: PackedScene = preload(Constants.SCENE_TOWER_CARD)
 
 # ========
 # class vars

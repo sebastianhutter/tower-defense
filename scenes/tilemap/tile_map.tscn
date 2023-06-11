@@ -8,7 +8,7 @@ editor_description = "the tilemap is moved 125px to the left so the the center o
 
 (this as the tiles are 250px in witdh"
 y_sort_enabled = true
-position = Vector2(-125, 2.08165e-12)
+position = Vector2(2.08165e-12, 2.08165e-12)
 tile_set = ExtResource("1_etw4r")
 format = 2
 layer_0/name = "floor"

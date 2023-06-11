@@ -59,6 +59,10 @@ func get_level_node_enemies() -> Node2D:
 	""" return the node containing all enemies"""
 	return get_tree().get_first_node_in_group('enemies')
 
+func get_level_node_floor() -> Floor:
+	""" return the node containing the floor """
+	return get_tree().get_first_node_in_group('floor')
+
 func get_main_node() -> Node:
 	""" return the main node """
 	return get_tree().get_root().get_node('Main')

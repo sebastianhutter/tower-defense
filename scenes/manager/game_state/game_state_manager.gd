@@ -79,7 +79,11 @@ func _on_game_state_changed(game_state: Types.GameState, payload: Dictionary = {
 		# and shouldnt be stored in the previous state variable
 		# so they return immediately
 		Types.GameState.ENTER_GAME_LOOP:
-			await enter_game_loop()
+			if payload.has("floor") == false:
+				print("GameStateManager: no floor specified in payload")
+				return
+
+			await enter_game_loop(payload["floor"])
 			return
 		Types.GameState.EXIT_GAME_LOOP:
 			exit_game_loop()
@@ -111,21 +115,20 @@ func menu_loop(menu: Types.Menu) -> void:
 	get_tree().paused = true
 	menu_manager.show_menu(menu)
 
-func enter_game_loop() -> void:
+func enter_game_loop(floor_resource: FloorResource) -> void:
 	"""initialiize level manager and handover to game loop"""
 
 	# TODO: maybe add a loading screen here?
 	
-	# load the level
-	# enforce an update signal from the 
-	# resource manager to update the resource counters
-	# spawn the hq
-	# pass the game state to the game loop
-	
-	level_manager.load_level()
-	# spawn the HQ on the center tile
-	tower_manager.spawn_tower_by_id('hq', Vector2(125,0))
+	# load floor plan
+	level_manager.load_floor(floor_resource)
+	# spawn our hq building
+	tower_manager.spawn_tower_by_id(Types.Tower.HQ, Vector2.ZERO+Constants.TOWER_HQ_OFFSET)
+	# setup resource manager
+	resource_manager.load_floor(floor_resource)
+	# for some reason i need to fire the event twice (load_floor is already firing the amount changed event ...§)
 	resource_manager.increase_gold(0) # fake gold amount change to send signal to everyone who's listening
+
 	get_tree().paused = true
 	_game_events.game_state_changed.emit(Types.GameState.GAME_LOOP)
 

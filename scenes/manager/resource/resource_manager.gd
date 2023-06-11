@@ -82,6 +82,16 @@ func _on_tower_upgrade_started(build_costs: int) -> void:
 # class functions
 # ========
 
+func load_floor(floor_resource: FloorResource):
+	""" configure the resource manager with the given floor resource """
+
+	if floor_resource.gold_amount:
+		set_gold_amount(floor_resource.gold_amount)
+	if floor_resource.gold_increase_time:
+		gold_increase_time = floor_resource.gold_increase_time
+	if floor_resource.gold_increase_amount:
+		gold_increase_amount = floor_resource.gold_increase_amount
+	
 func start_gold_timer():
 	""" start the gold timer """
 

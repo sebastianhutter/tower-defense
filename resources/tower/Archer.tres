@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://resources/tower/tower_resource.gd" id="1_oax8f"]
 [ext_resource type="Texture2D" uid="uid://cjmo2hwl4n6fi" path="res://resources/sprite/tower/Archer/archer_level_1.png" id="1_qxb1v"]
 [ext_resource type="PackedScene" uid="uid://bpooopgsgkah0" path="res://scenes/tower/archer/archer.tscn" id="2_miq37"]
-[ext_resource type="Script" path="res://resources/tower/tower_level.gd" id="2_rp58k"]
+[ext_resource type="Script" path="res://resources/tower/tower_level_resource.gd" id="2_rp58k"]
 [ext_resource type="Texture2D" uid="uid://yk8sbft4s6k0" path="res://resources/sprite/tower/Archer/archer_level_2.png" id="3_7l1ew"]
 [ext_resource type="Texture2D" uid="uid://do1wr32j0edla" path="res://resources/sprite/tower/Archer/archer_level_3.png" id="4_m5aii"]
 
@@ -11,7 +11,7 @@
 script = ExtResource("2_rp58k")
 body = ExtResource("1_qxb1v")
 build_costs = 100
-build_time = 5.0
+build_time = 0.5
 sell_value = 80
 damage = 0
 shoot_speed = 1.0
@@ -36,7 +36,7 @@ shoot_speed = 1.0
 
 [resource]
 script = ExtResource("1_oax8f")
-id = "archer"
+id = 1
 name = "Archer"
 description = "Archer Tower"
 tower_scene = ExtResource("2_miq37")

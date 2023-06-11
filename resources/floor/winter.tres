@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="FloorResource" load_steps=3 format=3 uid="uid://cyoaq6u5kovuy"]
+
+[ext_resource type="PackedScene" uid="uid://em8prdtptc5y" path="res://scenes/floor/desert/desert_floor.tscn" id="1_p8ftv"]
+[ext_resource type="Script" path="res://resources/floor/floor_resource.gd" id="2_s082l"]
+
+[resource]
+script = ExtResource("2_s082l")
+id = 1
+enabled = true
+name = "Wintert"
+description = "AZAAHBAHHAHAH"
+floor_scene = ExtResource("1_p8ftv")
+gold_amount = 0
+gold_increase_time = 0.0
+gold_increase_amount = 0
+time = 0.0
+waves = 0

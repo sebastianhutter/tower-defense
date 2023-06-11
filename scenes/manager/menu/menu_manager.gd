@@ -25,6 +25,7 @@ class_name MenuManager
 @onready var main_menu: GameMainMenu = $%MainMenu
 @onready var pause_menu: GamePauseMenu = $%PauseMenu
 @onready var options_menu: GameOptionsMenu = $%OptionsMenu
+@onready var floor_select_menu: GameFloorSelectMenu = $%FloorSelectMenu
 
 # ========
 # class vars
@@ -38,13 +39,22 @@ var menu_stack: Array[Menu] = []
 
 func _ready():
 	# connect main menu signals
-	main_menu.play_button_pressed.connect(_on_main_menu_play_button_pressed)
-	main_menu.options_button_pressed.connect(_on_any_options_button_pressed)
-	main_menu.quit_button_pressed.connect(_on_main_menu_quit_button_pressed)
-	pause_menu.continue_button_pressed.connect(_on_pause_menu_continue_button_pressed)
-	pause_menu.options_button_pressed.connect(_on_any_options_button_pressed)
-	pause_menu.quit_to_menu_button_pressed.connect(_on_pause_menu_quit_to_menu_button_pressed)
-	options_menu.back_button_pressed.connect(_on_any_back_button_pressed)
+	if main_menu:
+		main_menu.play_button_pressed.connect(_on_main_menu_play_button_pressed)
+		main_menu.options_button_pressed.connect(_on_any_options_button_pressed)
+		main_menu.quit_button_pressed.connect(_on_main_menu_quit_button_pressed)
+
+	if floor_select_menu:
+		floor_select_menu.back_button_pressed.connect(_on_any_back_button_pressed)
+		floor_select_menu.start_game_button_pressed.connect(_on_floor_select_menu_start_game_button_pressed)
+
+	if pause_menu:
+		pause_menu.continue_button_pressed.connect(_on_pause_menu_continue_button_pressed)
+		pause_menu.options_button_pressed.connect(_on_any_options_button_pressed)
+		pause_menu.quit_to_menu_button_pressed.connect(_on_pause_menu_quit_to_menu_button_pressed)
+
+	if options_menu:
+		options_menu.back_button_pressed.connect(_on_any_back_button_pressed)
 
 	hide_menus()
 
@@ -57,9 +67,6 @@ func _ready():
 func _on_any_back_button_pressed() -> void:
 	"""called when the back button is pressed in any menu"""
 
-	# set the game state to playing
-	##_game_events.game_state_changed.emit(Types.GameState.LAST_MENU)	
-
 	# go to the last menu in stack
 	show_last_menu()
 
@@ -68,8 +75,6 @@ func _on_any_options_button_pressed() -> void:
 	"""called when the options button is pressed in any menu"""
 
 	# set the game state to playing
-
-	#_game_events.game_state_changed.emit(Types.GameState.OPTIONS_MENU)
 	show_menu(Types.Menu.OPTIONS_MENU)
 	
 
@@ -79,8 +84,8 @@ func _on_main_menu_play_button_pressed() -> void:
 	# set the game state to playing
 	#_game_events.game_state_changed.emit(Types.GameState.ABILITY_SELECT_MENU)
 
-	#show_menu(Types.Menu.ABILITY_SELECT_MENU)
-	_game_events.game_state_changed.emit(Types.GameState.ENTER_GAME_LOOP)	
+	show_menu(Types.Menu.FLOOR_SELECT_MENU)
+	#_game_events.game_state_changed.emit(Types.GameState.ENTER_GAME_LOOP)	
 
 func _on_main_menu_quit_button_pressed() -> void:
 	"""called when the quit button is pressed on the main menu"""
@@ -99,6 +104,11 @@ func _on_pause_menu_quit_to_menu_button_pressed() -> void:
 	# set the game state to playing
 	_game_events.game_state_changed.emit(Types.GameState.EXIT_GAME_LOOP)
 
+func _on_floor_select_menu_start_game_button_pressed(floor_resource: FloorResource) -> void:
+	"""called when the start game button is pressed on the floor select menu """
+	
+	_game_events.game_state_changed.emit(Types.GameState.ENTER_GAME_LOOP, {'floor': floor_resource})	
+
 
 # ========
 # class functions
@@ -114,6 +124,8 @@ func resolve_menu_enum(menu: Types.Menu) -> Menu:
 			return pause_menu
 		Types.Menu.OPTIONS_MENU:
 			return options_menu
+		Types.Menu.FLOOR_SELECT_MENU:
+			return floor_select_menu
 		_:
 			print_debug("MenuManager: menu enum not found")
 			return null

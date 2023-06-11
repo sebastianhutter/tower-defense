@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://resources/tower/tower_resource.gd" id="1_iehy6"]
 [ext_resource type="Texture2D" uid="uid://cuh4k7x8q4smd" path="res://resources/sprite/tower/HQ/hq_level_1.png" id="1_netkh"]
 [ext_resource type="PackedScene" uid="uid://crx7v2qie73tg" path="res://scenes/tower/HQ/hq.tscn" id="2_6s14w"]
-[ext_resource type="Script" path="res://resources/tower/tower_level.gd" id="2_jcyuq"]
+[ext_resource type="Script" path="res://resources/tower/tower_level_resource.gd" id="2_jcyuq"]
 [ext_resource type="Texture2D" uid="uid://b8b5ds1fnrdn7" path="res://resources/sprite/tower/HQ/hq_level_2.png" id="3_lbqit"]
 [ext_resource type="Texture2D" uid="uid://d04s8kqpd0xe4" path="res://resources/sprite/tower/HQ/hq_level_3.png" id="4_0k1h2"]
 
@@ -36,7 +36,7 @@ shoot_speed = 1.0
 
 [resource]
 script = ExtResource("1_iehy6")
-id = "hq"
+id = ""
 name = "HQ"
 description = "The players HQ"
 tower_scene = ExtResource("2_6s14w")

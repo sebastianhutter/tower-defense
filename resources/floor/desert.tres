@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="FloorResource" load_steps=3 format=3 uid="uid://7vrl87q7m2uv"]
+
+[ext_resource type="Script" path="res://resources/floor/floor_resource.gd" id="1_3mnoq"]
+[ext_resource type="PackedScene" uid="uid://em8prdtptc5y" path="res://scenes/floor/desert/desert_floor.tscn" id="1_w1yj0"]
+
+[resource]
+script = ExtResource("1_3mnoq")
+id = 2
+enabled = true
+name = "Desert"
+description = "Yarp"
+floor_scene = ExtResource("1_w1yj0")
+gold_amount = 5000
+gold_increase_time = 30.0
+gold_increase_amount = 100
+time = 0.0
+waves = 0

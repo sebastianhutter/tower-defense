@@ -50,7 +50,7 @@ func _on_game_state_changed(game_state: Types.GameState, payload: Dictionary = {
 	"""Called when the game state changes, proxies signal from gamestatemanager to other nodes"""
 
 	print_debug("GameEvents", "_on_game_state_changed", "Game state changed: " + str(game_state))
-	game_state_changed.emit(game_state)
+	game_state_changed.emit(game_state, payload)
 
 
 func _on_resource_gold_amount_changed(old_amount: int, new_amount: int) -> void:

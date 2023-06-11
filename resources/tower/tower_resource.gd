@@ -5,7 +5,7 @@ class_name TowerResource
 # detailed configuration of the tower type
 # is done inside the tower_scene
 
-@export var id: String
+@export var id: Types.Tower
 @export var name: String
 @export_multiline var description: String
 @export var tower_scene: PackedScene
