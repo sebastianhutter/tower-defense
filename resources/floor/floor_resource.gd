@@ -14,5 +14,6 @@ class_name FloorResource
 @export var gold_increase_amount: int
 
 # level "difficulty"
+@export var portal_delay: float 
 @export var time: float
 @export var waves: int

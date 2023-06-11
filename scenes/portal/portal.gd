@@ -14,19 +14,19 @@ class_name Portal
 # export vars
 # ========
 
-# @export var my_export_var = 0
-
 # ========
 # class signals
 # ========
 
-# signal my_custom_signal
+signal portal_ready(position: Vector2)
 
 # ========
 # class onready vars
 # ========
 
-# @onready var my_label: Label = $%Label
+@onready var sprite: Sprite2D = $%Sprite
+@onready var timer: Timer = $%Timer
+@onready var animation_player: AnimationPlayer = $%AnimationPlayer
 
 # ========
 # class vars
@@ -39,21 +39,34 @@ class_name Portal
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+	
+	if sprite:
+		sprite.hide()
+		
+	if timer:
+		timer.timeout.connect(_on_timer_timeout)
 
 # ========
 # signal handler
 # ========
 
-func _on_custom_signal_event():
-	pass
+func _on_timer_timeout():
+	animation_player.play("portal")
 
 # ========
 # class functions
 # ========
+
+func initiate(portal_delay: float) -> void:
+
+	if not timer:
+		print_debug("Portal: timer not found")
+		return
+
+	if not animation_player:
+		print_debug("Portal: animation_player not found")
+		return
+
+	timer.wait_time = portal_delay
+	timer.start()
 

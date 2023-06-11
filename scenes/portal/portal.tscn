@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dhmk82a7o8f6u"]
+[gd_scene load_steps=10 format=3 uid="uid://dhmk82a7o8f6u"]
 
 [ext_resource type="Script" path="res://scenes/portal/portal.gd" id="1_wyidj"]
 [ext_resource type="Shader" path="res://resources/shader/portal/portal.gdshader" id="2_pn18f"]
@@ -23,10 +23,120 @@ shader_parameter/waveFrequency = 2.0
 shader_parameter/blendingAmount = 0.5
 shader_parameter/noise = SubResource("NoiseTexture2D_ja3is")
 
+[sub_resource type="Animation" id="Animation_d12pb"]
+resource_name = "portal"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 1.6245, 1),
+"update": 0,
+"values": [Vector2(2.08165e-12, 2.08165e-12), Vector2(1.5, 1.5), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:skew")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 0.812252, 1),
+"update": 0,
+"values": [-1.21107e-17, 0.357792, -0.139626, 0.336849, -1.21107e-17]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [&"portal_ready"],
+"method": &"emit_signal"
+}]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_ly4ov"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:skew")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-1.21107e-17]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hmjmb"]
+_data = {
+"RESET": SubResource("Animation_ly4ov"),
+"portal": SubResource("Animation_d12pb")
+}
+
 [node name="Portal" type="Node2D"]
 script = ExtResource("1_wyidj")
 
-[node name="Portal" type="Sprite2D" parent="."]
+[node name="Sprite" type="Sprite2D" parent="."]
+unique_name_in_owner = true
 material = SubResource("ShaderMaterial_xjprc")
 position = Vector2(2.08165e-12, 2.08165e-12)
 texture = ExtResource("3_r24i1")
+
+[node name="Timer" type="Timer" parent="."]
+unique_name_in_owner = true
+one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+libraries = {
+"": SubResource("AnimationLibrary_hmjmb")
+}

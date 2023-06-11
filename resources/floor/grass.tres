@@ -13,5 +13,6 @@ floor_scene = ExtResource("1_eujpc")
 gold_amount = 800
 gold_increase_time = 5.0
 gold_increase_amount = 100
+portal_delay = 5.0
 time = 0.0
 waves = 0

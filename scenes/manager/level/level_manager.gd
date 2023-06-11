@@ -75,19 +75,7 @@ func _on_tower_build_started(resource: TowerResource, tower_position: Vector2) -
 		print_debug("LevelManager: No floor node found")
 		return
 
-	
-
-
-	if not floor_instance.tile_map:
-		print_debug("LevelManager: No tilemap node found")
-		return
-
-	floor_instance.tile_map.set_cell(
-		0,
-		floor_instance.tile_map.local_to_map(tower_position),
-		floor_instance.tile_map.TileSetOrigins.CONSTRUCTION+floor_instance.tile_map.tilemap_biome,
-		Vector2i(0,0),
-	)
+	floor_instance.place_construction_tile(tower_position)
 
 func _on_tower_build_completed(resource: TowerResource, tower_position: Vector2) -> void:
 	""" replace the tile with the foundation tile """
@@ -96,16 +84,7 @@ func _on_tower_build_completed(resource: TowerResource, tower_position: Vector2)
 		print_debug("LevelManager: No floor node found")
 		return
 
-	if not floor_instance.tile_map:
-		print_debug("LevelManager: No tilemap node found")
-		return
-
-	floor_instance.tile_map.set_cell(
-		0,
-		floor_instance.tile_map.local_to_map(tower_position),
-		floor_instance.tile_map.TileSetOrigins.FOUNDATION+floor_instance.tile_map.tilemap_biome,
-		Vector2i(0,0),
-	)
+	floor_instance.place_foundation_tile(tower_position)
 
 func _on_tower_sold(sell_value: int, tower_position: Vector2) -> void:
 	""" replace the foundation tile with a floor tile"""
@@ -114,17 +93,7 @@ func _on_tower_sold(sell_value: int, tower_position: Vector2) -> void:
 		print_debug("LevelManager: No floor node found")
 		return
 
-	if not floor_instance.tile_map:
-		print_debug("LevelManager: No tilemap node found")
-		return
-
-	floor_instance.tile_map.set_cell(
-		0,
-		floor_instance.tile_map.local_to_map(tower_position),
-		floor_instance.tile_map.TileSetOrigins.FLOOR+floor_instance.tile_map.tilemap_biome,
-		Vector2i(0,0),
-	)
-
+	floor_instance.place_floor_tile(tower_position)
 
 # ========
 # class functions
@@ -138,18 +107,13 @@ func load_floor(floor_resource: FloorResource) -> void:
 		return
 	
 	floor_instance = floor_resource.floor_scene.instantiate() as Floor
-	floor_instance.name = "Floor"
 	add_child(floor_instance)
+	floor_instance.name = "Floor"
+	floor_instance.initiate(floor_resource)
 
 
-func get_floor_tilemap() -> FloorTileMap:
-	""" returns the floors tilemap """
-
-	if not floor_instance:
-		print_debug("LevelManager: No floor node found")
-		return null
-
-	return floor_instance.tile_map
+func get_floor() -> Floor:
+	return floor_instance
 
 # func calculate_floor() -> void:
 # 	if map_size.x % 2 != 0:

@@ -34,3 +34,13 @@ enum Floor {
 	WINTER,
 	DESERT,
 }
+
+# tile id origins
+# the full tile id is caqlculated by adding the 
+# the biome offset (specified in the floor)
+enum TileOrigin {
+	SPAWNER = 90,
+	CONSTRUCTION = 100,
+	FLOOR = 110,
+	FOUNDATION = 120,
+}

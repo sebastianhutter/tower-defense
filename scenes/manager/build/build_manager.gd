@@ -182,15 +182,12 @@ func get_build_position() -> Vector2:
 	if not level_manager:
 		print_debug("no level manager found")
 		return Vector2.ZERO
-	var floor_tilemap: FloorTileMap = level_manager.get_floor_tilemap()
-	if not floor_tilemap:
+	var floor: Floor = level_manager.get_floor()
+	if not floor:
 		print_debug("no floor tilemap found")
 		return Vector2.ZERO
 
-	var mouse_tile_pos: Vector2i = floor_tilemap.local_to_map(get_local_mouse_position())
-	var snapped_pos: Vector2 = floor_tilemap.map_to_local(mouse_tile_pos)
-
-	return snapped_pos + build_offset
+	return floor.return_snapped_local_position(get_local_mouse_position()) + build_offset
 
 func get_buildability() -> bool:
 	""" check the tower is buildable at its current location and depending on the available resources"""
@@ -215,13 +212,12 @@ func get_buildability() -> bool:
 		print_debug("no tower costs found")
 		return false
 
-	var floor_tilemap: FloorTileMap = level_manager.get_floor_tilemap()
-	if not floor_tilemap:
-		print_debug("no floor tilemap found")
+	var floor: Floor = level_manager.get_floor()
+	if not floor:
+		print_debug("no floor found")
 		return false
 
-	var mouse_tile_pos: Vector2i = level_manager.get_floor_tilemap().local_to_map(get_local_mouse_position())
-	if level_manager.get_floor_tilemap().is_tile_buildable(mouse_tile_pos) and tower_costs <= resource_manager.get_gold_amount():
+	if floor.is_tile_buildable(get_local_mouse_position()) and tower_costs <= resource_manager.get_gold_amount():
 		return true
 
 	return false
