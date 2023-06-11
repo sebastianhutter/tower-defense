@@ -101,6 +101,7 @@ func update_context_menu() -> void:
 
 	# if the tower can be sold ensure the sell button is active and shown
 	context_menu.enable_sell_button(tower_resource.can_be_sold)
+	context_menu.enable_upgrade_button(tower_upgrade_component.can_tower_be_upgraded())
 
 	# set context menu strings
 	context_menu.set_tower_name(tower_resource.name)

@@ -56,12 +56,12 @@ func _ready():
 	# connect game event signals
 	_game_events.resource_gold_amount_changed.connect(_on_resource_gold_amount_changed)
 
-	# TODO: query the resource manager to check if the tower can be upgraded withoyu waiting for resource change signal
-
 	if construction_component:
 		construction_component.hide()
 		construction_component.construction_completed.connect(_on_construction_completed)
-
+	
+	# get current gold amount from resource manager and check if tower can be upgraded
+	check_if_tower_can_upgrade(_helper.get_resource_manager().gold_amount)
 
 # ========
 # signal handler
@@ -70,15 +70,7 @@ func _ready():
 func _on_resource_gold_amount_changed(old_amount: int, new_amount: int) -> void:
 	""" mark the tower as upgradable if the player has enough gold """
 
-	var next_tower_level = get_parent().get_next_tower_level_resource()
-	if not next_tower_level:
-		self.can_be_upgraded = false
-		return
-
-	if new_amount >= next_tower_level.build_costs:
-		self.can_be_upgraded = true
-	else:
-		self.can_be_upgraded = false
+	check_if_tower_can_upgrade(new_amount)
 
 func _on_construction_completed() -> void:
 	""" called when the construction is completed """
@@ -89,6 +81,19 @@ func _on_construction_completed() -> void:
 # ========
 # class functions
 # ========
+
+func check_if_tower_can_upgrade(gold: int) -> void:
+	""" can the tower be upgraded - e.g. is there a next level and does the player have enough gold """
+
+	var next_tower_level = get_parent().get_next_tower_level_resource()
+	if not next_tower_level:
+		self.can_be_upgraded = false
+		return
+
+	if gold >= next_tower_level.build_costs:
+		self.can_be_upgraded = true
+	else:
+		self.can_be_upgraded = false
 
 func can_tower_be_upgraded() -> bool:
 	""" return if the tower can be upgraded """

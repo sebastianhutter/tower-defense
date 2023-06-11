@@ -94,13 +94,6 @@ func set_sell_value(sell_value: int) -> void:
 
 	sell_button.text = 'Sell (G: ' + str(sell_value) + ')'
 
-
-func activate_upgrade_button(upgrade_is_enabled: bool) -> void:
-	
-	if not self.upgrade_button:
-		return
-
-	upgrade_button.disabled = not upgrade_is_enabled
 	
 func enable_sell_button(sell_is_enabled: bool) -> void:
 	
