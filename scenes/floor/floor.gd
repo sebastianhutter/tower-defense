@@ -49,8 +49,9 @@ func _ready():
 # ========
 
 func _on_portal_ready(position: Vector2) -> void:
-
-	print(position)
+	""" portals have spawned, the enemy manager can start spawning enemies """
+	# TODO: implement more signals
+	pass
 
 # ========
 # class functions

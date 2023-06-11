@@ -42,7 +42,7 @@ func _ready():
 	
 	if sprite:
 		sprite.hide()
-		
+
 	if timer:
 		timer.timeout.connect(_on_timer_timeout)
 
@@ -70,3 +70,5 @@ func initiate(portal_delay: float) -> void:
 	timer.wait_time = portal_delay
 	timer.start()
 
+func animation_finished() -> void:
+	portal_ready.emit(position)
