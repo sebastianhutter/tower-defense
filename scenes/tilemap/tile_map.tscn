@@ -11,5 +11,6 @@ y_sort_enabled = true
 position = Vector2(-125, 2.08165e-12)
 tile_set = ExtResource("1_etw4r")
 format = 2
+layer_0/name = "floor"
 layer_0/y_sort_enabled = true
 script = ExtResource("2_nm7e7")

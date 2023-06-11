@@ -1,4 +1,5 @@
 extends TileMap
+class_name LevelTileMap
 
 # ========
 # singleton references
