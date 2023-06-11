@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="FloorResource" load_steps=3 format=3 uid="uid://72veugdwhist"]
 
-[ext_resource type="PackedScene" uid="uid://em8prdtptc5y" path="res://scenes/floor/desert/desert_floor.tscn" id="1_72cav"]
+[ext_resource type="PackedScene" uid="uid://cuol0u1i8ev53" path="res://scenes/floor/grass/grass_floor.tscn" id="1_eujpc"]
 [ext_resource type="Script" path="res://resources/floor/floor_resource.gd" id="2_l0var"]
 
 [resource]
@@ -9,7 +9,7 @@ id = 0
 enabled = true
 name = "Gras"
 description = "GRAASAASSSA"
-floor_scene = ExtResource("1_72cav")
+floor_scene = ExtResource("1_eujpc")
 gold_amount = 800
 gold_increase_time = 5.0
 gold_increase_amount = 100
