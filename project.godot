@@ -112,11 +112,10 @@ Cancel={
 
 2d_physics/layer_1="Terrain"
 3d_physics/layer_1="Terrain"
-2d_physics/layer_2="Player"
+2d_physics/layer_2="HQ"
 3d_physics/layer_2="Player"
-2d_physics/layer_3="Summon"
+2d_physics/layer_3="Enemy"
 3d_physics/layer_3="Summon"
-2d_physics/layer_4="Enemy"
 3d_physics/layer_4="Enemy"
 
 [rendering]

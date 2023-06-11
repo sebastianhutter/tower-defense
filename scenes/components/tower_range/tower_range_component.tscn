@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://l0sealb0dv2"]
+
+[ext_resource type="Script" path="res://scenes/components/tower_range/tower_range_component.gd" id="1_mlx7a"]
+
+[node name="TowerRangeComponent" type="Area2D"]
+editor_description = "The tower detection range.
+The current implementation is quite simple. Just add a CollisionShape2D to the area2d. the attached script will then increase the size when a tower levels up
+"
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("1_mlx7a")

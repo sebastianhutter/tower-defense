@@ -1,17 +1,34 @@
-[gd_scene load_steps=8 format=3 uid="uid://crde1qxwqli1i"]
+[gd_scene load_steps=11 format=3 uid="uid://crde1qxwqli1i"]
 
 [ext_resource type="PackedScene" uid="uid://cbq3r0r2rnp01" path="res://scenes/game_camera/game_camera.tscn" id="1_qnpjk"]
 [ext_resource type="PackedScene" uid="uid://2c848wdr7l8r" path="res://scenes/tilemap/tile_map.tscn" id="2_ek14y"]
 [ext_resource type="PackedScene" uid="uid://crx7v2qie73tg" path="res://scenes/tower/HQ/hq.tscn" id="3_5xbpu"]
 [ext_resource type="PackedScene" uid="uid://bq8f3aa221iwo" path="res://scenes/character/enemy/enemy.tscn" id="4_3okhv"]
-[ext_resource type="PackedScene" uid="uid://bpooopgsgkah0" path="res://scenes/tower/archer/archer.tscn" id="5_s5x0b"]
 [ext_resource type="Shader" path="res://resources/shader/highlight/highlight.gdshader" id="6_kv66f"]
+[ext_resource type="Shader" path="res://resources/shader/outline/outline.gdshader" id="6_v23lf"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8qvc8"]
 resource_local_to_scene = true
 shader = ExtResource("6_kv66f")
 shader_parameter/enabled = false
 shader_parameter/highlight_color = Color(1, 1, 1, 0.0980392)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ia4ve"]
+radius = 210.02
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5tkfv"]
+shader = ExtResource("6_v23lf")
+shader_parameter/intensity = 8
+shader_parameter/sizex = 10.0
+shader_parameter/sizey = 10.0
+shader_parameter/outline_color = null
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_uujo2"]
+shader = ExtResource("6_v23lf")
+shader_parameter/intensity = 13
+shader_parameter/sizex = 10.0
+shader_parameter/sizey = 10.0
+shader_parameter/outline_color = Color(1, 0, 0, 1)
 
 [node name="Node2D" type="Node2D"]
 position = Vector2(-63, -42)
@@ -40,21 +57,43 @@ position = Vector2(-48, 546)
 [node name="Enemy5" parent="Enemies" instance=ExtResource("4_3okhv")]
 position = Vector2(353, 643)
 
-[node name="Archer" parent="." instance=ExtResource("5_s5x0b")]
-position = Vector2(124, 127)
-
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
+visible = false
 position = Vector2(2.08165e-12, 2.08165e-12)
 rotation = -1.3247
 shadow_enabled = true
-
-[node name="HQ" parent="." instance=ExtResource("3_5xbpu")]
 
 [node name="HQ2" parent="." instance=ExtResource("3_5xbpu")]
 position = Vector2(124, -75)
 
 [node name="Body" parent="HQ2" index="2"]
 material = SubResource("ShaderMaterial_8qvc8")
+
+[node name="TowerContextMenu" parent="HQ2" index="5"]
+visible = false
+
+[node name="TowerRangeComponent" type="Area2D" parent="HQ2"]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HQ2/TowerRangeComponent"]
+position = Vector2(-609, -163)
+rotation = 2.23402
+scale = Vector2(1, 1)
+skew = -0.10472
+shape = SubResource("CircleShape2D_ia4ve")
+
+[node name="TowerRangeComponent2" type="Area2D" parent="HQ2"]
+material = SubResource("ShaderMaterial_5tkfv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HQ2/TowerRangeComponent2"]
+material = SubResource("ShaderMaterial_uujo2")
+use_parent_material = true
+position = Vector2(-695, 397)
+rotation = 2.23402
+scale = Vector2(1, 1)
+skew = -0.10472
+shape = SubResource("CircleShape2D_ia4ve")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 visible = false

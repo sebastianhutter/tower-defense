@@ -14,7 +14,7 @@ class_name BuildManager
 # export vars
 # ========
 
-# @export var my_export_var = 0
+@export var build_offset: Vector2 = Constants.TOWER_BUILD_OFFSET
 
 # ========
 # class signals
@@ -126,7 +126,7 @@ func cancel_build_process() -> void:
 	tower_build_resource = null
 	is_building = false
 
-func place_construction_site() -> void:
+func place_construction_site(pos: Vector2) -> void:
 	""" places a construction site node with timer to build the tower"""
 
 	if not tower_build_preview_instance:
@@ -146,7 +146,7 @@ func place_construction_site() -> void:
 
 	tower_node.add_child(construction_site_instance)
 	construction_site_instance.resource = tower_build_resource
-	construction_site_instance.set_position(get_build_position())
+	construction_site_instance.set_position(pos)
 	construction_site_instance.start_construction()
 
 
@@ -160,11 +160,12 @@ func build_tower() -> void:
 	if not tower_build_preview_instance.is_buildable:
 		return
 
+	var build_position: Vector2 = get_build_position()
 	# send tower build signal 
-	tower_build_started.emit(tower_build_resource, get_build_position())
+	tower_build_started.emit(tower_build_resource, build_position)
 	
 	# set construction site placeholder
-	place_construction_site()
+	place_construction_site(build_position)
 
 	# and cancel the build process
 	cancel_build_process()
@@ -185,8 +186,8 @@ func get_build_position() -> Vector2:
 
 	var mouse_tile_pos: Vector2i = level_manager.tilemap.local_to_map(get_local_mouse_position())
 	var snapped_pos: Vector2 = level_manager.tilemap.map_to_local(mouse_tile_pos)
-	
-	return snapped_pos
+
+	return snapped_pos + build_offset
 
 func get_buildability() -> bool:
 	""" check the tower is buildable at its current location and depending on the available resources"""

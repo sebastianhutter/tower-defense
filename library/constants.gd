@@ -9,4 +9,4 @@ const SCENE_TOWER_BUILD_CONSTRUCTION_SITE = "res://scenes/tower/construction/tow
 
 # the tower manager spawns the towers with this offset to the given position
 # this allows us to spawn the towers properly centered!
-const TOWER_BUILD_OFFSET = Vector2(125, 0)
+const TOWER_BUILD_OFFSET = Vector2(0, -64)

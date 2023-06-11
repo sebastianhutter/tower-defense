@@ -271,7 +271,6 @@ func unload_level() -> void:
 		for tower in towers.get_children():
 			tower.queue_free()
 
-	# TODO: re-enable when spawners are implemented
-	# if enemies:
-	# 	for enemy in enemies.get_children():
-	# 		enemy.queue_free()
+	if enemies:
+		for enemy in enemies.get_children():
+			enemy.queue_free()

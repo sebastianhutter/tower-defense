@@ -3,4 +3,5 @@
 [ext_resource type="Script" path="res://scenes/components/navigation/navigation_component.gd" id="1_6ank6"]
 
 [node name="NavigationComponent" type="NavigationAgent2D"]
+debug_enabled = true
 script = ExtResource("1_6ank6")
