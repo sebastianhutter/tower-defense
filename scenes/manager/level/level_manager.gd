@@ -112,6 +112,16 @@ func load_floor(floor_resource: FloorResource) -> void:
 	floor_instance.initiate(floor_resource)
 
 
+func unload_floor() -> void:
+	""" unload the floor instance """
+
+	if not floor_instance:
+		print_debug("LevelManager: No floor node found")
+		return
+
+	floor_instance.queue_free()
+	floor_instance = null
+
 func get_floor() -> Floor:
 	return floor_instance
 

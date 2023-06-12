@@ -124,6 +124,8 @@ func enter_game_loop(floor_resource: FloorResource) -> void:
 	level_manager.load_floor(floor_resource)
 	# setup the resource manager
 	resource_manager.load_floor(floor_resource)
+	# setup ui
+	ui_manager.load_floor(floor_resource)
 	# spawn our hq building
 	tower_manager.spawn_tower_by_id(Types.Tower.HQ, Vector2.ZERO+Constants.TOWER_HQ_OFFSET)
 
@@ -135,7 +137,8 @@ func exit_game_loop() -> void:
 
 	ui_manager.hide_ui()
 	menu_manager.hide_menus()
-	level_manager.unload_level()
+	resource_manager.stop_gold_timer()
+	level_manager.unload_floor()
 	get_tree().paused = true
 
 	_game_events.game_state_changed.emit(Types.GameState.MENU, {'menu': Types.Menu.MAIN_MENU})
@@ -147,6 +150,7 @@ func game_loop() -> void:
 	menu_manager.hide_menus()
 	ui_manager.show_ui()
 	ui_manager.enable_ui()
+	ui_manager.start_wave_progress_bar()
 	build_manager.enable_building()
 	resource_manager.start_gold_timer()
 	get_tree().paused = false

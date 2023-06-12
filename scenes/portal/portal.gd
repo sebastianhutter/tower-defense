@@ -57,7 +57,7 @@ func _on_timer_timeout():
 # class functions
 # ========
 
-func initiate(portal_delay: float) -> void:
+func initiate(wave_initial_delay: float) -> void:
 
 	if not timer:
 		print_debug("Portal: timer not found")
@@ -67,7 +67,7 @@ func initiate(portal_delay: float) -> void:
 		print_debug("Portal: animation_player not found")
 		return
 
-	timer.wait_time = portal_delay
+	timer.wait_time = wave_initial_delay
 	timer.start()
 
 func animation_finished() -> void:

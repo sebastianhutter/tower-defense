@@ -101,8 +101,21 @@ func start_gold_timer():
 		print_debug("gold_auto_increase_enabled is not set")
 		return
 
+	if not gold_timer.is_stopped():
+		print_debug("WaveUi: timer already running")
+		return 
+
 	gold_timer.start()
 	
+
+func stop_gold_timer():
+	""" stop the gold timer """
+
+	if not gold_timer:
+		print_debug("gold_timer is not set")
+		return
+
+	gold_timer.stop()
 
 func increase_gold(amount: int):
 	set_gold_amount(gold_amount + amount)

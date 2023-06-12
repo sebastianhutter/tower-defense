@@ -57,12 +57,14 @@ func load_floor(floor_resource: FloorResource) -> void:
 
 	self.floor_resource = floor_resource
 
+	# setup the initial progress bar timer for the wave
+	hud.wave_ui.set_timer(floor_resource.wave_initial_delay)
+	hud.wave_ui.set_wave_counter(0, floor_resource.wave_count)
 
 
-# func load_ability_cards() -> void:
-# 	"""load the ability cards into the ui"""
+func start_wave_progress_bar() -> void:
 
-# 	ability_ui.load_ability_cards()
+	hud.wave_ui.start_timer()
 
 func hide_ui() -> void:
 	"""hide all game ui elements"""

@@ -38,11 +38,6 @@ func _ready():
 	_game_events.resource_gold_amount_changed.connect(resource_gold_amount_changed)	
 
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-
 # ========
 # signal handler
 # ========
@@ -51,7 +46,7 @@ func resource_gold_amount_changed(old_amount: int, new_amount: int):
 	""" set the label to the new amount """
 
 	# TODO: add some lerping to count down or up the amount... just to make it look more fancy
-	gold_label.text = 'Gold: '+ str(new_amount)
+	gold_label.text = str(new_amount)
 
 # ========
 # class functions

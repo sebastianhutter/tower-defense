@@ -14,23 +14,24 @@ class_name HUD
 # export vars
 # ========
 
-# @export var my_export_var = 0
-
 # ========
 # class signals
 # ========
-
-# signal my_custom_signal
 
 # ========
 # class onready vars
 # ========
 
-# @onready var my_label: Label = $%Label
+@onready var tower_build_ui: TowerBuildUI = $%TowerBuildUi
+@onready var resource_ui: ResourceUi = $%ResourceUi
+@onready var wave_ui: WaveUi = $%WaveUi
+
 
 # ========
 # class vars
 # ========
+
+var registered_uis: Array[CanvasLayer] = []
 
 # ========
 # godot functions
@@ -39,11 +40,16 @@ class_name HUD
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass
+	
+	# add the exported uis to the array so we can iterate over them for showing and hidding them
+	if tower_build_ui:
+		registered_uis.append(tower_build_ui)
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+	if resource_ui:
+		registered_uis.append(resource_ui)
+
+	if wave_ui:
+		registered_uis.append(wave_ui)
 
 # ========
 # signal handler
@@ -59,11 +65,11 @@ func _on_custom_signal_event():
 func hide_all_uis():
 	""" hide all child uis of the hud """
 
-	for child in get_children():
-		child.hide()
+	for ui in registered_uis:
+		ui.hide()
 
 func show_all_uis():
 	""" show all child uis of the hud """
 
-	for child in get_children():
-		child.show()
+	for ui in registered_uis:
+		ui.show()

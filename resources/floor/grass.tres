@@ -1,8 +1,8 @@
 [gd_resource type="Resource" script_class="FloorResource" load_steps=4 format=3 uid="uid://72veugdwhist"]
 
 [ext_resource type="PackedScene" uid="uid://cuol0u1i8ev53" path="res://scenes/floor/grass/grass_floor.tscn" id="1_eujpc"]
-[ext_resource type="Texture2D" uid="uid://dnlb3gta1m7ap" path="res://resources/sprite/landscape/grass/tree_2.png" id="2_dfr8x"]
 [ext_resource type="Script" path="res://resources/floor/floor_resource.gd" id="2_l0var"]
+[ext_resource type="Texture2D" uid="uid://dpaaa2h8dfm3k" path="res://resources/sprite/UI/floor_preview/grass.png" id="2_sneb7"]
 
 [resource]
 script = ExtResource("2_l0var")
@@ -11,11 +11,10 @@ enabled = true
 name = "Gras"
 description = "A lush environment with enough resources for everyone. If it wasn't for these pesky portals!"
 floor_scene = ExtResource("1_eujpc")
-preview = ExtResource("2_dfr8x")
+preview = ExtResource("2_sneb7")
 gold_starting_amount = 500
 gold_auto_increase_enabled = true
-gold_auto_increase_time = 10.0
+gold_auto_increase_time = 3.0
 gold_auto_increase_amount = 5
-portal_delay = 10.0
-time = 0.0
-waves = 0
+wave_initial_delay = 5.0
+wave_count = 5

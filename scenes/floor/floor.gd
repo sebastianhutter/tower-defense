@@ -61,7 +61,6 @@ func initiate(floor_resource: FloorResource) -> void:
 	""" configure the floor with the given resource """
 
 	self.floor_resource = floor_resource
-	print(self.floor_resource.portal_delay)
 	for spawner in spawn_tile_positions:
 		setup_portal_scene(spawner)
 
@@ -73,7 +72,7 @@ func setup_portal_scene(pos: Vector2) -> void:
 	portal.portal_ready.connect(_on_portal_ready)
 	add_child(portal)
 	portal.position = pos + Constants.TOWER_BUILD_OFFSET
-	portal.initiate(floor_resource.portal_delay)
+	portal.initiate(floor_resource.wave_initial_delay)
 	
 
 func place_tile(tile_origin: Types.TileOrigin, local_position: Vector2) -> void:
