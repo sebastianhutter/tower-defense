@@ -27,6 +27,9 @@ signal floor_selected(floor_resource: FloorResource)
 @onready var floor_name_label: Label = $%FloorNameLabel
 @onready var floor_descrtiption_label: Label = $%FloorDescriptionLabel
 @onready var floor_preview_texture: TextureRect = $%FloorPreviewTexture
+# TODO: fix up some proper animation / colorng, for now we just show a colorrect
+# if the card is selected
+@onready var floor_card_color_rect: ColorRect = $%FloorCardColorRect
 
 # ========
 # class vars
@@ -37,6 +40,9 @@ var floor_resource: FloorResource = null
 # ========
 # godot functions
 # ========
+
+func _ready() -> void:
+	floor_card_color_rect.hide()
 
 
 func _gui_input(event):
@@ -75,6 +81,7 @@ func select():
 
 	print_debug("select floor card " + floor_resource.name)
 	floor_selected.emit(floor_resource)
+	floor_card_color_rect.show()
 
 	
 
@@ -83,6 +90,5 @@ func deselect():
 	deselect the given floor
 	"""
 	
-	# TODO: change animation or selection gui to show deselection
 	print("deselelect floor card " + floor_resource.name)
-	pass
+	floor_card_color_rect.hide()

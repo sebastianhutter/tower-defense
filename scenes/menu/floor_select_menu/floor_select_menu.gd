@@ -51,6 +51,7 @@ func _ready():
 
 func _on_back_button_pressed() -> void:
 	"""emit the play pressed signal"""
+	clear_selection()
 	back_button_pressed.emit()
 
 func _on_start_game_button_pressed() -> void:
@@ -67,10 +68,7 @@ func _on_floor_selected(floor_resource: FloorResource) -> void:
 	# set selected floor
 	selected_floor = floor_resource
 
-	# deselect all other floor cards
-	for card in floor_cards:
-		if card.floor_resource.name != floor_resource.name:
-			card.deselect()
+	clear_selection(floor_resource.name)
 
 
 # ========
@@ -94,3 +92,10 @@ func load_floor_cards() -> void:
 		floor_card.initialize(floor)
 		floor_card.floor_selected.connect(_on_floor_selected)
 		floor_cards.append(floor_card)
+
+func clear_selection(floor_card_name: String = "") -> void:
+
+	# deselect all other floor cards
+	for card in floor_cards:
+		if card.floor_resource.name != floor_card_name:
+			card.deselect()

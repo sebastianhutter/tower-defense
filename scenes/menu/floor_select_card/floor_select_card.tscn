@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://cyxid343wvhg2"]
+[gd_scene load_steps=3 format=3 uid="uid://cyxid343wvhg2"]
 
 [ext_resource type="Script" path="res://scenes/menu/floor_select_card/floor_select_card.gd" id="1_6bpme"]
+[ext_resource type="Theme" path="res://resources/theme/theme.tres" id="1_e8tko"]
 
 [node name="FloorSelectCard" type="PanelContainer"]
 custom_minimum_size = Vector2(300, 250)
@@ -8,7 +9,13 @@ offset_right = 117.0
 offset_bottom = 75.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
+theme = ExtResource("1_e8tko")
 script = ExtResource("1_6bpme")
+
+[node name="FloorCardColorRect" type="ColorRect" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+color = Color(1, 1, 1, 0.168627)
 
 [node name="Background" type="Panel" parent="."]
 layout_mode = 2

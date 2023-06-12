@@ -149,6 +149,7 @@ texture_region_size = Vector2i(250, 235)
 0:0/0/terrains_peering_bit/top_left_side = 2
 0:0/0/terrains_peering_bit/top_corner = 2
 0:0/0/terrains_peering_bit/top_right_side = 2
+0:0/0/custom_data_0 = true
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_cxhrr"]
 texture = ExtResource("54_ykan7")
