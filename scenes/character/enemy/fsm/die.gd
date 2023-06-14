@@ -45,13 +45,10 @@ func update(_delta):
 	pass
  
 func physics_update(_delta):
-	""" if ideling lets stop moving """
-	
-	if fsm.movement_component:
-		fsm.movement_component.move(fsm.body, Vector2.ZERO)
+	pass
 
 func enter(_msg = {}):
-	pass
+	fsm.body.queue_free()
 
 func exit():
 	pass

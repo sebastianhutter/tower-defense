@@ -2,5 +2,6 @@
 
 [ext_resource type="Script" path="res://scenes/components/hurtbox/hurtbox_component.gd" id="1_exrxx"]
 
-[node name="HurtboxComponent" type="Area3D"]
+[node name="HurtboxComponent" type="Area2D"]
+collision_layer = 0
 script = ExtResource("1_exrxx")

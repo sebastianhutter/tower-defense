@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://bmtbrg1je2nr3"]
+
+[ext_resource type="Script" path="res://scenes/manager/enemy/enemy_manager.gd" id="1_wcdca"]
+
+[node name="EnemyManager" type="Node"]
+script = ExtResource("1_wcdca")
+
+[node name="Pulse" type="Timer" parent="."]
+unique_name_in_owner = true

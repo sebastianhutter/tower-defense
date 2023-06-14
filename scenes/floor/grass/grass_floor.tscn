@@ -1,8 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://cuol0u1i8ev53"]
+[gd_scene load_steps=5 format=3 uid="uid://cuol0u1i8ev53"]
 
 [ext_resource type="Script" path="res://scenes/floor/grass/grass_floor.gd" id="1_4w18i"]
 [ext_resource type="PackedScene" uid="uid://cbq3r0r2rnp01" path="res://scenes/game_camera/game_camera.tscn" id="2_gx5rp"]
 [ext_resource type="PackedScene" uid="uid://2c848wdr7l8r" path="res://scenes/tilemap/tile_map.tscn" id="3_ibnap"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_d14fw"]
+vertices = PackedVector2Array(-750, -477, 166, 42, 156, 48, -757, -473, -802, 722, -806, 718, 9, 244, 16, 245, -504, -44, -502, -35, -872, 167, -872, 179, -1391, -118, -1374, -119, -124, -843, -126, -835, 375, -554, 366, -554, 16, -334, 2, -334, 502, -37, 500, -46, 1285, -495, 1280, -500)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 5, 6, 7), PackedInt32Array(8, 7, 6, 9), PackedInt32Array(10, 8, 9, 11), PackedInt32Array(10, 11, 12, 13), PackedInt32Array(13, 12, 14, 3), PackedInt32Array(0, 3, 14, 15), PackedInt32Array(15, 14, 16, 17), PackedInt32Array(17, 16, 18, 19), PackedInt32Array(20, 19, 18, 21), PackedInt32Array(22, 20, 21, 23)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-806, 718, 9, 244, -502, -35, -872, 179, -1391, -118, -124, -843, 375, -554, 16, -334, 500, -46, 1280, -500, 1285, -495, 502, -37, 2, -334, 366, -554, -126, -835, -750, -477, 166, 42, 156, 48, -757, -473, -1374, -119, -872, 167, -504, -44, 16, 245, -802, 722)])
 
 [node name="GrassFloor" type="Node2D"]
 script = ExtResource("1_4w18i")
@@ -19,3 +24,6 @@ unique_name_in_owner = true
 
 [node name="Enemies" type="Node2D" parent="." groups=["enemies"]]
 unique_name_in_owner = true
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("NavigationPolygon_d14fw")

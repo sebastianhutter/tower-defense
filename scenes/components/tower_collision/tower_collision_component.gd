@@ -1,5 +1,5 @@
 extends Area2D
-class_name HurtboxComponent
+class_name TowerCollisionComponent
 
 # ========
 # singleton references
@@ -7,24 +7,22 @@ class_name HurtboxComponent
 
 @onready var _helper = get_node("/root/HelperSingleton") as Helper
 @onready var _game_events = get_node("/root/GameEventsSingleton") as GameEvents
+@onready var _player_data = get_node("/root/PlayerDataSingleton") as PlayerData
+@onready var _custom_resource_loader = get_node("/root/CustomResourceLoaderSingleton") as CustomResourceLoader
 
 # ========
 # export vars
 # ========
 
-@export var health_component: HealthComponent
-
 # ========
 # class signals
 # ========
 
-# signal my_custom_signal
+signal tower_collided(tower: Tower)
 
 # ========
 # class onready vars
 # ========
-
-# @onready var my_label: Label = $%Label
 
 # ========
 # class vars
@@ -40,9 +38,6 @@ func _ready():
 	area_entered.connect(_on_area_entered)
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
 
 # ========
 # signal handler
@@ -50,14 +45,15 @@ func _process(delta):
 
 func _on_area_entered(area: Area2D):
 	"""
-	detect hits by hitbox components
+	detect collisions with towers, the top level area2d of the tower is used for collision detection
 	"""
-	if not area is HitboxComponent:
+	if not area is Tower:
 		return
 
-	print_debug("HurtboxComponent: hit by " + area.name)
-	health_component.take_damage((area as HitboxComponent).damage)
+	print_debug("TowerCollisionComponent: tower collided " + area.name)
+	tower_collided.emit(area as Tower)
 
 # ========
 # class functions
 # ========
+

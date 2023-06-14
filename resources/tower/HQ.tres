@@ -36,7 +36,7 @@ shoot_speed = 1.0
 
 [resource]
 script = ExtResource("1_iehy6")
-id = ""
+id = 0
 name = "HQ"
 description = "The players HQ"
 tower_scene = ExtResource("2_6s14w")

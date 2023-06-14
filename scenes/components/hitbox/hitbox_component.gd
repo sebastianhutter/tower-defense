@@ -1,4 +1,4 @@
-extends Area3D
+extends Area2D
 class_name HitboxComponent
 
 # ========
@@ -18,13 +18,9 @@ class_name HitboxComponent
 # class signals
 # ========
 
-# signal my_custom_signal
-
 # ========
 # class onready vars
 # ========
-
-# @onready var my_label: Label = $%Label
 
 # ========
 # class vars
@@ -34,23 +30,19 @@ class_name HitboxComponent
 # godot functions
 # ========
 
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-
 # ========
 # signal handler
 # ========
 
-func _on_custom_signal_event():
-	pass
-
 # ========
 # class functions
 # ========
+
+func _on_area_entered(area: Area2D):
+	"""
+	detect hits by hitbox components
+	"""
+	if not area is HurtboxComponent:
+		return
+
+	print_debug("HitboxComponent: hit " + area.name)

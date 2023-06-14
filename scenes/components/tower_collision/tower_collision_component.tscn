@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://cwdau1bbac7yi"]
+
+[ext_resource type="Script" path="res://scenes/components/tower_collision/tower_collision_component.gd" id="1_m2je4"]
+
+[node name="TowerCollisionComponent" type="Area2D"]
+editor_description = "Detects collision with towers.
+"
+collision_layer = 0
+collision_mask = 10
+script = ExtResource("1_m2je4")

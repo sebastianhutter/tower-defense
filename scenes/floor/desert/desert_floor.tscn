@@ -1,8 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://em8prdtptc5y"]
+[gd_scene load_steps=5 format=3 uid="uid://em8prdtptc5y"]
 
 [ext_resource type="Script" path="res://scenes/floor/desert/desert_floor.gd" id="1_inlr7"]
 [ext_resource type="PackedScene" uid="uid://cbq3r0r2rnp01" path="res://scenes/game_camera/game_camera.tscn" id="2_7yq4y"]
 [ext_resource type="PackedScene" uid="uid://2c848wdr7l8r" path="res://scenes/tilemap/tile_map.tscn" id="3_pwfkt"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_syrsr"]
+vertices = PackedVector2Array(-1534, 851, -1543, 846, -249, 103, -745, 396, 1762, -933, 1769, -929, 1024, -485, 132, 22, 1494, 536, 1916, 770, 1906, 778, 1494, 545, 1003, 821, 999, 835, -1023, 993, -1035, 982, -381, 613, -362, 612, -756, 404, 619, 610, 635, 610, 1114, 317, 1131, 319, 625, 17, 626, 28, 374, 168, 373, 183, 142, 32, 134, 48, 122, 34, 1916, 33, 1908, 43, 1011, -476, -1147, -695, -1535, -926, -1527, -938, -1128, -694, -1359, -552, -1378, -550, -1133, -402, -1132, -412, -756, -617, -757, -626, -495, -483, -517, -481, -614, -402, -633, -402, -124, 188, -125, 177, -249, 118)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 5, 6, 7), PackedInt32Array(8, 9, 10, 11), PackedInt32Array(12, 8, 11, 13), PackedInt32Array(14, 15, 16, 17), PackedInt32Array(3, 17, 16, 18), PackedInt32Array(12, 13, 19, 20), PackedInt32Array(20, 19, 21, 22), PackedInt32Array(23, 22, 21, 24), PackedInt32Array(25, 23, 24, 26), PackedInt32Array(27, 25, 26, 28, 29), PackedInt32Array(6, 30, 31, 32), PackedInt32Array(7, 6, 32, 27, 29), PackedInt32Array(33, 34, 35, 36), PackedInt32Array(33, 36, 37, 38), PackedInt32Array(39, 38, 37, 40), PackedInt32Array(41, 39, 40, 42), PackedInt32Array(41, 42, 43, 44), PackedInt32Array(44, 43, 45, 46), PackedInt32Array(29, 46, 45, 7), PackedInt32Array(29, 28, 47, 48), PackedInt32Array(48, 47, 49, 2), PackedInt32Array(2, 49, 3), PackedInt32Array(0, 3, 18)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(1916, 770, 1494, 536, 1003, 821, 635, 610, 1131, 319, 625, 17, 374, 168, 142, 32, 1011, -476, 1908, 43, 1916, 33, 1024, -485, 1769, -929, 1762, -933, 132, 22, -614, -402, -495, -483, -757, -626, -1132, -412, -1359, -552, -1128, -694, -1527, -938, -1535, -926, -1147, -695, -1378, -550, -1133, -402, -756, -617, -517, -481, -633, -402, 122, 34, -125, 177, -249, 103, -1543, 846, -1534, 851, -756, 404, -381, 613, -1035, 982, -1023, 993, -362, 612, -745, 396, -249, 118, -124, 188, 134, 48, 373, 183, 626, 28, 1114, 317, 619, 610, 999, 835, 1494, 545, 1906, 778)])
 
 [node name="DesertFloor" type="Node2D"]
 script = ExtResource("1_inlr7")
@@ -20,3 +25,6 @@ unique_name_in_owner = true
 
 [node name="Enemies" type="Node2D" parent="." groups=["enemies"]]
 unique_name_in_owner = true
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("NavigationPolygon_syrsr")

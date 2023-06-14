@@ -19,6 +19,7 @@ class_name GameStateManager
 @export var tower_manager: TowerManager
 @export var resource_manager: ResourceManager
 @export var build_manager: BuildManager
+@export var enemy_manager: EnemyManager
 
 # ========
 # class signals
@@ -128,6 +129,8 @@ func enter_game_loop(floor_resource: FloorResource) -> void:
 	ui_manager.load_floor(floor_resource)
 	# spawn our hq building
 	tower_manager.spawn_tower_by_id(Types.Tower.HQ, Vector2.ZERO+Constants.TOWER_HQ_OFFSET)
+	# setup enemy manager
+	enemy_manager.load_floor(floor_resource)
 
 	get_tree().paused = true
 	_game_events.game_state_changed.emit(Types.GameState.GAME_LOOP)
@@ -154,4 +157,6 @@ func game_loop() -> void:
 	build_manager.enable_building()
 	resource_manager.start_gold_timer()
 	get_tree().paused = false
+
+	enemy_manager.spawn_enemies()
 

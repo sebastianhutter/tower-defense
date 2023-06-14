@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://bp4ei8040s2m7"]
+
+[ext_resource type="Script" path="res://scenes/character/enemy/fsm/hit.gd" id="1_dodjl"]
+
+[node name="Hit" type="Node"]
+editor_description = "The hit state is executed when an enemy hits an tower"
+script = ExtResource("1_dodjl")

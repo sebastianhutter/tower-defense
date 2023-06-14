@@ -58,7 +58,7 @@ func _on_tower_build_completed(resource: TowerResource, tower_position: Vector2)
 # class functions
 # ========
 
-func find_tower(id: int) -> TowerResource:
+func find_tower_resource(id: int) -> TowerResource:
 	"""
 	finds the tower with the given id
 	"""
@@ -75,7 +75,7 @@ func spawn_tower_by_id(id: int, pos: Vector2) -> void:
 	spawns the tower with the given id at the given position
 	"""
 
-	var tower: TowerResource = find_tower(id)
+	var tower: TowerResource = find_tower_resource(id)
 	if not tower:
 		print_debug("TowerManager: could not find tower with id: " + str(id))
 		return
