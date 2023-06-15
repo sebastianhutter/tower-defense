@@ -92,20 +92,6 @@ func _on_sell_button_pressed() -> void:
 
 func set_values(node_id: int, tower_type: String, can_be_upgraded: bool, is_max_level: bool, can_be_sold: bool, upgrade_costs: int, sell_value: int, current_level: int, speed: float, damage: float) -> void: 
 	""" update the context menu with the values for the selected tower """
-
-	print_debug("received values from event: ")
-	print("node_id: " + str(node_id))
-	print("tower_type: " + str(tower_type))
-	print("can_be_upgraded: " + str(can_be_upgraded))
-	print("is_max_level: " + str(is_max_level))
-	print("can_be_sold: " + str(can_be_sold))
-	print("upgrade_costs: " + str(upgrade_costs))
-	print("sell_value: " + str(sell_value))
-	print("current_level: " + str(current_level))
-	print("speed: " + str(speed))
-	print("damage: " + str(damage))
-	print("=================================")
-	
 	self.selected_tower_node_id = node_id
 	self.selected_tower_is_max_level = is_max_level
 	self.selected_tower_upgrade_costs = upgrade_costs

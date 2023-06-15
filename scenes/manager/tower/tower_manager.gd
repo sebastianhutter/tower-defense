@@ -129,16 +129,7 @@ func _on_tower_clicked(tower: Tower) -> void:
 			and not tower_upgrade_component.max_level_reached \
 			and tower_upgrade_component.can_be_upgraded \
 			and tower_upgrade_component.can_be_afforded
-
-		print_debug("TowerManager: tower upgrade component found, tower upgrade status:")
-		print("is_upgrading: " + str(tower_upgrade_component.is_upgrading))
-		print("max_level_reached: " + str(tower_upgrade_component.max_level_reached))
-		print("can_be_upgraded: " + str(tower_upgrade_component.can_be_upgraded))
-		print("can_be_afforded: " + str(tower_upgrade_component.can_be_afforded))
-		print("summarized: " + str(can_be_upgraded))
 		
-		
-
 	var tower_upgrade_costs: int = 0
 	if not is_max_level:
 		tower_upgrade_costs = tower.get_next_tower_level_resource().build_costs
@@ -149,13 +140,6 @@ func _on_tower_clicked(tower: Tower) -> void:
 	if tower_sell_component:
 		can_be_sold = not tower_sell_component.is_selling and tower_sell_component.can_be_sold
 		tower_sell_value = tower.get_tower_level_resource().sell_value
-
-	print_debug("prep tower context menu: " )
-	print(can_be_upgraded)
-	print(is_max_level)
-	print(":::: tower sell (can_be_sold, tower_sell_value)")
-	print(can_be_sold)
-	print(tower_sell_value)
 
 	# TODO: add speed and damage when properly added to tower
 	var tower_speed: float = 0

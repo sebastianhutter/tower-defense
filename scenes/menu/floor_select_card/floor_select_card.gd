@@ -85,5 +85,4 @@ func deselect():
 	deselect the given floor
 	"""
 	
-	print("deselelect floor card " + floor_resource.name)
 	floor_card_color_rect.hide()

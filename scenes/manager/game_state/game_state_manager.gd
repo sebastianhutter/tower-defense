@@ -63,8 +63,7 @@ func _ready():
 		registered_managers.append(enemy_manager)
 	if round_manager:
 		registered_managers.append(round_manager)
-	
-	print(registered_managers)
+
 
 func _unhandled_input(event):
 	"""
@@ -167,7 +166,6 @@ func game_loop() -> void:
 
 	for manager in registered_managers:
 		if manager.has_method("_game_loop"):
-			print("GameStateManager: calling game loop on " + str(manager))
 			manager._game_loop()
 
 	get_tree().paused = false

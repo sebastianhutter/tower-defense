@@ -87,23 +87,6 @@ func check_if_tower_can_upgrade(gold: int) -> void:
 func upgrade_tower() -> void:
 	""" upgrade the tower """
 
-	print_debug("TowerUpgradeComponent: upgrade tower")
-	print(is_upgrading)
-	print(max_level_reached)
-	print(can_be_upgraded)
-	print(can_be_afforded)
-	print(not is_upgrading and not max_level_reached and can_be_upgraded and can_be_afforded)
-	print("======================")
-
-	# 	TowerUpgradeComponent: upgrade tower
-	# 	At: res://scenes/components/tower_upgrade/tower_upgrade_component.gd:90:upgrade_tower()
-	# false
-	# false
-	# true
-	# true
-	# true
-	# ======================
-
 	if is_upgrading:
 		print_debug("TowerUpgradeComponent: already upgrading")
 		return

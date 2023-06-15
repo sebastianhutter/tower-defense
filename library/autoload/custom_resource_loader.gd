@@ -51,13 +51,10 @@ func get_tower_resources() -> Array[TowerResource]:
 func load_floor_resources(path: String = Constants.FLOOR_RESOURCE_FOLDER) -> void:
 	""" load floor resources .tres files """
 
-	print(find_tres_files(path)[0].name)
-
 	for floor_resource in find_tres_files(path):
 		floor_resources.append(floor_resource as FloorResource)
 
 	floor_resources.sort_custom(_sort_by_int_id)
-	print(floor_resources[0].name)
 
 func get_floor_resources() -> Array[FloorResource]:
 	"""returns all tower resources"""

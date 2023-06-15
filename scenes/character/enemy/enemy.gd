@@ -43,8 +43,7 @@ func _on_health_component_died() -> void:
 	state_machine.transition_to("Died")
 
 func _on_tower_collision_component_tower_collided(tower: Tower) -> void:
-	
-	print(tower)
+
 
 	if not tower is HQ:
 		return
