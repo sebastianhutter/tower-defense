@@ -28,8 +28,6 @@ class_name TowerManager
 # class vars
 # ========
 
-var level_node_towers = null
-
 
 # ========
 # godot functions
@@ -42,6 +40,8 @@ func _ready():
 		# the tower resource and the tower position to gameevents. we connect them
 		# to the tower manager to spawn in the real tower after the build has completed
 		_game_events.tower_build_completed.connect(_on_tower_build_completed)
+		_game_events.tower_context_menu_sell_button_clicked.connect(_on_tower_context_menu_sell_button_clicked)
+		_game_events.tower_context_menu_upgrade_button_clicked.connect(_on_tower_context_menu_upgrade_button_clicked)
 
 
 # ========
@@ -112,6 +112,72 @@ func _on_tower_upgrade_started(tower: Tower) -> void:
 	
 	_game_events.tower_upgrade_started.emit(tower_level.build_costs)
 
+func _on_tower_clicked(tower: Tower, can_be_upgraded: bool, can_be_sold: bool) -> void:
+	""" pass the tower clicked signal with the required infor for the context menu to work """
+
+	if not _game_events:
+		print_debug("TowerManager: could not find game events singleton")
+		return
+
+	var node_id: int = tower.get_instance_id()
+	
+	var tower_sell_value: int = 0
+	if can_be_sold:
+		var current_tower_level: TowerLevel = tower.get_tower_level_resource()
+		if current_tower_level:
+			tower_sell_value = current_tower_level.sell_value
+		
+	var tower_upgrade_costs: int = 0
+	if can_be_upgraded:
+		var next_tower_level: TowerLevel = tower.get_next_tower_level_resource()	
+		if next_tower_level:
+			tower_upgrade_costs = next_tower_level.build_costs
+
+
+	var tower_type: String = tower.tower_resource.name
+	var tower_canvas_position: Vector2 = tower.get_global_transform_with_canvas().origin
+	
+
+	print_debug("TowerManager: tower clicked: " + str(tower_type))
+	_game_events.tower_clicked.emit(node_id, tower_type, tower_canvas_position, can_be_upgraded, can_be_sold, tower_upgrade_costs, tower_sell_value)
+
+func _on_tower_context_menu_sell_button_clicked(node_id: int) -> void:
+	""" if the sell button is clicked in the tower context manager """
+	
+	print_debug("TowerManager: tower context menu sell button clicked: " + str(node_id))
+	var floor: Floor = level_manager.get_floor()
+	if not floor:
+		print_debug("TowerManager: could not find level floor instance")
+		return
+
+	for tower in floor.towers.get_children():
+		if tower.get_instance_id() == node_id:
+			var sell_component: TowerSellComponent = tower.tower_sell_component
+			if not sell_component:
+				print_debug("TowerManager: could not find sell component for tower: " + str(node_id))
+				return
+			sell_component.sell_tower()	
+			return
+
+
+func _on_tower_context_menu_upgrade_button_clicked(node_id: int) -> void:
+	""" if the upgrade button is clicked int he tower context manager """
+	print_debug("TowerManager: tower context menu upgrade button clicked: " + str(node_id))
+
+	var floor: Floor = level_manager.get_floor()
+	if not floor:
+		print_debug("TowerManager: could not find level floor instance")
+		return
+
+	for tower in floor.towers.get_children():
+		if tower.get_instance_id() == node_id:
+			var upgrade_component: TowerUpgradeComponent = tower.tower_upgrade_component
+			if not upgrade_component:
+				print_debug("TowerManager: could not find upgrade component for tower: " + str(node_id))
+				return
+			upgrade_component.upgrade_tower()	
+			return
+
 
 
 # ========
@@ -170,3 +236,4 @@ func spawn_tower(resource: TowerResource, pos: Vector2) -> void:
 	tower_scene.tower_sold.connect(_on_tower_sold)
 	tower_scene.tower_upgrade_finished.connect(_on_tower_upgrade_finished)
 	tower_scene.tower_upgrade_started.connect(_on_tower_upgrade_started)
+	tower_scene.tower_clicked.connect(_on_tower_clicked)

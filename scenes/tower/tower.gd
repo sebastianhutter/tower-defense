@@ -17,6 +17,7 @@ signal tower_destroyed(tower: Tower)
 signal tower_sold(tower: Tower)
 signal tower_upgrade_finished(tower: Tower)
 signal tower_upgrade_started(tower: Tower)
+signal tower_clicked(tower: Tower, can_be_upgraded: bool, can_be_sold: bool)
 
 # ========
 # class onready vars
@@ -57,6 +58,9 @@ func _ready():
 		mouse_entered.connect(tower_action_component._on_parent_mouse_entered)
 		mouse_exited.connect(tower_action_component._on_parent_mouse_exited)
 
+		# pass click actions to game event system
+		tower_action_component.tower_clicked.connect(_on_tower_clicked)
+
 	if tower_upgrade_component:
 		tower_upgrade_component.tower_upgrade_started.connect(_on_tower_upgrade_started)
 		tower_upgrade_component.tower_upgrade_finished.connect(_on_tower_upgrade_finished)
@@ -86,6 +90,11 @@ func _on_tower_upgrade_finished() -> void:
 	""" pass signal along with tower costs """
 	finish_upgrade_tower()
 
+func _on_tower_clicked(can_be_upgraded: bool, can_be_sold: bool) -> void:
+	""" if a tower is clicked on """
+
+	print_debug("Tower: tower clicked: " + str(self))
+	tower_clicked.emit(self, can_be_upgraded, can_be_sold)
 
 # ========
 # class functions

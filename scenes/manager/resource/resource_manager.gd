@@ -137,6 +137,8 @@ func set_gold_amount(new_amount: int):
 
 	var old_amount = gold_amount
 	gold_amount = new_amount
+	_game_data.last_gold_amount = old_amount
+	_game_data.current_gold_amount = new_amount
 	_game_events.resource_gold_amount_changed.emit(old_amount, new_amount)
 	
 func get_gold_amount() -> int:

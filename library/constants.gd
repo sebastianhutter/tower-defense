@@ -13,3 +13,4 @@ const SCENE_PORTAL_SCENE = "res://scenes/portal/portal.tscn"
 # this allows us to spawn the towers properly centered!
 const TOWER_HQ_OFFSET = Vector2(128, 0)
 const TOWER_BUILD_OFFSET = Vector2(0, -64)
+const TOWER_CONTEXT_MENU_OFFSET = Vector2(-128, -64)

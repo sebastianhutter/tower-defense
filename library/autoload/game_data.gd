@@ -21,6 +21,8 @@ class_name GameData
 # ========
 
 var selected_floor: FloorResource
+var last_gold_amount: int
+var current_gold_amount: int
 
 # ========
 # godot functions

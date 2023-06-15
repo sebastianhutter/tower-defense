@@ -5,6 +5,12 @@ class_name HUD
 # singleton references
 # ========
 
+# a quick hack to ensure we can set the upgrade button correct before the first resource amount change
+# arrives. we use the game_data singleton to retrieve the initial gold amount to not have a manager
+# crossconnection (resource manager -> ui manager -> [hud])
+
+@onready var _game_data: GameData = get_node("/root/GameData") as GameData
+
 # ========
 # export vars
 # ========
@@ -14,6 +20,8 @@ class_name HUD
 # ========
 
 signal tower_card_clicked(tower_resource: Resource)
+signal tower_context_menu_upgrade_button_clicked(node_id: int)
+signal tower_context_menu_sell_button_clicked(node_id: int)
 
 # ========
 # class onready vars
@@ -22,6 +30,7 @@ signal tower_card_clicked(tower_resource: Resource)
 @onready var tower_build_ui: TowerBuildUI = $%TowerBuildUi
 @onready var resource_ui: ResourceUi = $%ResourceUi
 @onready var wave_ui: WaveUi = $%WaveUi
+@onready var tower_context_menu: TowerContextMenu = $%TowerContextMenu
 
 # ========
 # class vars
@@ -48,6 +57,12 @@ func _ready():
 	if wave_ui:
 		registered_uis.append(wave_ui)
 
+	if tower_context_menu:
+		registered_uis.append(tower_context_menu)
+		tower_context_menu.conext_menu_closed.connect(_on_tower_context_menu_closed)
+		tower_context_menu.upgrade_button_pressed.connect(_on_tower_context_menu_upgrade_button_clicked)
+		tower_context_menu.sell_button_pressed.connect(_on_tower_context_menu_sell_button_clicked)
+
 # ========
 # signal handler
 # ========
@@ -55,11 +70,31 @@ func _ready():
 func _on_tower_card_clicked(tower_resource: Resource):
 	""" forward tower card clicks to the ui manager """
 	tower_card_clicked.emit(tower_resource)
+	# when a tower card is clicked ensure any open context menus are closed
+	hide_and_disable_context_menu()
 
 func _on_resource_gold_amount_changed(old_amount: int, new_amount: int):
 	for ui in registered_uis:
 		if ui.has_method("resource_gold_amount_changed"):
 			ui.resource_gold_amount_changed(old_amount, new_amount)
+
+func _on_tower_clicked(node_id: int, tower_type: String, position: Vector2, can_be_upgraded: bool, can_be_sold: bool, upgrade_costs: int, sell_value: int) -> void:
+	""" received by a tower (via tower manager - game events - ui manager) """
+
+	print_debug("HUD: tower clicked")
+	show_tower_context_menu(node_id, tower_type, position, can_be_upgraded, can_be_sold, upgrade_costs, sell_value)
+
+func _on_tower_context_menu_closed() -> void:
+	""" hide the context menu """
+	hide_and_disable_context_menu()
+
+func _on_tower_context_menu_upgrade_button_clicked(node_id: int) -> void:
+	""" pass the upgrade button signal to the ui manager """
+	tower_context_menu_upgrade_button_clicked.emit(node_id)
+
+func _on_tower_context_menu_sell_button_clicked(node_id: int) -> void:
+	""" pass the sell button signal to the ui manager """
+	tower_context_menu_sell_button_clicked.emit(node_id)
 
 # ========
 # class functions
@@ -81,4 +116,36 @@ func show_all_uis():
 	""" show all child uis of the hud """
 
 	for ui in registered_uis:
+		# do not show the tower context menu by default
+		if ui is TowerContextMenu:
+			continue
+		
 		ui.show()
+
+func show_tower_context_menu(node_id: int, tower_type: String, position: Vector2, can_be_upgraded: bool, can_be_sold: bool, upgrade_costs: int, sell_value: int):
+	
+	# tower_context_menu.set_tower_name('avc')
+	# tower_context_menu.set_upgrade_costs(upgrade_costs)
+	# tower_context_menu.set_sell_value(sell_value)
+	print_debug("HUD:show_tower_context_menu at " + str(position))
+	tower_context_menu.process_mode = Node.PROCESS_MODE_ALWAYS
+	tower_context_menu.offset = position + Constants.TOWER_CONTEXT_MENU_OFFSET
+	tower_context_menu.set_tower_node_id(node_id)
+	tower_context_menu.set_tower_name(tower_type)
+	tower_context_menu.set_upgrade_costs(upgrade_costs)
+	tower_context_menu.set_sell_value(sell_value)
+	tower_context_menu.enable_sell_button(can_be_sold)
+	
+	# TODO: fix up _game_data gold retrieval
+
+	tower_context_menu.enable_upgrade_button(can_be_upgraded)
+	# directly connect up towers action manager 
+	tower_context_menu.show()
+
+
+
+
+func hide_and_disable_context_menu():
+	print_debug("HUD: hide_and_disable_context_menu")
+	tower_context_menu.hide()
+	tower_context_menu.process_mode = Node.PROCESS_MODE_DISABLED

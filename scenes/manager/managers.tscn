@@ -1,0 +1,43 @@
+[gd_scene load_steps=10 format=3 uid="uid://bbga1pt06xble"]
+
+[ext_resource type="PackedScene" uid="uid://uncn1lj4ktpu" path="res://scenes/manager/game_state/game_state_manager.tscn" id="1_wo6js"]
+[ext_resource type="PackedScene" uid="uid://27bqjl7sy4q8" path="res://scenes/manager/menu/menu_manager.tscn" id="2_hwsdu"]
+[ext_resource type="PackedScene" uid="uid://dv4at2dpsr0gq" path="res://scenes/manager/level/level_manager.tscn" id="3_g2y36"]
+[ext_resource type="PackedScene" uid="uid://bevcgquu3wyft" path="res://scenes/manager/ui/ui_manager.tscn" id="4_tj8al"]
+[ext_resource type="PackedScene" uid="uid://bmtbrg1je2nr3" path="res://scenes/manager/enemy/enemy_manager.tscn" id="5_jos5h"]
+[ext_resource type="PackedScene" uid="uid://dk5xigsupwyai" path="res://scenes/manager/tower/tower_manager.tscn" id="6_jjkgv"]
+[ext_resource type="PackedScene" uid="uid://pkmm7mbeupn0" path="res://scenes/manager/resource/resource_manager.tscn" id="7_mm4tt"]
+[ext_resource type="PackedScene" uid="uid://dekprnv3am60c" path="res://scenes/manager/build/build_manager.tscn" id="8_bd0rs"]
+[ext_resource type="PackedScene" uid="uid://dd7kjuhjt375q" path="res://scenes/manager/round/round_manager.tscn" id="9_wnmfq"]
+
+[node name="Managers" type="Node"]
+
+[node name="GameStateManager" parent="." node_paths=PackedStringArray("ui_manager", "menu_manager", "level_manager", "tower_manager", "resource_manager", "build_manager", "enemy_manager", "round_manager") instance=ExtResource("1_wo6js")]
+ui_manager = NodePath("../UiManager")
+menu_manager = NodePath("../MenuManager")
+level_manager = NodePath("../LevelManager")
+tower_manager = NodePath("../TowerManager")
+resource_manager = NodePath("../ResourceManager")
+build_manager = NodePath("../BuildManager")
+enemy_manager = NodePath("../EnemyManager")
+round_manager = NodePath("../RoundManager")
+
+[node name="MenuManager" parent="." instance=ExtResource("2_hwsdu")]
+
+[node name="LevelManager" parent="." instance=ExtResource("3_g2y36")]
+
+[node name="UiManager" parent="." instance=ExtResource("4_tj8al")]
+
+[node name="EnemyManager" parent="." node_paths=PackedStringArray("level_manager") instance=ExtResource("5_jos5h")]
+level_manager = NodePath("../LevelManager")
+
+[node name="TowerManager" parent="." node_paths=PackedStringArray("level_manager") instance=ExtResource("6_jjkgv")]
+level_manager = NodePath("../LevelManager")
+
+[node name="ResourceManager" parent="." instance=ExtResource("7_mm4tt")]
+
+[node name="BuildManager" parent="." node_paths=PackedStringArray("level_manager", "resource_manager") instance=ExtResource("8_bd0rs")]
+level_manager = NodePath("../LevelManager")
+resource_manager = NodePath("../ResourceManager")
+
+[node name="RoundManager" parent="." instance=ExtResource("9_wnmfq")]

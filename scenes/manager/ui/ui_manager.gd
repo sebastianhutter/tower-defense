@@ -35,9 +35,19 @@ func _ready() -> void:
 	hide_ui()
 	disable_ui()
 
-	# pass the resource changed event to the hud
-	_game_events.resource_gold_amount_changed.connect(hud._on_resource_gold_amount_changed)
-	hud.tower_card_clicked.connect(_on_tower_card_clicked)
+	if _game_events:
+		# pass the resource changed event to the hud
+		_game_events.resource_gold_amount_changed.connect(hud._on_resource_gold_amount_changed)
+		_game_events.tower_clicked.connect(hud._on_tower_clicked)
+
+	if hud:
+		hud.tower_card_clicked.connect(_on_tower_card_clicked)
+		# connect button events from the context manager to the game events singleton
+		# so they can be consumed by the tower manager
+		hud.tower_context_menu_upgrade_button_clicked.connect(_on_tower_context_menu_upgrade_button_clicked)
+		hud.tower_context_menu_sell_button_clicked.connect(_on_tower_context_menu_sell_button_clicked)
+
+
 
 # ========
 # signal handler
@@ -47,6 +57,16 @@ func _on_tower_card_clicked(tower_resource: Resource) -> void:
 	""" pass the tower card clcked event along to the gameevents singleton """
 
 	_game_events.tower_card_clicked.emit(tower_resource)
+
+func _on_tower_context_menu_upgrade_button_clicked(node_id: int) -> void:
+	""" pass the tower context menu upgrade button clicked event along to the gameevents singleton """
+
+	_game_events.tower_context_menu_upgrade_button_clicked.emit(node_id)
+
+func _on_tower_context_menu_sell_button_clicked(node_id: int) -> void:
+	""" pass the tower context menu sell button clicked event along to the gameevents singleton """
+
+	_game_events.tower_context_menu_sell_button_clicked.emit(node_id)
 
 # ========
 # class functions

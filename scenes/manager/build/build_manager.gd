@@ -129,6 +129,9 @@ func start_build_process(resource: TowerResource) -> void:
 		print_debug("TowerManager: could not find level floor instance")
 		return
 	
+	if is_instance_valid(tower_build_preview_instance):
+		tower_build_preview_instance.queue_free()
+
 	is_building = true
 	tower_build_resource = resource
 	tower_build_preview_instance = tower_build_preview.instantiate() as TowerBuildPreview
