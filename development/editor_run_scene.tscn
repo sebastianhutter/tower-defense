@@ -36,8 +36,9 @@ round_manager = NodePath("../RoundManager")
 
 [node name="LevelManager" parent="." instance=ExtResource("6_5qmpl")]
 
-[node name="TowerManager" parent="." node_paths=PackedStringArray("level_manager") instance=ExtResource("9_vfaom")]
+[node name="TowerManager" parent="." node_paths=PackedStringArray("level_manager", "resource_mnanager") instance=ExtResource("9_vfaom")]
 level_manager = NodePath("../LevelManager")
+resource_mnanager = NodePath("../ResourceManager")
 
 [node name="ResourceManager" parent="." instance=ExtResource("7_t35dh")]
 

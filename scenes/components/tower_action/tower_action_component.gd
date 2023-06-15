@@ -18,7 +18,7 @@ class_name TowerActionComponent
 # class signals
 # ========
 
-signal tower_clicked(can_be_upgraded: bool, can_be_sold: bool)
+signal tower_clicked()
 
 # ========
 # class onready vars
@@ -31,6 +31,8 @@ signal tower_clicked(can_be_upgraded: bool, can_be_sold: bool)
 var is_hovering_over_tower: bool = false
 var has_context_menu: bool = false
 
+var can_be_sold
+
 # ========
 # godot functions
 # ========
@@ -38,16 +40,10 @@ var has_context_menu: bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	# if context_menu:
-	# 	context_menu.hide()
-	# 	context_menu.upgrade_button_pressed.connect(_on_upgrade_button_pressed)
-	# 	context_menu.sell_button_pressed.connect(_on_sell_button_pressed)
 	if tower_upgrade_component:
-		tower_upgrade_component.can_upgrade.connect(_on_can_upgrade)
 		has_context_menu = true
 	if tower_sell_compoonent:
 		has_context_menu = true
-
 
 func _input(event):
 	if is_hovering_over_tower:
@@ -64,12 +60,6 @@ func _on_parent_mouse_entered() -> void:
 func _on_parent_mouse_exited() -> void:
 	is_hovering_over_tower = false
 
-func _on_can_upgrade(can_upgrade: bool) -> void:
-	""" if upgrade status changes ensure we update the context menu """
-	pass
-	# if context_menu:
-	# 	context_menu.enable_upgrade_button(can_upgrade)
-
 # ========
 # class functions
 # ========
@@ -80,13 +70,6 @@ func display_context_menu() -> void:
 	if not has_context_menu:
 		print_debug("TowerActionComponent: no tower sell or upgrade component set")
 		return
-
-	var can_be_upgraded: bool = false
-	if tower_upgrade_component:
-		can_be_upgraded = tower_upgrade_component.can_tower_be_upgraded()
-	var can_be_sold: bool = false
-	if tower_sell_compoonent:
-		can_be_sold = tower_sell_compoonent.can_tower_be_sold()
-
-	tower_clicked.emit(can_be_upgraded, can_be_sold)
+ 
+	tower_clicked.emit()
 

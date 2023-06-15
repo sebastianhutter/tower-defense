@@ -17,7 +17,7 @@ signal tower_destroyed(tower: Tower)
 signal tower_sold(tower: Tower)
 signal tower_upgrade_finished(tower: Tower)
 signal tower_upgrade_started(tower: Tower)
-signal tower_clicked(tower: Tower, can_be_upgraded: bool, can_be_sold: bool)
+signal tower_clicked(tower: Tower)
 
 # ========
 # class onready vars
@@ -35,7 +35,7 @@ signal tower_clicked(tower: Tower, can_be_upgraded: bool, can_be_sold: bool)
 # store the tower resource and the current level of the tower
 var tower_resource: TowerResource = null
 var tower_level: TowerLevel = null
-var tower_current_level = 0
+var tower_current_level: int = 0
 
 
 # ========
@@ -90,11 +90,11 @@ func _on_tower_upgrade_finished() -> void:
 	""" pass signal along with tower costs """
 	finish_upgrade_tower()
 
-func _on_tower_clicked(can_be_upgraded: bool, can_be_sold: bool) -> void:
+func _on_tower_clicked() -> void:
 	""" if a tower is clicked on """
 
 	print_debug("Tower: tower clicked: " + str(self))
-	tower_clicked.emit(self, can_be_upgraded, can_be_sold)
+	tower_clicked.emit(self)
 
 # ========
 # class functions
@@ -105,6 +105,8 @@ func initialize(resource: TowerResource) -> void:
 
 	tower_resource = resource
 	set_tower_level()
+	set_upgrade_component()
+	set_sell_component()
 
 
 func set_tower_level() -> void:
@@ -114,6 +116,32 @@ func set_tower_level() -> void:
 
 	tower_level = tower_resource.get_level(tower_current_level)
 
+func set_upgrade_component() -> void:
+	""" enable or disable the upgrade component """
+
+	if not tower_resource:
+		print_debug("Tower: no tower resource set, can not pass can_be_upgraded")
+		return
+
+	if not tower_upgrade_component:
+		print_debug("Tower: no tower upgrade component set, can not pass can_be_upgraded")
+		return
+
+	tower_upgrade_component.can_be_upgraded = tower_resource.can_be_upgraded
+
+func set_sell_component() -> void:
+	""" enable or disable the sell component """
+
+	if not tower_resource:
+		print_debug("Tower: no tower resource set ,can not pass can_be_upgraded")
+		return
+
+	if not tower_sell_component:
+		print_debug("Tower: no tower sell component set, can not pass can_be_upgraded ")
+		return
+
+	tower_sell_component.can_be_sold = tower_resource.can_be_sold
+
 func get_tower_resource() -> TowerResource:
 	return tower_resource
 
@@ -121,10 +149,16 @@ func get_tower_level() -> int:
 	return tower_current_level
 
 func get_tower_level_resource() -> TowerLevel:
+	""" get the current tower level data """
 	return tower_resource.get_level(tower_current_level)
 
 func get_next_tower_level_resource() -> TowerLevel:
+	""" helper function to get the nexts level data, required for update menus """
 	return tower_resource.get_level(tower_current_level+1)
+
+func get_second_next_tower_level_resource() -> TowerLevel:
+	""" helper function to verify upgrade paths """
+	return tower_resource.get_level(tower_current_level+2)
 
 func highligh_tower(is_higlighted: bool) -> void:
 

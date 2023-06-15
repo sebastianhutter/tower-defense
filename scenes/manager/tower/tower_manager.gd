@@ -13,6 +13,7 @@ class_name TowerManager
 # ========
 
 @export var level_manager: LevelManager
+@export var resource_mnanager: ResourceManager
 
 # ========
 # class signals
@@ -112,34 +113,68 @@ func _on_tower_upgrade_started(tower: Tower) -> void:
 	
 	_game_events.tower_upgrade_started.emit(tower_level.build_costs)
 
-func _on_tower_clicked(tower: Tower, can_be_upgraded: bool, can_be_sold: bool) -> void:
+func _on_tower_clicked(tower: Tower) -> void:
 	""" pass the tower clicked signal with the required infor for the context menu to work """
 
 	if not _game_events:
 		print_debug("TowerManager: could not find game events singleton")
 		return
 
-	var node_id: int = tower.get_instance_id()
-	
-	var tower_sell_value: int = 0
-	if can_be_sold:
-		var current_tower_level: TowerLevel = tower.get_tower_level_resource()
-		if current_tower_level:
-			tower_sell_value = current_tower_level.sell_value
+	var tower_upgrade_component: TowerUpgradeComponent = tower.tower_upgrade_component as TowerUpgradeComponent
+	var can_be_upgraded: bool = false
+	var is_max_level: bool = false
+	if tower_upgrade_component:
+		is_max_level = tower_upgrade_component.max_level_reached
+		can_be_upgraded = not tower_upgrade_component.is_upgrading \
+			and not tower_upgrade_component.max_level_reached \
+			and tower_upgrade_component.can_be_upgraded \
+			and tower_upgrade_component.can_be_afforded
+
+		print_debug("TowerManager: tower upgrade component found, tower upgrade status:")
+		print("is_upgrading: " + str(tower_upgrade_component.is_upgrading))
+		print("max_level_reached: " + str(tower_upgrade_component.max_level_reached))
+		print("can_be_upgraded: " + str(tower_upgrade_component.can_be_upgraded))
+		print("can_be_afforded: " + str(tower_upgrade_component.can_be_afforded))
+		print("summarized: " + str(can_be_upgraded))
 		
+		
+
 	var tower_upgrade_costs: int = 0
-	if can_be_upgraded:
-		var next_tower_level: TowerLevel = tower.get_next_tower_level_resource()	
-		if next_tower_level:
-			tower_upgrade_costs = next_tower_level.build_costs
-
-
-	var tower_type: String = tower.tower_resource.name
-	var tower_canvas_position: Vector2 = tower.get_global_transform_with_canvas().origin
+	if not is_max_level:
+		tower_upgrade_costs = tower.get_next_tower_level_resource().build_costs
 	
+	var tower_sell_component: TowerSellComponent = tower.tower_sell_component as TowerSellComponent
+	var can_be_sold: bool = false
+	var tower_sell_value: int = 0
+	if tower_sell_component:
+		can_be_sold = not tower_sell_component.is_selling and tower_sell_component.can_be_sold
+		tower_sell_value = tower.get_tower_level_resource().sell_value
 
-	print_debug("TowerManager: tower clicked: " + str(tower_type))
-	_game_events.tower_clicked.emit(node_id, tower_type, tower_canvas_position, can_be_upgraded, can_be_sold, tower_upgrade_costs, tower_sell_value)
+	print_debug("prep tower context menu: " )
+	print(can_be_upgraded)
+	print(is_max_level)
+	print(":::: tower sell (can_be_sold, tower_sell_value)")
+	print(can_be_sold)
+	print(tower_sell_value)
+
+	# TODO: add speed and damage when properly added to tower
+	var tower_speed: float = 0
+	var tower_damage: float = 0
+
+	print_debug("TowerManager: tower clicked: " + str(tower))
+	_game_events.tower_clicked.emit(
+		tower.get_instance_id(), 
+		tower.tower_resource.name, 
+		tower.get_global_transform_with_canvas().origin, 
+		can_be_upgraded, 
+		is_max_level, 
+		can_be_sold, 
+		tower_upgrade_costs, 
+		tower_sell_value, 
+		tower.tower_current_level, 
+		tower_speed, 
+		tower_damage
+	)
 
 func _on_tower_context_menu_sell_button_clicked(node_id: int) -> void:
 	""" if the sell button is clicked in the tower context manager """
@@ -158,7 +193,6 @@ func _on_tower_context_menu_sell_button_clicked(node_id: int) -> void:
 				return
 			sell_component.sell_tower()	
 			return
-
 
 func _on_tower_context_menu_upgrade_button_clicked(node_id: int) -> void:
 	""" if the upgrade button is clicked int he tower context manager """
@@ -227,13 +261,16 @@ func spawn_tower(resource: TowerResource, pos: Vector2) -> void:
 		return
 
 	var tower_scene: Tower = resource.tower_scene.instantiate() as Tower
-	tower_scene.initialize(resource)
 	tower_scene.position = pos
 	floor.towers.add_child(tower_scene)
-
+	tower_scene.initialize(resource)
 	# connect tower signals to manager
 	tower_scene.tower_destroyed.connect(_on_tower_destroyed)
 	tower_scene.tower_sold.connect(_on_tower_sold)
 	tower_scene.tower_upgrade_finished.connect(_on_tower_upgrade_finished)
 	tower_scene.tower_upgrade_started.connect(_on_tower_upgrade_started)
 	tower_scene.tower_clicked.connect(_on_tower_clicked)
+	# connect the resource gold changed signal to the towers upgrade manager if available
+	var upgrade_component: TowerUpgradeComponent = tower_scene.tower_upgrade_component as TowerUpgradeComponent
+	if upgrade_component:
+		_game_events.resource_gold_amount_changed.connect(upgrade_component._on_resource_gold_amount_changed)

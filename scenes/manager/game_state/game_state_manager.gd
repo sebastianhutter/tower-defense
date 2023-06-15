@@ -75,6 +75,7 @@ func _unhandled_input(event):
 		# handle escape key presses
 		if event.pressed and event.keycode == KEY_ESCAPE:
 			if current_state == Types.GameState.GAME_LOOP:
+				# if any ui context menus are open close them
 				_game_events.game_state_changed.emit(Types.GameState.MENU, {"menu": Types.Menu.PAUSE_MENU})
 			elif current_state == Types.GameState.MENU:
 				# if escape is pressed whilest in a menu handling escape is passed along to the menu manager

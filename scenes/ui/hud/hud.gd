@@ -78,11 +78,11 @@ func _on_resource_gold_amount_changed(old_amount: int, new_amount: int):
 		if ui.has_method("resource_gold_amount_changed"):
 			ui.resource_gold_amount_changed(old_amount, new_amount)
 
-func _on_tower_clicked(node_id: int, tower_type: String, position: Vector2, can_be_upgraded: bool, can_be_sold: bool, upgrade_costs: int, sell_value: int) -> void:
+func _on_tower_clicked(node_id: int, tower_type: String, position: Vector2, can_be_upgraded: bool, is_max_level: bool, can_be_sold: bool, upgrade_costs: int, sell_value: int, current_level: int, speed: float, damage: float) -> void:
 	""" received by a tower (via tower manager - game events - ui manager) """
 
 	print_debug("HUD: tower clicked")
-	show_tower_context_menu(node_id, tower_type, position, can_be_upgraded, can_be_sold, upgrade_costs, sell_value)
+	show_tower_context_menu(node_id, tower_type, position, can_be_upgraded, is_max_level, can_be_sold, upgrade_costs, sell_value, current_level, speed, damage)
 
 func _on_tower_context_menu_closed() -> void:
 	""" hide the context menu """
@@ -122,28 +122,20 @@ func show_all_uis():
 		
 		ui.show()
 
-func show_tower_context_menu(node_id: int, tower_type: String, position: Vector2, can_be_upgraded: bool, can_be_sold: bool, upgrade_costs: int, sell_value: int):
+func close_context_menus() -> void:
+	""" close all context menus """
+
+	hide_and_disable_context_menu()
+
+func show_tower_context_menu(node_id: int, tower_type: String, position: Vector2, can_be_upgraded: bool, is_max_level: bool, can_be_sold: bool, upgrade_costs: int, sell_value: int, current_level: int, speed: float, damage: float):
 	
-	# tower_context_menu.set_tower_name('avc')
-	# tower_context_menu.set_upgrade_costs(upgrade_costs)
-	# tower_context_menu.set_sell_value(sell_value)
 	print_debug("HUD:show_tower_context_menu at " + str(position))
 	tower_context_menu.process_mode = Node.PROCESS_MODE_ALWAYS
 	tower_context_menu.offset = position + Constants.TOWER_CONTEXT_MENU_OFFSET
-	tower_context_menu.set_tower_node_id(node_id)
-	tower_context_menu.set_tower_name(tower_type)
-	tower_context_menu.set_upgrade_costs(upgrade_costs)
-	tower_context_menu.set_sell_value(sell_value)
-	tower_context_menu.enable_sell_button(can_be_sold)
-	
-	# TODO: fix up _game_data gold retrieval
+	tower_context_menu.set_values(node_id, tower_type, can_be_upgraded, is_max_level, can_be_sold, upgrade_costs, sell_value, current_level, speed, damage)
 
-	tower_context_menu.enable_upgrade_button(can_be_upgraded)
 	# directly connect up towers action manager 
 	tower_context_menu.show()
-
-
-
 
 func hide_and_disable_context_menu():
 	print_debug("HUD: hide_and_disable_context_menu")

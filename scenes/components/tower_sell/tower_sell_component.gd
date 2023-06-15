@@ -23,7 +23,8 @@ signal tower_sold
 # class vars
 # ========
 
-var can_be_sold: bool = true
+var is_selling: bool = false
+var can_be_sold: bool = false
 
 # ========
 # godot functions
@@ -37,23 +38,18 @@ var can_be_sold: bool = true
 # class functions
 # ========
 
-func can_tower_be_sold() -> bool:
-	""" check if tower can be sold """
-
-	var tower_resource: TowerResource = get_parent().get_tower_resource()
-	if not tower_resource:
-		print_debug("TowerSellComponent: no tower resource")
-		return false
-	
-	return tower_resource.can_be_sold
-
 func sell_tower():
 	""" sell the tower if tower can be sold """
 
-	if not can_tower_be_sold():
-		print_debug("TowerSellComponent: tower can't be sold")
+	if is_selling:
+		print_debug("TowerSellComponent: tower is already selling")
 		return
 
+	if not can_be_sold:
+		print_debug("TowerSellComponent: tower cannot be sold")
+		return
+		
+	is_selling = true
 	tower_sold.emit()
 
 	

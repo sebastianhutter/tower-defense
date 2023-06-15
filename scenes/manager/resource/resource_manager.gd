@@ -40,6 +40,7 @@ func _ready():
 		_game_events.tower_build_started.connect(_on_tower_build_started)
 		_game_events.tower_sold.connect(_on_tower_sold)
 		_game_events.tower_upgrade_started.connect(_on_tower_upgrade_started)
+		_game_events.tower_build_completed.connect(_on_tower_build_completed)
 		
 	if gold_timer:
 		gold_timer.timeout.connect(_on_gold_timer_timeout)
@@ -51,7 +52,6 @@ func _ready():
 func _on_gold_timer_timeout():
 	""" increase the gold resource by amount """
 
-	print_debug("_on_gold_timer_timeout")
 	increase_gold(_game_data.selected_floor.gold_auto_increase_amount)
 
 func _on_tower_build_started(resource: TowerResource, position: Vector2):
@@ -68,6 +68,13 @@ func _on_tower_upgrade_started(build_costs: int) -> void:
 	""" decrease the gold resource by amount """
 
 	decrease_gold(build_costs)	
+
+func _on_tower_build_completed(resource: TowerResource, position: Vector2) -> void:
+	""" when a tower is build it needs to know the current resource count. 
+		so we need to emit a signal to let it know"""
+	
+	# increase gold by 0 to emit the signal
+	increase_gold(0)
 
 # ========
 # class functions

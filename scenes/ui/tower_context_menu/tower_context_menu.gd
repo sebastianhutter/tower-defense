@@ -33,9 +33,9 @@ signal conext_menu_closed()
 # ========
 
 var selected_tower_node_id: int = 0
-var selected_upgrade_costs: int = 0
-var selected_sell_value: int = 0
-
+var selected_tower_upgrade_costs: int = 0
+var selected_tower_is_max_level: bool = false
+var selected_tower_sell_value: int = 0
 # default value is set to true to ensure menu isnt closed
 # before the initial mouse entered event is received when activating the menu
 var mouse_is_in_context_menu: bool = true
@@ -90,10 +90,32 @@ func _on_sell_button_pressed() -> void:
 # class functions
 # ========
 
-func set_tower_node_id(node_id: int) -> void:
+func set_values(node_id: int, tower_type: String, can_be_upgraded: bool, is_max_level: bool, can_be_sold: bool, upgrade_costs: int, sell_value: int, current_level: int, speed: float, damage: float) -> void: 
+	""" update the context menu with the values for the selected tower """
 
-
+	print_debug("received values from event: ")
+	print("node_id: " + str(node_id))
+	print("tower_type: " + str(tower_type))
+	print("can_be_upgraded: " + str(can_be_upgraded))
+	print("is_max_level: " + str(is_max_level))
+	print("can_be_sold: " + str(can_be_sold))
+	print("upgrade_costs: " + str(upgrade_costs))
+	print("sell_value: " + str(sell_value))
+	print("current_level: " + str(current_level))
+	print("speed: " + str(speed))
+	print("damage: " + str(damage))
+	print("=================================")
+	
 	self.selected_tower_node_id = node_id
+	self.selected_tower_is_max_level = is_max_level
+	self.selected_tower_upgrade_costs = upgrade_costs
+	self.selected_tower_sell_value = sell_value
+
+	set_tower_name(tower_type + ' (Lvl: ' + str(current_level+1) + ')')
+	set_upgrade_costs(selected_tower_upgrade_costs, selected_tower_is_max_level)
+	set_sell_value(selected_tower_sell_value)
+	enable_sell_button(can_be_sold)
+	enable_upgrade_button(can_be_upgraded, selected_tower_is_max_level)
 
 func set_tower_name(tower_name: String) -> void:
 	
@@ -102,34 +124,24 @@ func set_tower_name(tower_name: String) -> void:
 
 	self.tower_name.text = tower_name
 
-func set_damage(tower_damage: int) -> void:
 
-	if not self.damage:
-		return
-
-	damage.text = 'Damage: ' + str(tower_damage)
-
-func set_speed(tower_speed: float) -> void:
-
-	if not self.shoot_speed:
-		return
-
-	shoot_speed.text = 'Shoot Speed: ' + str(tower_speed)
-
-func set_upgrade_costs(upgrade_cost: int) -> void:
+func set_upgrade_costs(upgrade_cost: int, is_max_level: bool) -> void:
 
 	if not self.upgrade_button:
 		return
+	
+	var text = 'Upgrade (G: ' + str(upgrade_cost) + ')'
+	if is_max_level:
+		text = 'Fully Upgraded'
 
-	selected_upgrade_costs = upgrade_cost
-	upgrade_button.text = 'Upgrade (G: ' + str(upgrade_cost) + ')'
+	upgrade_button.text = text
 
 func set_sell_value(sell_value: int) -> void:
 
 	if not self.sell_button:
 		return
 
-	selected_sell_value = sell_value
+
 	sell_button.text = 'Sell (G: ' + str(sell_value) + ')'
 
 	
@@ -139,14 +151,16 @@ func enable_sell_button(sell_is_enabled: bool) -> void:
 		return
 
 	sell_button.disabled = not sell_is_enabled
-	if sell_is_enabled:
-		sell_button.show()
-	else:
-		sell_button.hide()
 
-func enable_upgrade_button(can_upgrade: bool) -> void:
+func enable_upgrade_button(can_upgrade: bool, is_max_level: bool) -> void:
 
 	if not upgrade_button:
+		return
+	
+	print_debug("TowerContextMenu: enable_upgrade_button: can_upgrade: " + str(can_upgrade) + " is_max_level: " + str(is_max_level))
+
+	if is_max_level:
+		upgrade_button.disabled = true
 		return
 
 	upgrade_button.disabled = not can_upgrade
@@ -157,12 +171,13 @@ func close_context_menu() -> void:
 	mouse_is_in_context_menu = true
 
 func resource_gold_amount_changed(old_amount: int, new_amount: int) -> void:
-	""" if the new gold amount is lower then the currently set update costs disable the upgrade button """
+	# """ if the new gold amount is lower then the currently set update costs disable the upgrade button """
 
 	if not self.upgrade_button:
 		return
 
-	if selected_upgrade_costs > new_amount:
-		enable_upgrade_button(false)
+	if selected_tower_upgrade_costs > new_amount:
+		enable_upgrade_button(false, selected_tower_is_max_level)
 	else:
-		enable_upgrade_button(true)
+		enable_upgrade_button(true, selected_tower_is_max_level)
+	pass

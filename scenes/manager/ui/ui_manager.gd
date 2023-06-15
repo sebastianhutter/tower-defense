@@ -73,7 +73,8 @@ func _on_tower_context_menu_sell_button_clicked(node_id: int) -> void:
 # ========
 
 func _menu_loop(menu: Types.Menu) -> void:
-	""" when the menuy is active the ui elements need to be disabled """
+	""" when the menuy is active the ui elements need to be disabled and context menus need to be hidden """
+	hud.close_context_menus()
 	disable_ui()
 	
 func _enter_game_loop() -> void:

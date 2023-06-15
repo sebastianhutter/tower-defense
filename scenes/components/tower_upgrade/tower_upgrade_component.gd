@@ -5,11 +5,6 @@ class_name TowerUpgradeComponent
 # singleton references
 # ========
 
-@onready var _helper = get_node("/root/HelperSingleton") as Helper
-
-#@TODO: remove dependency to gamve events
-@onready var _game_events = get_node("/root/GameEventsSingleton") as GameEvents
-
 # ========
 # export vars
 # ========
@@ -20,7 +15,6 @@ class_name TowerUpgradeComponent
 # class signals
 # ========
 
-signal can_upgrade(can_be_upgraded: bool)
 signal tower_upgrade_started()
 signal tower_upgrade_finished()
 
@@ -32,41 +26,22 @@ signal tower_upgrade_finished()
 # class vars
 # ========
 
-var can_be_upgraded: bool = false :
-	get:
-		return can_be_upgraded
-	set(value):
-		can_be_upgraded = value
-		emit_can_upgrade_signal()
-var is_upgrading: bool = false :
-	get:
-		return is_upgrading
-	set(value):
-		is_upgrading = value
-		emit_can_upgrade_signal()
+var can_be_upgraded: bool = false
+var can_be_afforded: bool = false
+var max_level_reached: bool = false
+var is_upgrading: bool = false
 
 # ========
 # godot functions
 # ========
 
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	
-	# connect game event signals
-	_game_events.resource_gold_amount_changed.connect(_on_resource_gold_amount_changed)
 
 	if construction_component:
 		construction_component.hide()
 		construction_component.construction_completed.connect(_on_construction_completed)
 	
-	# get current gold amount from resource manager and check if tower can be upgraded
-	var resource_manager: ResourceManager = _helper.get_resource_manager()
-	if not resource_manager:
-		print_debug("TowerUpgradeComponent: no resource manager")
-		return
-
-	check_if_tower_can_upgrade(resource_manager.gold_amount)
 
 # ========
 # signal handler
@@ -74,14 +49,21 @@ func _ready():
 
 func _on_resource_gold_amount_changed(old_amount: int, new_amount: int) -> void:
 	""" mark the tower as upgradable if the player has enough gold """
-
+	
 	check_if_tower_can_upgrade(new_amount)
 
 func _on_construction_completed() -> void:
 	""" called when the construction is completed """
 
+	# already check if a future upgrade is possible before emitting
+	# the upgrade finished signal. this ensures that the context menu does 
+	# not show any wrong upgrade information
+	if not get_parent().get_second_next_tower_level_resource():
+		self.max_level_reached = true
+
 	tower_upgrade_finished.emit()
 	self.is_upgrading = false
+
 
 # ========
 # class functions
@@ -92,28 +74,45 @@ func check_if_tower_can_upgrade(gold: int) -> void:
 
 	var next_tower_level = get_parent().get_next_tower_level_resource()
 	if not next_tower_level:
-		self.can_be_upgraded = false
+		print_debug("TowerUpgradeComponent: no next tower level")
+		self.max_level_reached = true
 		return
 
 	if gold >= next_tower_level.build_costs:
-		self.can_be_upgraded = true
+		self.can_be_afforded = true
 	else:
-		self.can_be_upgraded = false
+		self.can_be_afforded = false
 
-func can_tower_be_upgraded() -> bool:
-	""" return if the tower can be upgraded """
-	return (not is_upgrading and can_be_upgraded)
-
-func emit_can_upgrade_signal():
-	""" if can_be_upgraded or is_upgrading changes emit a signal which can be consumed by other components """
-	# the tower can be upgraded if is_upgrading is false 
-	# and can be_upgraded is true
-	can_upgrade.emit(can_tower_be_upgraded())
 
 func upgrade_tower() -> void:
 	""" upgrade the tower """
 
-	if not can_tower_be_upgraded():
+	print_debug("TowerUpgradeComponent: upgrade tower")
+	print(is_upgrading)
+	print(max_level_reached)
+	print(can_be_upgraded)
+	print(can_be_afforded)
+	print(not is_upgrading and not max_level_reached and can_be_upgraded and can_be_afforded)
+	print("======================")
+
+	# 	TowerUpgradeComponent: upgrade tower
+	# 	At: res://scenes/components/tower_upgrade/tower_upgrade_component.gd:90:upgrade_tower()
+	# false
+	# false
+	# true
+	# true
+	# true
+	# ======================
+
+	if is_upgrading:
+		print_debug("TowerUpgradeComponent: already upgrading")
+		return
+
+	if max_level_reached:
+		print_debug("TowerUpgradeComponent: max level reached")
+		return
+
+	if not can_be_upgraded or not can_be_afforded:
 		print_debug("TowerUpgradeComponent: cannot upgrade")
 		return
 
