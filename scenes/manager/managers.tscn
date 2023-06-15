@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://dd7kjuhjt375q" path="res://scenes/manager/round/round_manager.tscn" id="9_wnmfq"]
 
 [node name="Managers" type="Node"]
+editor_description = "Collection of all managers with their dependencies preconfigured for easier main scene setup"
 
 [node name="GameStateManager" parent="." node_paths=PackedStringArray("ui_manager", "menu_manager", "level_manager", "tower_manager", "resource_manager", "build_manager", "enemy_manager", "round_manager") instance=ExtResource("1_wo6js")]
 ui_manager = NodePath("../UiManager")
