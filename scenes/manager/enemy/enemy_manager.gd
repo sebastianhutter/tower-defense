@@ -54,7 +54,9 @@ func _process(delta):
 
 func _on_pulse_timeout() -> void:
 
-	var enemy_container: Node2D = _helper.get_level_node_enemies()
+
+
+	var enemy_container: Node2D = level_manager.get_floor().enemies
 
 	# if enemy_container.get_child_count() > 8:
 	# 	return
@@ -78,6 +80,7 @@ func _on_pulse_timeout() -> void:
 # ========
 
 func _enter_game_loop() -> void:
+	self.spawned_once = false
 	self.spawn_tile_positiions = level_manager.get_floor().spawn_tile_positions
 
 func _game_loop() -> void:

@@ -44,7 +44,7 @@ func _ready():
 	initialize()
 
 	# initialize variables to pass along
-	body = _helper.get_parent_character(self)
+	body = owner as Character
 	pass_components_to_state()
 	set_initial_state()
 

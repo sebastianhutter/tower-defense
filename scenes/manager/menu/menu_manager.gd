@@ -146,6 +146,9 @@ func _game_loop() -> void:
 func _exit_game_loop() -> void:
 	hide_menus()
 
+func _game_over() -> void:
+	hide_menus()
+
 func resolve_menu_enum(menu: Types.Menu) -> Menu:
 	"""resolves the enum to a menu or null"""
 

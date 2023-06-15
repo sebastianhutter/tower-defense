@@ -5,15 +5,14 @@ class_name TowerManager
 # singleton references
 # ========
 
-@onready var _helper = get_node("/root/HelperSingleton") as Helper
 @onready var _game_events = get_node("/root/GameEventsSingleton") as GameEvents
-@onready var _game_data = get_node("/root/GameDataSingleton") as GameData
 @onready var _custom_resource_loader = get_node("/root/CustomResourceLoaderSingleton") as CustomResourceLoader
 
 # ========
 # export vars
 # ========
 
+@export var level_manager: LevelManager
 
 # ========
 # class signals
@@ -151,17 +150,20 @@ func spawn_tower(resource: TowerResource, pos: Vector2) -> void:
 	"""
 	spawns the tower at the given position
 	"""
-		
-	if level_node_towers == null:
-		level_node_towers = _helper.get_level_node_towers()
-		if level_node_towers == null:
-			print_debug("TowerManager: could not find level node towers")
-			return
+	
+	if not level_manager:
+		print_debug("TowerManager: could not find level manager")
+		return
+
+	var floor: Floor = level_manager.get_floor()
+	if not floor:
+		print_debug("TowerManager: could not find level floor instance")
+		return
 
 	var tower_scene: Tower = resource.tower_scene.instantiate() as Tower
 	tower_scene.initialize(resource)
 	tower_scene.position = pos
-	level_node_towers.add_child(tower_scene)
+	floor.towers.add_child(tower_scene)
 
 	# connect tower signals to manager
 	tower_scene.tower_destroyed.connect(_on_tower_destroyed)

@@ -78,6 +78,7 @@ func _on_tower_sold(sell_value: int, tower_position: Vector2) -> void:
 func _enter_game_loop() -> void:
 	""" start the game loop """
 
+	unload_floor()
 	load_floor()
 
 func _exit_game_loop() -> void:
@@ -93,8 +94,8 @@ func load_floor() -> void:
 		return
 	
 	floor_instance = _game_data.selected_floor.floor_scene.instantiate() as Floor
-	add_child(floor_instance)
 	floor_instance.name = "Floor"
+	add_child(floor_instance)
 	floor_instance.initiate(_game_data.selected_floor)
 
 
@@ -105,6 +106,7 @@ func unload_floor() -> void:
 		print_debug("LevelManager: No floor node found")
 		return
 
+	remove_child(floor_instance)
 	floor_instance.queue_free()
 	floor_instance = null
 

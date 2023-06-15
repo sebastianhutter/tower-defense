@@ -81,14 +81,15 @@ func _enter_game_loop() -> void:
 func _game_loop() -> void:
 	# emit fake gold resource change signal to ensure all uis are updated
 
-
-	print('eriughnbuioergbnuierguierguioebguioebguierbguiobgiuerbguibguibguierbuigerbuigebui')
-
 	increase_gold(0)
 	start_gold_timer()
 
 func _exit_game_loop() -> void:
 	stop_gold_timer()
+
+func _game_over() -> void:
+	stop_gold_timer()
+
 
 func load_floor():
 	""" configure the resource manager with the given floor resource """

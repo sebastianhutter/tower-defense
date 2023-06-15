@@ -193,6 +193,6 @@ func game_over(did_player_win: bool) -> void:
 
 
 	if did_player_win:
-		menu_manager.show_menu(Types.Menu.GAME_OVER_WIN_MENU)
+		_game_events.game_state_changed.emit(Types.GameState.MENU, {'menu': Types.Menu.GAME_OVER_WIN_MENU})
 	else:
-		menu_manager.show_menu(Types.Menu.GAME_OVER_LOOSE_MENU)
+		_game_events.game_state_changed.emit(Types.GameState.MENU, {'menu': Types.Menu.GAME_OVER_LOOSE_MENU})

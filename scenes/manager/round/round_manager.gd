@@ -42,12 +42,8 @@ func _on_tower_destroyed(id: Types.Tower, position: Vector2):
 		print_debug("RoundManager: _game_events not found")
 		return
 
-	print(id)
-
 	if id != Types.Tower.HQ:
 		return
-
-	print_debug("RoundManager: HQ tower destroyed")
 
 	_game_events.game_state_changed.emit(Types.GameState.GAME_OVER, {'did_player_win': false})
 

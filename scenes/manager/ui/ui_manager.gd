@@ -73,6 +73,9 @@ func _exit_game_loop() -> void:
 	hide_ui()
 	disable_ui()
 
+func _game_over() -> void:
+	disable_ui()
+
 func load_floor() -> void:
 	"""load the given floor information into the UI """
 
