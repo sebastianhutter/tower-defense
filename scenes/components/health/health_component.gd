@@ -5,8 +5,6 @@ class_name HealthComponent
 # singleton references
 # ========
 
-@onready var _helper = get_node("/root/HelperSingleton") as Helper
-
 # ========
 # export vars
 # ========

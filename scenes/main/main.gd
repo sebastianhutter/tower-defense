@@ -5,7 +5,7 @@ class_name Main
 # singleton references
 # ========
 
-@onready var _helper = get_node("/root/HelperSingleton") as Helper
+
 @onready var _game_events = get_node("/root/GameEventsSingleton") as GameEvents
 
 

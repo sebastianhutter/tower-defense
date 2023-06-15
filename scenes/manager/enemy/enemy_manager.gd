@@ -5,9 +5,6 @@ class_name EnemyManager
 # singleton references
 # ========
 
-@onready var _helper = get_node("/root/HelperSingleton") as Helper
-@onready var _game_data = get_node("/root/GameDataSingleton") as GameData
-
 # ========
 # export vars
 # ========

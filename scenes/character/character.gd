@@ -5,11 +5,6 @@ class_name Character
 # singleton references
 # ========
 
-@onready var _helper = get_node("/root/HelperSingleton") as Helper
-
-
-
-
 # ========
 # export vars
 # ========

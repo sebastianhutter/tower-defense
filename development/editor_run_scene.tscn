@@ -14,7 +14,6 @@
 
 [node name="Main" type="Node"]
 script = ExtResource("1_bwnup")
-game_state = null
 
 [node name="Background" parent="." instance=ExtResource("2_2n04u")]
 
