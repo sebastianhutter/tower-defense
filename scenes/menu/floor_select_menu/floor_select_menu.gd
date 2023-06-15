@@ -5,6 +5,8 @@ class_name GameFloorSelectMenu
 # singleton references
 # ========
 
+@onready var _custom_resource_loader: CustomResourceLoader = get_node("/root/CustomResourceLoaderSingleton") as CustomResourceLoader
+
 # ========
 # export vars
 # ========

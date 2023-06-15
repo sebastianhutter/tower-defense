@@ -39,7 +39,7 @@ extends FSMState
 
 func initialize():
 	# set target to hq
-	fsm.navigation_component.target_position = _helper.get_hq_position()
+	fsm.navigation_component.target_position = Vector2.ZERO+Constants.TOWER_HQ_OFFSET
 
 
 func handle_input(_event: InputEvent):

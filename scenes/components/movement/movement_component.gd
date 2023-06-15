@@ -5,10 +5,6 @@ class_name MovementComponent
 # singleton references
 # ========
 
-@onready var _helper = get_node("/root/HelperSingleton") as Helper
-@onready var _game_events = get_node("/root/GameEventsSingleton") as GameEvents
-
-@onready var _custom_resource_loader = get_node("/root/CustomResourceLoaderSingleton") as CustomResourceLoader
 
 # ========
 # export vars
@@ -69,7 +65,7 @@ func look_at(body: Character, pos: Vector2, delta: float) -> void:
 		print_debug("MovementComponent: look_at: positions overlap")
 		return
 
-		body.look_at(pos)
+	body.look_at(pos)
 
 
 func get_movement_direction(body: Character, pos: Vector2) -> Vector2:

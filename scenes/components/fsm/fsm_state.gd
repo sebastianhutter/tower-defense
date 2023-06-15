@@ -8,11 +8,6 @@ class_name FSMState
 # singleton references
 # ========
 
-@onready var _helper = get_node("/root/HelperSingleton") as Helper
-@onready var _game_events = get_node("/root/GameEventsSingleton") as GameEvents
-
-@onready var _custom_resource_loader = get_node("/root/CustomResourceLoaderSingleton") as CustomResourceLoader
-
 # ========
 # export vars
 # ========
@@ -83,39 +78,3 @@ func exit() -> void:
 	"""
 	pass
 
-
-
-
-
-
-
-# #
-# # i think i will get rid of the behaviours. to much abstraction for a not so complex game!
-# #
-
-# func pass_state_to_behaviour() -> void:
-# 	"""
-# 	Helper function. Passes the state to all behaviours.
-# 	"""
-
-# 	for behaviour in get_children():
-# 		if behaviour is FSMBehaviour:
-# 			behaviour.state = self
-
-# func get_behaviour(behaviour_name: String) -> FSMBehaviour:
-# 	"""
-# 	Returns the behaviour with the given name. If the state doesn't have a behaviour with that name,
-# 	returns `null`.
-# 	"""
-
-# 	for behaviour in get_children():
-# 		if behaviour.name == behaviour_name and behaviour is FSMBehaviour:
-# 			return behaviour
-
-# 	return null
-
-# func execute_behaviours_in_order(delta: float) -> void:
-# 	"""executes all attached behaviour in order"""
-# 	for behaviour in get_children():
-# 		if behaviour is FSMBehaviour:
-# 			behaviour.execute(delta)

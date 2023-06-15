@@ -1,13 +1,9 @@
 extends Node2D
 class_name ConstructionComponent
+
 # ========
 # singleton references
 # ========
-
-@onready var _helper = get_node("/root/HelperSingleton") as Helper
-@onready var _game_events = get_node("/root/GameEventsSingleton") as GameEvents
-
-@onready var _custom_resource_loader = get_node("/root/CustomResourceLoaderSingleton") as CustomResourceLoader
 
 # ========
 # export vars
