@@ -5,11 +5,6 @@ class_name Tower
 # singleton references
 # ========
 
-@onready var _helper = get_node("/root/HelperSingleton") as Helper
-@onready var _game_events = get_node("/root/GameEventsSingleton") as GameEvents
-@onready var _player_data = get_node("/root/PlayerDataSingleton") as PlayerData
-@onready var _custom_resource_loader = get_node("/root/CustomResourceLoaderSingleton") as CustomResourceLoader
-
 # ========
 # export vars
 # ========
@@ -18,7 +13,9 @@ class_name Tower
 # class signals
 # ========
 
-signal tower_sold(sell_value: int, position: Vector2)
+signal tower_destroyed(tower: Tower)
+signal tower_sold(tower: Tower)
+signal tower_upgrade_finished(tower: Tower)
 signal tower_upgrade_started(build_costs: int)
 
 # ========
@@ -49,10 +46,6 @@ func _ready():
 
 	# ensure no shader is highlightng the tower
 	highligh_tower(false)
-
-	# connect game event signals
-	tower_sold.connect(_game_events._on_tower_sold)
-	tower_upgrade_started.connect(_game_events._on_tower_upgrade_started)
 
 	# if the tower supports user actions
 	if tower_action_component:
@@ -137,7 +130,7 @@ func sell_tower() -> void:
 		print_debug("Tower: no tower level set, cannot sell the tower")
 		return
 
-	tower_sold.emit(tower_level.sell_value, position)
+	tower_sold.emit(self)
 	queue_free()
 
 func start_upgrade_tower() -> void:
@@ -147,7 +140,7 @@ func start_upgrade_tower() -> void:
 		print_debug("Tower: no next tower level set, cannot upgrade the tower")
 		return
 
-	tower_upgrade_started.emit(next_level.build_costs)
+	tower_upgrade_started.emit(self)
 
 func finish_upgrade_tower() -> void:
 	""" finish the upgrade of the tower """
@@ -155,6 +148,8 @@ func finish_upgrade_tower() -> void:
 	tower_current_level += 1
 	set_tower_level()
 	set_tower_body_texture()
+
+	tower_upgrade_finished.emit(self)
 
 
 func set_tower_body_texture() -> void:

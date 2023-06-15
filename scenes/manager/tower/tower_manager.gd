@@ -36,11 +36,12 @@ var level_node_towers = null
 # godot functions
 # ========
 
-
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	
 	if _game_events:
+		# the build manager is responsible to initiate builds and passes
+		# the tower resource and the tower position to gameevents. we connect them
+		# to the tower manager to spawn in the real tower after the build has completed
 		_game_events.tower_build_completed.connect(_on_tower_build_completed)
 
 
@@ -51,7 +52,53 @@ func _ready():
 func _on_tower_build_completed(resource: TowerResource, tower_position: Vector2) -> void:
 	""" game event from build manager - lets place a tower at the given position"""
 
+	print_debug("TowerManager: build completed for tower: " + str(resource.id) + " at position: " + str(tower_position))
 	spawn_tower(resource, tower_position)
+
+
+func _on_tower_destroyed(tower: Tower) -> void:
+	pass
+
+func _on_tower_sold(tower: Tower) -> void:
+	""" pass the sold value to gameevents for other managers and systems to pick up """
+
+	print_debug("TowerManager: tower sold: " + str(tower))
+
+	if not _game_events:
+		print_debug("TowerManager: could not find game events singleton")
+		return
+
+	var tower_level: TowerLevel = tower.get_tower_level_resource()
+	if not tower_level:
+		print_debug("TowerManager: could not find tower level resource")
+		return
+
+	# the different systems need to know th value and the position of the
+	# tower that was sold so we only pass the required info, not the whole object
+	_game_events.tower_sold.emit(tower_level.sell_value, tower.position)
+	
+
+func _on_tower_upgrade_finished(tower: Tower) -> void:
+
+	print_debug("TowerManager: tower upgrade finished: " + str(tower))
+	pass
+
+func _on_tower_upgrade_started(tower: Tower) -> void:
+	""" pass the upgrade costs to the gamevents for other managers and systems to pick up """
+
+	print_debug("TowerManager: tower upgrade started: " + str(tower))
+
+	if not _game_events:
+		print_debug("TowerManager: could not find game events singleton")
+		return
+
+	var tower_level: TowerLevel = tower.get_next_tower_level_resource()
+	if not tower_level:
+		print_debug("TowerManager: could not find tower level resource")
+		return
+	
+	_game_events.tower_upgrade_started.emit(tower_level.build_costs)
+
 
 
 # ========
@@ -94,9 +141,13 @@ func spawn_tower(resource: TowerResource, pos: Vector2) -> void:
 			print_debug("TowerManager: could not find level node towers")
 			return
 
-	#var pos_with_offset = pos + TOWER_BUILD_OFFSET
 	var tower_scene: Tower = resource.tower_scene.instantiate() as Tower
 	tower_scene.initialize(resource)
-	level_node_towers.add_child(tower_scene)
 	tower_scene.position = pos
+	level_node_towers.add_child(tower_scene)
 
+	# connect tower signals to manager
+	tower_scene.tower_destroyed.connect(_on_tower_destroyed)
+	tower_scene.tower_sold.connect(_on_tower_sold)
+	tower_scene.tower_upgrade_finished.connect(_on_tower_upgrade_finished)
+	tower_scene.tower_upgrade_started.connect(_on_tower_upgrade_started)
