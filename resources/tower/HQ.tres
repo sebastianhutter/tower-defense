@@ -42,5 +42,5 @@ description = "The players HQ"
 tower_scene = ExtResource("2_6s14w")
 can_be_build = false
 can_be_sold = false
-can_be_upgraded = false
+can_be_upgraded = true
 levels = Array[ExtResource("2_jcyuq")]([SubResource("Resource_l2dt8"), SubResource("Resource_xjrfn"), SubResource("Resource_udmyh")])

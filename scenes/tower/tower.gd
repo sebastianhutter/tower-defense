@@ -32,7 +32,6 @@ signal tower_clicked(tower: Tower)
 # class vars
 # ========
 
-# store the tower resource and the current level of the tower
 var tower_resource: TowerResource = null
 var tower_level: TowerLevel = null
 var tower_current_level: int = 0
@@ -191,7 +190,6 @@ func finish_upgrade_tower() -> void:
 	tower_current_level += 1
 	set_tower_level()
 	set_tower_body_texture()
-
 	tower_upgrade_finished.emit(self)
 
 
