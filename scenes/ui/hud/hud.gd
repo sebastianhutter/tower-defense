@@ -5,12 +5,6 @@ class_name HUD
 # singleton references
 # ========
 
-# a quick hack to ensure we can set the upgrade button correct before the first resource amount change
-# arrives. we use the game_data singleton to retrieve the initial gold amount to not have a manager
-# crossconnection (resource manager -> ui manager -> [hud])
-
-@onready var _game_data: GameData = get_node("/root/GameData") as GameData
-
 # ========
 # export vars
 # ========
