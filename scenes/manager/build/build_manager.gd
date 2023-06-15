@@ -1,4 +1,4 @@
-extends Node2D
+extends Manager
 class_name BuildManager
 
 # ========
@@ -7,14 +7,16 @@ class_name BuildManager
 
 @onready var _helper = get_node("/root/HelperSingleton") as Helper
 @onready var _game_events = get_node("/root/GameEventsSingleton") as GameEvents
-@onready var _player_data = get_node("/root/PlayerDataSingleton") as PlayerData
-@onready var _custom_resource_loader = get_node("/root/CustomResourceLoaderSingleton") as CustomResourceLoader
+
+@onready var center: Node2D = $%Center
 
 # ========
 # export vars
 # ========
 
 @export var build_offset: Vector2 = Constants.TOWER_BUILD_OFFSET
+@export var level_manager: LevelManager
+@export var resource_manager: ResourceManager
 
 # ========
 # class signals
@@ -36,11 +38,6 @@ var tower_build_preview: PackedScene = preload(Constants.SCENE_TOWER_BUILD_PREVI
 var tower_build_preview_instance: TowerBuildPreview = null
 # construction site scene placed on top of the construction site tile
 var tower_build_construction_site: PackedScene = preload(Constants.SCENE_TOWER_BUILD_CONSTRUCTION_SITE)
-
-# store references to the manager nodes
-# this as an alternative to read queries via the event system.... soooo many queries....
-var level_manager: LevelManager = null
-var resource_manager: ResourceManager = null
 
 
 # ========
@@ -93,6 +90,12 @@ func _on_consutrction_site_build_completed(resource: TowerResource, pos: Vector2
 # ========
 # class functions
 # ========
+
+func _game_loop() -> void:
+	"""handle the game loop started signal"""
+
+	# enable building
+	enable_building()
 
 func disable_building() -> void:
 	is_building_enabled = false
@@ -183,30 +186,25 @@ func get_build_position() -> Vector2:
 
 	# setup reference to level manager to snap to grid
 	if not level_manager:
-		level_manager = _helper.get_level_manager()
-	if not level_manager:
 		print_debug("no level manager found")
 		return Vector2.ZERO
+	
 	var floor: Floor = level_manager.get_floor()
 	if not floor:
 		print_debug("no floor tilemap found")
 		return Vector2.ZERO
 
-	return floor.return_snapped_local_position(get_local_mouse_position()) + build_offset
+	return floor.return_snapped_local_position(center.get_local_mouse_position()) + build_offset
 
 func get_buildability() -> bool:
 	""" check the tower is buildable at its current location and depending on the available resources"""
 
 	# setup reference to level manager to snap to grid
 	if not level_manager:
-		level_manager = _helper.get_level_manager()
-	if not level_manager:
 		print_debug("no level manager found")
 		return false
 
 	# check if we have enough money
-	if not resource_manager:
-		resource_manager = _helper.get_resource_manager()
 	if not resource_manager:
 		print_debug("no resource manager found")
 		return false
@@ -222,7 +220,7 @@ func get_buildability() -> bool:
 		print_debug("no floor found")
 		return false
 
-	if floor.is_tile_buildable(get_local_mouse_position()) and tower_costs <= resource_manager.get_gold_amount():
+	if floor.is_tile_buildable(center.get_local_mouse_position()) and tower_costs <= resource_manager.get_gold_amount():
 		return true
 
 	return false

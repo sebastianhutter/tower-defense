@@ -16,7 +16,7 @@ class_name Tower
 signal tower_destroyed(tower: Tower)
 signal tower_sold(tower: Tower)
 signal tower_upgrade_finished(tower: Tower)
-signal tower_upgrade_started(build_costs: int)
+signal tower_upgrade_started(tower: Tower)
 
 # ========
 # class onready vars

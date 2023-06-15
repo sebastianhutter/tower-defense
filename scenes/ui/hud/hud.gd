@@ -5,11 +5,6 @@ class_name HUD
 # singleton references
 # ========
 
-@onready var _helper = get_node("/root/HelperSingleton") as Helper
-@onready var _game_events = get_node("/root/GameEventsSingleton") as GameEvents
-@onready var _player_data = get_node("/root/PlayerDataSingleton") as PlayerData
-@onready var _custom_resource_loader = get_node("/root/CustomResourceLoaderSingleton") as CustomResourceLoader
-
 # ========
 # export vars
 # ========
@@ -18,6 +13,8 @@ class_name HUD
 # class signals
 # ========
 
+signal tower_card_clicked(tower_resource: Resource)
+
 # ========
 # class onready vars
 # ========
@@ -25,7 +22,6 @@ class_name HUD
 @onready var tower_build_ui: TowerBuildUI = $%TowerBuildUi
 @onready var resource_ui: ResourceUi = $%ResourceUi
 @onready var wave_ui: WaveUi = $%WaveUi
-
 
 # ========
 # class vars
@@ -44,6 +40,7 @@ func _ready():
 	# add the exported uis to the array so we can iterate over them for showing and hidding them
 	if tower_build_ui:
 		registered_uis.append(tower_build_ui)
+		tower_build_ui.tower_card_clicked.connect(_on_tower_card_clicked)
 
 	if resource_ui:
 		registered_uis.append(resource_ui)
@@ -55,12 +52,24 @@ func _ready():
 # signal handler
 # ========
 
-func _on_custom_signal_event():
-	pass
+func _on_tower_card_clicked(tower_resource: Resource):
+	""" forward tower card clicks to the ui manager """
+	tower_card_clicked.emit(tower_resource)
+
+func _on_resource_gold_amount_changed(old_amount: int, new_amount: int):
+	for ui in registered_uis:
+		if ui.has_method("resource_gold_amount_changed"):
+			ui.resource_gold_amount_changed(old_amount, new_amount)
 
 # ========
 # class functions
 # ========
+
+func load_tower_cards() -> void:
+	tower_build_ui.load_tower_cards()
+
+func unload_tower_cards() -> void:
+	tower_build_ui.unload_tower_cards()
 
 func hide_all_uis():
 	""" hide all child uis of the hud """

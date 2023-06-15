@@ -1,14 +1,12 @@
-extends Node
+extends Manager
 class_name ResourceManager
 
 # ========
 # singleton references
 # ========
 
-@onready var _helper = get_node("/root/HelperSingleton") as Helper
 @onready var _game_events = get_node("/root/GameEventsSingleton") as GameEvents
-@onready var _player_data = get_node("/root/PlayerDataSingleton") as PlayerData
-@onready var _custom_resource_loader = get_node("/root/CustomResourceLoaderSingleton") as CustomResourceLoader
+@onready var _game_data = get_node("/root/GameDataSingleton") as GameData
 
 # ========
 # export vars
@@ -30,7 +28,6 @@ signal resource_gold_amount_changed(old_amount: int, new_amount: int)
 # class vars
 # ========
 
-var floor_resource: FloorResource = null
 var gold_amount: int = 0 
 
 # ========
@@ -58,7 +55,7 @@ func _on_gold_timer_timeout():
 	""" increase the gold resource by amount """
 
 	print_debug("_on_gold_timer_timeout")
-	increase_gold(floor_resource.gold_auto_increase_amount)
+	increase_gold(_game_data.selected_floor.gold_auto_increase_amount)
 
 func _on_tower_build_started(resource: TowerResource, position: Vector2):
 	""" decrease the gold resource by amount """
@@ -79,16 +76,31 @@ func _on_tower_upgrade_started(build_costs: int) -> void:
 # class functions
 # ========
 
-func load_floor(floor_resource: FloorResource):
+func _enter_game_loop() -> void:
+	""" start the game loop """
+
+	load_floor()
+
+func _game_loop() -> void:
+	# emit fake gold resource change signal to ensure all uis are updated
+
+
+	print('eriughnbuioergbnuierguierguioebguioebguierbguiobgiuerbguibguibguierbuigerbuigebui')
+
+	increase_gold(0)
+	start_gold_timer()
+
+func _exit_game_loop() -> void:
+	stop_gold_timer()
+
+func load_floor():
 	""" configure the resource manager with the given floor resource """
 
-	self.floor_resource = floor_resource
+	if _game_data.selected_floor.gold_starting_amount:
+		set_gold_amount(_game_data.selected_floor.gold_starting_amount)
 
-	if floor_resource.gold_starting_amount:
-		set_gold_amount(floor_resource.gold_starting_amount)
-
-	if floor_resource.gold_auto_increase_time:
-		gold_timer.wait_time = floor_resource.gold_auto_increase_time
+	if _game_data.selected_floor.gold_auto_increase_time:
+		gold_timer.wait_time = _game_data.selected_floor.gold_auto_increase_time
 		
 func start_gold_timer():
 	""" start the gold timer """
@@ -97,7 +109,7 @@ func start_gold_timer():
 		print_debug("gold_timer is not set")
 		return
 
-	if not floor_resource.gold_auto_increase_enabled:
+	if not _game_data.selected_floor.gold_auto_increase_enabled:
 		print_debug("gold_auto_increase_enabled is not set")
 		return
 

@@ -2,6 +2,9 @@
 
 [ext_resource type="Script" path="res://scenes/manager/build/build_manager.gd" id="1_re5gx"]
 
-[node name="BuildManager" type="Node2D"]
+[node name="BuildManager" type="Node"]
 editor_description = "The build manager is responsible to manage building of new towers. It displays the construction scene, manages buildable tiles etc"
 script = ExtResource("1_re5gx")
+
+[node name="Center" type="Node2D" parent="."]
+unique_name_in_owner = true

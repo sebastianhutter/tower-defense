@@ -1,14 +1,12 @@
-extends Node
+extends Manager
 class_name MenuManager
 
 # ========
 # singleton references
 # ========
 
-@onready var _helper = get_node("/root/HelperSingleton") as Helper
 @onready var _game_events = get_node("/root/GameEventsSingleton") as GameEvents
-@onready var _player_data = get_node("/root/PlayerDataSingleton") as PlayerData
-@onready var _custom_resource_loader = get_node("/root/CustomResourceLoaderSingleton") as CustomResourceLoader
+@onready var _game_data = get_node("/root/GameDataSingleton") as GameData
 
 # ========
 # export vars
@@ -26,6 +24,8 @@ class_name MenuManager
 @onready var pause_menu: GamePauseMenu = $%PauseMenu
 @onready var options_menu: GameOptionsMenu = $%OptionsMenu
 @onready var floor_select_menu: GameFloorSelectMenu = $%FloorSelectMenu
+@onready var game_over_win_menu: GameOverWinMenu = $%GameOverWinMenu
+@onready var game_over_loose_menu: GameOverLooseMenu = $%GameOverLooseMenu
 
 # ========
 # class vars
@@ -56,6 +56,14 @@ func _ready():
 	if options_menu:
 		options_menu.back_button_pressed.connect(_on_any_back_button_pressed)
 
+	if game_over_win_menu:
+		game_over_win_menu.replay_button_pressed.connect(_on_game_over_menu_replay_button_pressed)
+		game_over_win_menu.quit_to_menu_button_pressed.connect(_on_game_over_menu_quit_to_menu_button_pressed)
+
+	if game_over_loose_menu:
+		game_over_loose_menu.replay_button_pressed.connect(_on_game_over_menu_replay_button_pressed)
+		game_over_loose_menu.quit_to_menu_button_pressed.connect(_on_game_over_menu_quit_to_menu_button_pressed)
+
 	hide_menus()
 
 
@@ -81,11 +89,7 @@ func _on_any_options_button_pressed() -> void:
 func _on_main_menu_play_button_pressed() -> void:
 	"""called when the play button is pressed on the main menu"""
 
-	# set the game state to playing
-	#_game_events.game_state_changed.emit(Types.GameState.ABILITY_SELECT_MENU)
-
 	show_menu(Types.Menu.FLOOR_SELECT_MENU)
-	#_game_events.game_state_changed.emit(Types.GameState.ENTER_GAME_LOOP)	
 
 func _on_main_menu_quit_button_pressed() -> void:
 	"""called when the quit button is pressed on the main menu"""
@@ -107,12 +111,40 @@ func _on_pause_menu_quit_to_menu_button_pressed() -> void:
 func _on_floor_select_menu_start_game_button_pressed(floor_resource: FloorResource) -> void:
 	"""called when the start game button is pressed on the floor select menu """
 	
-	_game_events.game_state_changed.emit(Types.GameState.ENTER_GAME_LOOP, {'floor': floor_resource})	
+	# store the selected floor globally so we can access the floor resource when hitting replay
+	_game_data.selected_floor = floor_resource
 
+	_game_events.game_state_changed.emit(Types.GameState.ENTER_GAME_LOOP)	
+
+func _on_game_over_menu_replay_button_pressed() -> void:
+	"""called when the replay button is pressed on the game over screen"""
+
+	# set the game state to playing
+	_game_events.game_state_changed.emit(Types.GameState.ENTER_GAME_LOOP)
+
+func _on_game_over_menu_quit_to_menu_button_pressed() -> void:
+	"""called when the quit to menu button is pressed on the game over screen"""
+
+	# set the game state to playing
+	_game_events.game_state_changed.emit(Types.GameState.EXIT_GAME_LOOP)
 
 # ========
 # class functions
 # ========
+
+
+func _menu_loop(menu: Types.Menu) -> void:
+	""" handle menu loop events """
+
+	show_menu(menu)
+
+func _game_loop() -> void:
+	""" handle game loop events """
+
+	hide_menus()
+
+func _exit_game_loop() -> void:
+	hide_menus()
 
 func resolve_menu_enum(menu: Types.Menu) -> Menu:
 	"""resolves the enum to a menu or null"""
@@ -126,6 +158,10 @@ func resolve_menu_enum(menu: Types.Menu) -> Menu:
 			return options_menu
 		Types.Menu.FLOOR_SELECT_MENU:
 			return floor_select_menu
+		Types.Menu.GAME_OVER_WIN_MENU:
+			return game_over_win_menu
+		Types.Menu.GAME_OVER_LOOSE_MENU:
+			return game_over_loose_menu
 		_:
 			print_debug("MenuManager: menu enum not found")
 			return null

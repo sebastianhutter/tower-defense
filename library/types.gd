@@ -7,36 +7,35 @@ enum GameState {
 	ENTER_GAME_LOOP,
 	GAME_LOOP,
 	GAME_OVER,
-	LEVEL_END,
 	EXIT_GAME_LOOP,
 	QUIT,
 }
 
 enum Menu {
-	MAIN_MENU,
+	MAIN_MENU = 0,
 	FLOOR_SELECT_MENU,
 	OPTIONS_MENU,
 	PAUSE_MENU,
-	LEVEL_END_MENU,
-	GAME_OVER_MENU,
+	GAME_OVER_WIN_MENU,
+	GAME_OVER_LOOSE_MENU,
 }
 
 # tower types for easier configuration
 enum Tower {
-	HQ,
+	HQ = 0,
 	ARCHER,
 	WIZARD,
 }
 
 # floor ids for easier configuration
 enum Floor {
-	GRASS,
+	GRASS = 0,
 	WINTER,
 	DESERT,
 }
 
 # tile id origins
-# the full tile id is caqlculated by adding the 
+# the full tile id is calculated by adding the 
 # the biome offset (specified in the floor)
 enum TileOrigin {
 	SPAWNER = 90,

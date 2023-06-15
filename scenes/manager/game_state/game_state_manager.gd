@@ -5,9 +5,8 @@ class_name GameStateManager
 # singleton references
 # ========
 
-@onready var _helper = get_node("/root/HelperSingleton") as Helper
 @onready var _game_events = get_node("/root/GameEventsSingleton") as GameEvents
-@onready var _player_data = get_node("/root/PlayerDataSingleton") as PlayerData
+@onready var _game_data = get_node("/root/GameDataSingleton") as GameData
 
 # ========
 # export vars
@@ -20,6 +19,7 @@ class_name GameStateManager
 @export var resource_manager: ResourceManager
 @export var build_manager: BuildManager
 @export var enemy_manager: EnemyManager
+@export var round_manager: RoundManager
 
 # ========
 # class signals
@@ -36,13 +36,35 @@ class_name GameStateManager
 var previous_state: Types.GameState = Types.GameState.NONE
 var current_state: Types.GameState = Types.GameState.NONE
 
+var registered_managers: Array[Manager] = []
+
 # ========
 # godot functions
 # ========
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	_game_events.game_state_changed.connect(_on_game_state_changed)
+
+	# collect all managers in a sorted array to easily iterate over the
+	# game state functions of each manager
+	if level_manager:
+		registered_managers.append(level_manager)
+	if resource_manager: 
+		registered_managers.append(resource_manager)
+	if ui_manager:
+		registered_managers.append(ui_manager)
+	if menu_manager:
+		registered_managers.append(menu_manager)
+	if tower_manager:
+		registered_managers.append(tower_manager)
+	if build_manager:
+		registered_managers.append(build_manager)
+	if enemy_manager:
+		registered_managers.append(enemy_manager)
+	if round_manager:
+		registered_managers.append(round_manager)
+	
+	print(registered_managers)
 
 func _unhandled_input(event):
 	"""
@@ -73,24 +95,30 @@ func _on_game_state_changed(game_state: Types.GameState, payload: Dictionary = {
 			return
 		Types.GameState.MENU:
 			if payload.has("menu") == false:
-				print("GameStateManager: no menu specified in payload")
+				print_debug("GameStateManager: no menu specified in payload")
 				return
 			menu_loop(payload["menu"])
 		# enter and exit game loop are transient states
 		# and shouldnt be stored in the previous state variable
 		# so they return immediately
 		Types.GameState.ENTER_GAME_LOOP:
-			if payload.has("floor") == false:
-				print("GameStateManager: no floor specified in payload")
+			if not  _game_data.selected_floor:
+				print_debug("GameStateManager: no floor selected")
 				return
 
-			enter_game_loop(payload["floor"])
+			enter_game_loop()
 			return
 		Types.GameState.EXIT_GAME_LOOP:
 			exit_game_loop()
 			return
 		Types.GameState.GAME_LOOP:
-			game_loop()			
+			game_loop()		
+		Types.GameState.GAME_OVER:
+			if payload.has("did_player_win") == false:
+				print_debug("GameStateManager: no did_player_win specified in payload")
+				return
+
+			game_over(payload["did_player_win"])
 		Types.GameState.QUIT:
 			quit_game()
 
@@ -107,56 +135,64 @@ func quit_game() -> void:
 	# the only valid execution is from the main menu
 	# there is no way to quit from the game loop
 	print_debug("GameStateManager: quitting game")
+
+	for manager in registered_managers:
+		if manager.has_method("_quit"):
+			manager._quit()
+
 	get_tree().quit()
 
 func menu_loop(menu: Types.Menu) -> void:
 	"""load the main menu scene"""
 
-	ui_manager.disable_ui()
 	get_tree().paused = true
-	menu_manager.show_menu(menu)
+	for manager in registered_managers:
+		if manager.has_method("_menu_loop"):
+			manager._menu_loop(menu)
 
-func enter_game_loop(floor_resource: FloorResource) -> void:
+func enter_game_loop() -> void:
 	"""initialiize level manager and handover to game loop"""
 
-	# TODO: maybe add a loading screen here?
-	
-	# load floor plan
-	level_manager.load_floor(floor_resource)
-	# setup the resource manager
-	resource_manager.load_floor(floor_resource)
-	# setup ui
-	ui_manager.load_floor(floor_resource)
-	# spawn our hq building
-	tower_manager.spawn_tower_by_id(Types.Tower.HQ, Vector2.ZERO+Constants.TOWER_HQ_OFFSET)
-	# setup enemy manager
-	enemy_manager.load_floor(floor_resource)
-
 	get_tree().paused = true
+	for manager in registered_managers:
+		if manager.has_method("_enter_game_loop"):
+			manager._enter_game_loop()
+
 	_game_events.game_state_changed.emit(Types.GameState.GAME_LOOP)
 
-func exit_game_loop() -> void:
-	"""unload the level and handover to the main menu"""
-
-	ui_manager.hide_ui()
-	menu_manager.hide_menus()
-	resource_manager.stop_gold_timer()
-	level_manager.unload_floor()
-	get_tree().paused = true
-
-	_game_events.game_state_changed.emit(Types.GameState.MENU, {'menu': Types.Menu.MAIN_MENU})
 
 func game_loop() -> void:
 	"""load the main loop scene"""
 
-	# if we arrive from the pause menu we need to hide the menus again
-	menu_manager.hide_menus()
-	ui_manager.show_ui()
-	ui_manager.enable_ui()
-	ui_manager.start_wave_progress_bar()
-	build_manager.enable_building()
-	resource_manager.start_gold_timer()
+	for manager in registered_managers:
+		if manager.has_method("_game_loop"):
+			print("GameStateManager: calling game loop on " + str(manager))
+			manager._game_loop()
+
 	get_tree().paused = false
 
-	enemy_manager.spawn_enemies()
 
+func exit_game_loop() -> void:
+	"""unload the level and handover to the main menu"""
+
+	get_tree().paused = true
+	for manager in registered_managers:
+		if manager.has_method("_exit_game_loop"):
+			manager._exit_game_loop()
+
+
+	_game_events.game_state_changed.emit(Types.GameState.MENU, {'menu': Types.Menu.MAIN_MENU})
+
+func game_over(did_player_win: bool) -> void:
+	""" display the game over screen """
+
+	get_tree().paused = true
+	for manager in registered_managers:
+		if manager.has_method("_game_over"):
+			manager._game_over()
+
+
+	if did_player_win:
+		menu_manager.show_menu(Types.Menu.GAME_OVER_WIN_MENU)
+	else:
+		menu_manager.show_menu(Types.Menu.GAME_OVER_LOOSE_MENU)

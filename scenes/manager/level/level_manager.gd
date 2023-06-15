@@ -1,4 +1,4 @@
-extends Node
+extends Manager
 class_name LevelManager
 
 # Generates a new level based on some input parameters
@@ -7,10 +7,8 @@ class_name LevelManager
 # singleton references
 # ========
 
-@onready var _helper = get_node("/root/HelperSingleton") as Helper
 @onready var _game_events = get_node("/root/GameEventsSingleton") as GameEvents
-@onready var _player_data = get_node("/root/PlayerDataSingleton") as PlayerData
-@onready var _custom_resource_loader = get_node("/root/CustomResourceLoaderSingleton") as CustomResourceLoader
+@onready var _game_data = get_node("/root/GameDataSingleton") as GameData
 
 # ========
 # export vars
@@ -24,33 +22,11 @@ class_name LevelManager
 # class onready vars
 # ========
 
-# @onready var tilemap: TileMap = %TileMap
-# @onready var towers: Node2D = %Towers
-# @onready var enemies: Node2D = %Enemies
-
 # ========
 # class vars
 # ========
 
-var floor_resource: FloorResource = null
 var floor_instance: Floor = null
-
-# enum TilesetBiome {
-# 	SPRING = 0,
-# 	DESERT,
-# 	WINTER,
-# }
-
-
-# var level_floor: Array[Vector2i] = [Vector2i(), Vector2i()]
-
-# var floor_height: Vector2i = Vector2i(0, 0)
-# var floor_width: Vector2i = Vector2i(0, 0)
-# var floor_north_tile: Vector2i
-# var floor_south_tile: Vector2i
-# var floor_west_tile: Vector2i
-# var floor_east_tile: Vector2i
-
 
 # ========
 # godot functions
@@ -99,17 +75,27 @@ func _on_tower_sold(sell_value: int, tower_position: Vector2) -> void:
 # class functions
 # ========
 
-func load_floor(floor_resource: FloorResource) -> void:
+func _enter_game_loop() -> void:
+	""" start the game loop """
+
+	load_floor()
+
+func _exit_game_loop() -> void:
+	""" stop the game loop """
+
+	unload_floor()
+
+func load_floor() -> void:
 	""" create a floor instance with tilemap etc """
 	
-	if not floor_resource.floor_scene:
+	if not _game_data.selected_floor.floor_scene:
 		print_debug("LevelManager: No floor scene found")
 		return
 	
-	floor_instance = floor_resource.floor_scene.instantiate() as Floor
+	floor_instance = _game_data.selected_floor.floor_scene.instantiate() as Floor
 	add_child(floor_instance)
 	floor_instance.name = "Floor"
-	floor_instance.initiate(floor_resource)
+	floor_instance.initiate(_game_data.selected_floor)
 
 
 func unload_floor() -> void:

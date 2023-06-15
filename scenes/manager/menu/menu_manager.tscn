@@ -1,10 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://27bqjl7sy4q8"]
+[gd_scene load_steps=8 format=3 uid="uid://27bqjl7sy4q8"]
 
 [ext_resource type="Script" path="res://scenes/manager/menu/menu_manager.gd" id="1_lkrau"]
 [ext_resource type="PackedScene" uid="uid://lrtgfxdhlk13" path="res://scenes/menu/main_menu/main_menu.tscn" id="2_5rg1g"]
 [ext_resource type="PackedScene" uid="uid://c8ew1lrlsxjut" path="res://scenes/menu/pause_menu/pause_menu.tscn" id="3_0efj6"]
 [ext_resource type="PackedScene" uid="uid://gu0bcx2kda03" path="res://scenes/menu/options_menu/options_menu.tscn" id="4_wucgc"]
 [ext_resource type="PackedScene" uid="uid://cpkolce580a7b" path="res://scenes/menu/floor_select_menu/floor_select_menu.tscn" id="5_mwniw"]
+[ext_resource type="PackedScene" uid="uid://cagyovi7sb1p7" path="res://scenes/menu/game_over_win/game_over_win_menu.tscn" id="6_3ghnj"]
+[ext_resource type="PackedScene" uid="uid://bmuufjdtmbpnb" path="res://scenes/menu/game_over_loose/game_over_loose_menu.tscn" id="7_3gsdp"]
 
 [node name="MenuManager" type="Node"]
 script = ExtResource("1_lkrau")
@@ -19,4 +21,10 @@ unique_name_in_owner = true
 unique_name_in_owner = true
 
 [node name="FloorSelectMenu" parent="." instance=ExtResource("5_mwniw")]
+unique_name_in_owner = true
+
+[node name="GameOverWinMenu" parent="." instance=ExtResource("6_3ghnj")]
+unique_name_in_owner = true
+
+[node name="GameOverLooseMenu" parent="." instance=ExtResource("7_3gsdp")]
 unique_name_in_owner = true

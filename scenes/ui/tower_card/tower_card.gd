@@ -5,15 +5,9 @@ class_name TowerCard
 # singleton references
 # ========
 
-@onready var _helper = get_node("/root/HelperSingleton") as Helper
-@onready var _game_events = get_node("/root/GameEventsSingleton") as GameEvents
-@onready var _player_data = get_node("/root/PlayerDataSingleton") as PlayerData
-
 # ========
 # export vars
 # ========
-
-# @export var my_export_var = 0
 
 # ========
 # class signals
@@ -37,21 +31,11 @@ signal tower_card_clicked(tower_resource: Resource)
 var resource: TowerResource
 var can_be_build: bool = false
 
-# var ability_card_flash_material: Resource = preload("res://resources/shader/card_flash/card_flash_material.tres")
-# var ability_card_flash_tween: Tween
-
 # ========
 # godot functions
 # ========
 
 func _ready():
-	# connect game events to control if the tower can be build or not
-	_game_events.resource_gold_amount_changed.connect(_on_resource_gold_amount_changed)
-
-	# connect signal for clickcing of the card
-	# forward it to the gamevents so towermanager and resourcemanager can be informed
-	tower_card_clicked.connect(_game_events._on_tower_card_clicked)
-
 	mouse_entered.connect(_gui_mouse_entered)
 	mouse_exited.connect(_gui_mouse_exited)
 
@@ -82,11 +66,6 @@ func _gui_mouse_exited() -> void:
 
 	background.modulate.a = 0
 
-func _on_resource_gold_amount_changed(old_amount: int, new_amount: int) -> void:
-	if new_amount >= resource.get_level(0).build_costs:
-		enable_build()
-	else:
-		disable_build()
 
 # ========
 # class functions
@@ -140,3 +119,10 @@ func disable_build() -> void:
 	if tower_cost_label:
 		tower_cost_label.modulate = Color(0,100,100,255)
 
+func check_tower_can_be_build(gold_amount: int) -> void:
+	"""check if the tower can be build with the current gold amount"""
+
+	if gold_amount >= resource.get_level(0).build_costs:
+		enable_build()
+	else:
+		disable_build()

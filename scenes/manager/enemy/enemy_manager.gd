@@ -1,4 +1,4 @@
-extends Node
+extends Manager
 class_name EnemyManager
 
 # ========
@@ -6,9 +6,7 @@ class_name EnemyManager
 # ========
 
 @onready var _helper = get_node("/root/HelperSingleton") as Helper
-@onready var _game_events = get_node("/root/GameEventsSingleton") as GameEvents
-@onready var _player_data = get_node("/root/PlayerDataSingleton") as PlayerData
-@onready var _custom_resource_loader = get_node("/root/CustomResourceLoaderSingleton") as CustomResourceLoader
+@onready var _game_data = get_node("/root/GameDataSingleton") as GameData
 
 # ========
 # export vars
@@ -32,10 +30,9 @@ class_name EnemyManager
 # class vars
 # ========
 
-var floor_resource: FloorResource = null
 var spawn_tile_positiions: Array[Vector2]
 
-
+var spawned_once: bool = false
 
 # ========
 # godot functions
@@ -59,26 +56,32 @@ func _on_pulse_timeout() -> void:
 
 	var enemy_container: Node2D = _helper.get_level_node_enemies()
 
-	if enemy_container.get_child_count() > 8:
+	# if enemy_container.get_child_count() > 8:
+	# 	return
+
+	# for spawn_tile_position in self.spawn_tile_positiions:
+	# 	var enemy = enemy_scene.instantiate()
+	# 	enemy.position = spawn_tile_position
+	# 	enemy_container.add_child(enemy)
+
+	if spawned_once:
 		return
 
-	for spawn_tile_position in self.spawn_tile_positiions:
-		var enemy = enemy_scene.instantiate()
-		enemy.position = spawn_tile_position
-		enemy_container.add_child(enemy)
+	var enemy = enemy_scene.instantiate()
+	enemy.position = spawn_tile_positiions[0]
+	enemy_container.add_child(enemy)
 
+	spawned_once = true
 
 # ========
 # class functions
 # ========
 
-func load_floor(floor_resource: FloorResource) -> void:
-	""" initialize enemy manager object """
-	
-	# store floor information and retrieve spawn tile positions
-	self.floor_resource = floor_resource
+func _enter_game_loop() -> void:
 	self.spawn_tile_positiions = level_manager.get_floor().spawn_tile_positions
 
+func _game_loop() -> void:
+	spawn_enemies()
 
 func spawn_enemies() -> void:
 	""" spawn enemies on the floor """

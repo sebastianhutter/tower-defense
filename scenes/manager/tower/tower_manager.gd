@@ -1,4 +1,4 @@
-extends Node
+extends Manager
 class_name TowerManager
 
 # ========
@@ -7,7 +7,7 @@ class_name TowerManager
 
 @onready var _helper = get_node("/root/HelperSingleton") as Helper
 @onready var _game_events = get_node("/root/GameEventsSingleton") as GameEvents
-@onready var _player_data = get_node("/root/PlayerDataSingleton") as PlayerData
+@onready var _game_data = get_node("/root/GameDataSingleton") as GameData
 @onready var _custom_resource_loader = get_node("/root/CustomResourceLoaderSingleton") as CustomResourceLoader
 
 # ========
@@ -57,7 +57,21 @@ func _on_tower_build_completed(resource: TowerResource, tower_position: Vector2)
 
 
 func _on_tower_destroyed(tower: Tower) -> void:
-	pass
+	""" pass along tower destroyed event to gameevents for other managers and systems to pick up """
+
+	print_debug("TowerManager: tower destroyed: " + str(tower))
+
+	if not _game_events:
+		print_debug("TowerManager: could not find game events singleton")
+		return
+
+	var tower_resource: TowerResource = tower.get_tower_resource()
+	if not tower_resource:
+		print_debug("TowerManager: could not find tower resource")
+		return
+
+	print_debug("TowerManager: tower destroyed: " + str(tower_resource.id))
+	_game_events.tower_destroyed.emit(tower_resource.id, tower.position)
 
 func _on_tower_sold(tower: Tower) -> void:
 	""" pass the sold value to gameevents for other managers and systems to pick up """
@@ -104,6 +118,9 @@ func _on_tower_upgrade_started(tower: Tower) -> void:
 # ========
 # class functions
 # ========
+
+func _enter_game_loop() -> void:
+	spawn_tower_by_id(Types.Tower.HQ, Vector2.ZERO+Constants.TOWER_HQ_OFFSET)
 
 func find_tower_resource(id: int) -> TowerResource:
 	"""

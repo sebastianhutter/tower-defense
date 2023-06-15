@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dd7kjuhjt375q"]
+
+[ext_resource type="Script" path="res://scenes/manager/round/round_manager.gd" id="1_3o2v2"]
+
+[node name="RoundManager" type="Node"]
+editor_description = "The RoundManager is responsible to handle the win and loose condition of a given round
+"
+script = ExtResource("1_3o2v2")
