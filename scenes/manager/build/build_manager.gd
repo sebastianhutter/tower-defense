@@ -20,8 +20,6 @@ class_name BuildManager
 # class signals
 # ========
 
-signal tower_build_started(resource: TowerResource, position: Vector2)
-
 # ========
 # class onready vars
 # ========
@@ -57,7 +55,6 @@ func _ready():
 
 	# connect to game events
 	_game_events.tower_card_clicked.connect(_on_tower_card_clicked)
-	tower_build_started.connect(_game_events._on_tower_build_started)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -87,6 +84,12 @@ func _on_tower_card_clicked(resource: TowerResource) -> void:
 
 	start_build_process(resource)
 
+func _on_consutrction_site_build_completed(resource: TowerResource, pos: Vector2) -> void:
+	"""handle the construction site build completed signal"""
+
+	# send tower build signal 
+	_game_events.tower_build_completed.emit(resource, pos)
+
 # ========
 # class functions
 # ========
@@ -114,6 +117,7 @@ func start_build_process(resource: TowerResource) -> void:
 	tower_build_preview_instance = tower_build_preview.instantiate() as TowerBuildPreview
 	tower_node.add_child(tower_build_preview_instance)
 	tower_build_preview_instance.set_preview_image(resource.build_icon)
+
 
 func cancel_build_process() -> void:
 	"""cancel the building process"""
@@ -145,6 +149,7 @@ func place_construction_site(pos: Vector2) -> void:
 		return
 
 	tower_node.add_child(construction_site_instance)
+	construction_site_instance.tower_build_completed.connect(_on_consutrction_site_build_completed)
 	construction_site_instance.resource = tower_build_resource
 	construction_site_instance.set_position(pos)
 	construction_site_instance.start_construction()
@@ -162,7 +167,7 @@ func build_tower() -> void:
 
 	var build_position: Vector2 = get_build_position()
 	# send tower build signal 
-	tower_build_started.emit(tower_build_resource, build_position)
+	_game_events.tower_build_started.emit(tower_build_resource, build_position)
 	
 	# set construction site placeholder
 	place_construction_site(build_position)
