@@ -5,10 +5,7 @@ class_name BuildManager
 # singleton references
 # ========
 
-@onready var _helper = get_node("/root/HelperSingleton") as Helper
 @onready var _game_events = get_node("/root/GameEventsSingleton") as GameEvents
-
-@onready var center: Node2D = $%Center
 
 # ========
 # export vars
@@ -25,6 +22,8 @@ class_name BuildManager
 # ========
 # class onready vars
 # ========
+
+@onready var center: Node2D = $%Center
 
 # ========
 # class vars
@@ -91,11 +90,26 @@ func _on_consutrction_site_build_completed(resource: TowerResource, pos: Vector2
 # class functions
 # ========
 
+func _enter_game_loop() -> void:
+	""" ensure building is disabled and all possible building scenes are unloaded """
+	
+	# disable building
+	disable_building()
+
+
 func _game_loop() -> void:
 	"""handle the game loop started signal"""
 
 	# enable building
 	enable_building()
+
+func _game_over() -> void:
+	# disable building
+	disable_building()
+
+	tower_build_resource = null
+	tower_build_resource = null
+
 
 func disable_building() -> void:
 	is_building_enabled = false
@@ -106,19 +120,19 @@ func enable_building() -> void:
 func start_build_process(resource: TowerResource) -> void:
 	"""start the building process"""
 
-	var tower_node = _helper.get_level_node_towers()
-	if not tower_node:
-		print_debug("no tower node found")
+	if not level_manager:
+		print_debug("BuildManager: could not find level manager")
 		return
 
-	# if we are building we need to queue free the old preview
-	if is_building and tower_build_preview_instance:
-		tower_build_preview_instance.queue_free()
-
+	var floor: Floor = level_manager.get_floor()
+	if not floor:
+		print_debug("TowerManager: could not find level floor instance")
+		return
+	
 	is_building = true
 	tower_build_resource = resource
 	tower_build_preview_instance = tower_build_preview.instantiate() as TowerBuildPreview
-	tower_node.add_child(tower_build_preview_instance)
+	floor.towers.add_child(tower_build_preview_instance)
 	tower_build_preview_instance.set_preview_image(resource.build_icon)
 
 
@@ -140,9 +154,13 @@ func place_construction_site(pos: Vector2) -> void:
 		print_debug("no tower build preview instance found")
 		return
 
-	var tower_node = _helper.get_level_node_towers()
-	if not tower_node:
-		print_debug("no tower node found")
+	if not level_manager:
+		print_debug("BuildManager: could not find level manager")
+		return
+
+	var floor: Floor = level_manager.get_floor()
+	if not floor:
+		print_debug("TowerManager: could not find level floor instance")
 		return
 
 	# place construction site placeholder on top of the tile
@@ -151,7 +169,7 @@ func place_construction_site(pos: Vector2) -> void:
 		print_debug("no construction site instance found")
 		return
 
-	tower_node.add_child(construction_site_instance)
+	floor.towers.add_child(construction_site_instance)
 	construction_site_instance.tower_build_completed.connect(_on_consutrction_site_build_completed)
 	construction_site_instance.resource = tower_build_resource
 	construction_site_instance.set_position(pos)
@@ -210,6 +228,10 @@ func get_buildability() -> bool:
 		return false
 
 	# we aleays build a level 1 tower!
+	if not tower_build_resource:
+		print_debug("no tower build resource found")
+		return false
+	
 	var tower_costs = (tower_build_resource.get_level(0) as TowerLevel).build_costs
 	if not tower_costs:
 		print_debug("no tower costs found")
@@ -231,6 +253,10 @@ func check_build_process() -> void:
 	if not is_building:
 		return
 
+	if not tower_build_preview_instance:
+		print_debug("no tower build preview instance found")
+		return
+	
 	tower_build_preview_instance.is_buildable = get_buildability()
 	tower_build_preview_instance.set_position(get_build_position())
 
