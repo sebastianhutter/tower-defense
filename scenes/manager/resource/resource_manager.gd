@@ -16,8 +16,6 @@ class_name ResourceManager
 # class signals
 # ========
 
-signal resource_gold_amount_changed(old_amount: int, new_amount: int)
-
 # ========
 # class onready vars
 # ========
@@ -39,7 +37,6 @@ var gold_amount: int = 0
 func _ready():
 	
 	if _game_events:
-		resource_gold_amount_changed.connect(_game_events._on_resource_gold_amount_changed)
 		_game_events.tower_build_started.connect(_on_tower_build_started)
 		_game_events.tower_sold.connect(_on_tower_sold)
 		_game_events.tower_upgrade_started.connect(_on_tower_upgrade_started)
@@ -139,7 +136,7 @@ func set_gold_amount(new_amount: int):
 
 	var old_amount = gold_amount
 	gold_amount = new_amount
-	resource_gold_amount_changed.emit(old_amount, new_amount)
+	_game_events.resource_gold_amount_changed.emit(old_amount, new_amount)
 	
 func get_gold_amount() -> int:
 	return gold_amount

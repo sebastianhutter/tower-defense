@@ -37,12 +37,16 @@ func _ready() -> void:
 
 	# pass the resource changed event to the hud
 	_game_events.resource_gold_amount_changed.connect(hud._on_resource_gold_amount_changed)
-	# pass tower card clicked to the game events
-	hud.tower_card_clicked.connect(_game_events._on_tower_card_clicked)
+	hud.tower_card_clicked.connect(_on_tower_card_clicked)
 
 # ========
 # signal handler
 # ========
+
+func _on_tower_card_clicked(tower_resource: Resource) -> void:
+	""" pass the tower card clcked event along to the gameevents singleton """
+
+	_game_events.tower_card_clicked.emit(tower_resource)
 
 # ========
 # class functions
