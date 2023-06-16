@@ -13,8 +13,9 @@ body = ExtResource("1_p8ir7")
 build_costs = 250
 build_time = 1.0
 sell_value = 200
-damage = 0
+shoot_damage = 0
 shoot_speed = 1.0
+shoot_range = 0.5
 
 [sub_resource type="Resource" id="Resource_gido3"]
 script = ExtResource("2_rlftv")
@@ -22,8 +23,9 @@ body = ExtResource("3_cuqlw")
 build_costs = 350
 build_time = 2.0
 sell_value = 300
-damage = 0
+shoot_damage = 0
 shoot_speed = 1.0
+shoot_range = 0.5
 
 [sub_resource type="Resource" id="Resource_yoroq"]
 script = ExtResource("2_rlftv")
@@ -31,8 +33,9 @@ body = ExtResource("4_3qw8n")
 build_costs = 450
 build_time = 2.0
 sell_value = 400
-damage = 0
+shoot_damage = 0
 shoot_speed = 1.0
+shoot_range = 0.5
 
 [resource]
 script = ExtResource("2_a2i4c")
@@ -44,4 +47,4 @@ can_be_build = true
 can_be_sold = true
 can_be_upgraded = true
 build_icon = ExtResource("1_p8ir7")
-levels = Array[Resource]([SubResource("Resource_q6qrh"), SubResource("Resource_gido3"), SubResource("Resource_yoroq")])
+levels = Array[ExtResource("2_rlftv")]([SubResource("Resource_q6qrh"), SubResource("Resource_gido3"), SubResource("Resource_yoroq")])

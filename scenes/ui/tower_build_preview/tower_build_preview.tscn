@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://dkcytg270t2nf"]
+[gd_scene load_steps=5 format=3 uid="uid://dkcytg270t2nf"]
 
 [ext_resource type="Script" path="res://scenes/ui/tower_build_preview/tower_build_preview.gd" id="1_a4msf"]
 [ext_resource type="Shader" path="res://resources/shader/highlight/highlight.gdshader" id="2_r4yuu"]
+[ext_resource type="PackedScene" uid="uid://c5diftm0fh4yr" path="res://scenes/components/range_detector/range_detector_component.tscn" id="3_0bypi"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_hurwh"]
 resource_local_to_scene = true
@@ -11,6 +12,10 @@ shader_parameter/highlight_color = Color(1, 1, 1, 1)
 
 [node name="TowerBuildPreview" type="Node2D"]
 script = ExtResource("1_a4msf")
+
+[node name="RangePreview" parent="." instance=ExtResource("3_0bypi")]
+unique_name_in_owner = true
+show_indicator = true
 
 [node name="Preview" type="Sprite2D" parent="."]
 unique_name_in_owner = true

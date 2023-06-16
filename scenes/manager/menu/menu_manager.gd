@@ -50,6 +50,7 @@ func _ready():
 
 	if pause_menu:
 		pause_menu.continue_button_pressed.connect(_on_pause_menu_continue_button_pressed)
+		pause_menu.restart_level_button_pressed.connect(_on_pause_menu_restart_level_button_pressed)
 		pause_menu.options_button_pressed.connect(_on_any_options_button_pressed)
 		pause_menu.quit_to_menu_button_pressed.connect(_on_pause_menu_quit_to_menu_button_pressed)
 
@@ -101,6 +102,12 @@ func _on_pause_menu_continue_button_pressed() -> void:
 
 	# set the game state to playing
 	_game_events.game_state_changed.emit(Types.GameState.GAME_LOOP)
+
+
+func _on_pause_menu_restart_level_button_pressed() -> void:
+	""" called when restart level is pressed """
+
+	_game_events.game_state_changed.emit(Types.GameState.ENTER_GAME_LOOP)
 
 func _on_pause_menu_quit_to_menu_button_pressed() -> void:
 	"""called when the quit to menu button is pressed on the pause menu"""

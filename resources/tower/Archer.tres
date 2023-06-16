@@ -13,8 +13,9 @@ body = ExtResource("1_qxb1v")
 build_costs = 100
 build_time = 0.1
 sell_value = 80
-damage = 0
+shoot_damage = 0
 shoot_speed = 1.0
+shoot_range = 0.5
 
 [sub_resource type="Resource" id="Resource_6yxto"]
 script = ExtResource("2_rp58k")
@@ -22,8 +23,9 @@ body = ExtResource("3_7l1ew")
 build_costs = 150
 build_time = 3.0
 sell_value = 120
-damage = 0
+shoot_damage = 0
 shoot_speed = 1.0
+shoot_range = 0.8
 
 [sub_resource type="Resource" id="Resource_vbk0c"]
 script = ExtResource("2_rp58k")
@@ -31,8 +33,9 @@ body = ExtResource("4_m5aii")
 build_costs = 200
 build_time = 0.3
 sell_value = 160
-damage = 0
+shoot_damage = 0
 shoot_speed = 1.0
+shoot_range = 1.2
 
 [resource]
 script = ExtResource("1_oax8f")

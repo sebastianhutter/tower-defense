@@ -16,6 +16,7 @@ class_name GamePauseMenu
 # ========
 
 signal continue_button_pressed
+signal restart_level_button_pressed
 signal options_button_pressed
 signal quit_to_menu_button_pressed
 
@@ -24,6 +25,7 @@ signal quit_to_menu_button_pressed
 # ========
 
 @onready var continue_button: Button = $%ContinueButton
+@onready var restart_level_button: Button = $%RestartLevelButton
 @onready var options_button: Button = $%OptionsButton
 @onready var quit_to_menu_button: Button = $%QuitToMenuButton
 
@@ -39,6 +41,7 @@ signal quit_to_menu_button_pressed
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	continue_button.pressed.connect(_on_continue_button_pressed)
+	restart_level_button.pressed.connect(_on_restart_level_button_pressed)
 	quit_to_menu_button.pressed.connect(_on_quit_to_menu_button_pressed)
 	options_button.pressed.connect(_on_options_button_pressed)
 
@@ -49,6 +52,10 @@ func _ready():
 func _on_continue_button_pressed() -> void:
 	"""emit the play pressed signal"""
 	continue_button_pressed.emit()
+
+func _on_restart_level_button_pressed() -> void:
+	"""emit the restart pressed signal"""
+	restart_level_button_pressed.emit()
 
 func _on_quit_to_menu_button_pressed() -> void:
 	"""emit the quit pressed signal"""

@@ -18,6 +18,7 @@ class_name TowerBuildPreview
 # ========
 
 @onready var preview: Sprite2D = $%Preview
+@onready var range_preview: RangeDetectorComponent =$%RangePreview
 
 # ========
 # class vars
@@ -56,3 +57,10 @@ func set_preview_image(texture: Texture) -> void:
 		return
 	
 	preview.texture = texture
+
+func set_range_preview(length: float) -> void:
+
+	if not range_preview:
+		return
+
+	range_preview.detection_radius = length

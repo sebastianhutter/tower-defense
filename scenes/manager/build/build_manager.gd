@@ -108,7 +108,6 @@ func _game_over() -> void:
 	disable_building()
 
 	tower_build_resource = null
-	tower_build_resource = null
 
 
 func disable_building() -> void:
@@ -132,11 +131,19 @@ func start_build_process(resource: TowerResource) -> void:
 	if is_instance_valid(tower_build_preview_instance):
 		tower_build_preview_instance.queue_free()
 
+	
+
+
 	is_building = true
 	tower_build_resource = resource
+
 	tower_build_preview_instance = tower_build_preview.instantiate() as TowerBuildPreview
 	floor.towers.add_child(tower_build_preview_instance)
 	tower_build_preview_instance.set_preview_image(resource.build_icon)
+
+	var tower_level_resource = resource.get_level(0)
+	if tower_level_resource:
+		tower_build_preview_instance.set_range_preview(tower_level_resource.shoot_range)
 
 
 func cancel_build_process() -> void:
@@ -261,5 +268,7 @@ func check_build_process() -> void:
 		return
 	
 	tower_build_preview_instance.is_buildable = get_buildability()
-	tower_build_preview_instance.set_position(get_build_position())
-
+	tower_build_preview_instance.global_position = get_build_position()
+	
+	if tower_build_preview_instance.range_preview:
+		tower_build_preview_instance.range_preview.global_position = tower_build_preview_instance.position - Constants.TOWER_BUILD_OFFSET

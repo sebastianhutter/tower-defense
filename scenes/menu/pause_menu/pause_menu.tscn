@@ -24,6 +24,11 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "Continue"
 
+[node name="RestartLevelButton" type="Button" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Restart Level"
+
 [node name="OptionsButton" type="Button" parent="MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2

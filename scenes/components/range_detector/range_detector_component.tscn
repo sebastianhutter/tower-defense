@@ -1,11 +1,27 @@
-[gd_scene load_steps=2 format=3 uid="uid://c5diftm0fh4yr"]
+[gd_scene load_steps=4 format=3 uid="uid://c5diftm0fh4yr"]
 
 [ext_resource type="Script" path="res://scenes/components/range_detector/range_detector_component.gd" id="1_30jvh"]
+[ext_resource type="Shader" path="res://resources/shader/blur/blur.gdshader" id="2_60m1n"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3uhhh"]
+shader = ExtResource("2_60m1n")
+shader_parameter/blur_amount = -0.0479999
+shader_parameter/mix_amount = 0.366
+shader_parameter/color_over = Color(1, 0.00392157, 0.858824, 1)
 
 [node name="RangeDetectorComponent" type="Area2D"]
 editor_description = "Detects enemies in the tower range
-"
-position = Vector2(-6, -55)
+Calcualtes the collision shape depending on the tower range
+
+make sure to place it close to the \"bottom\" of the tower"
+position = Vector2(2.08165e-12, 2.08165e-12)
 collision_layer = 0
 collision_mask = 4
 script = ExtResource("1_30jvh")
+
+[node name="Range" type="CollisionPolygon2D" parent="."]
+unique_name_in_owner = true
+
+[node name="Indicator" type="Polygon2D" parent="."]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_3uhhh")

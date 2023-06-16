@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dwagv13554c74"]
+[gd_scene load_steps=12 format=3 uid="uid://dwagv13554c74"]
 
 [ext_resource type="Script" path="res://scenes/tower/wizard/wizard.gd" id="1_wq3v4"]
 [ext_resource type="Texture2D" uid="uid://btmg2e8ioglt" path="res://resources/sprite/tower/Wizard/wizard_level_1.png" id="2_mcfjm"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://bns5gw22psqm3" path="res://scenes/components/tower_sell/tower_sell_component.tscn" id="4_7kyg7"]
 [ext_resource type="PackedScene" uid="uid://bqbkecclfiqvn" path="res://scenes/components/construction/construction_component.tscn" id="4_23su2"]
 [ext_resource type="PackedScene" uid="uid://brvdk3kevx3q2" path="res://scenes/components/tower_action/tower_action_component.tscn" id="6_6bwql"]
+[ext_resource type="PackedScene" uid="uid://c5diftm0fh4yr" path="res://scenes/components/range_detector/range_detector_component.tscn" id="8_2t2to"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wi0cy"]
 resource_local_to_scene = true
@@ -23,6 +24,10 @@ polygon = PackedVector2Array(-10, -56.1, -6.6, -54.1, -2.7, -57, 10.5, -57, 16, 
 [node name="Wizard" type="Area2D"]
 collision_mask = 0
 script = ExtResource("1_wq3v4")
+
+[node name="RangeDetectorComponent" parent="." instance=ExtResource("8_2t2to")]
+unique_name_in_owner = true
+position = Vector2(0, 62)
 
 [node name="TowerActionComponent" parent="." node_paths=PackedStringArray("tower_upgrade_component", "tower_sell_compoonent") instance=ExtResource("6_6bwql")]
 unique_name_in_owner = true

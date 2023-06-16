@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://crx7v2qie73tg"]
+[gd_scene load_steps=11 format=3 uid="uid://crx7v2qie73tg"]
 
 [ext_resource type="Script" path="res://scenes/tower/HQ/hq.gd" id="1_bm2he"]
 [ext_resource type="Shader" path="res://resources/shader/highlight/highlight.gdshader" id="1_ecwd0"]
 [ext_resource type="Texture2D" uid="uid://cuh4k7x8q4smd" path="res://resources/sprite/tower/HQ/hq_level_1.png" id="2_cwquf"]
+[ext_resource type="PackedScene" uid="uid://c5diftm0fh4yr" path="res://scenes/components/range_detector/range_detector_component.tscn" id="6_v7x57"]
 [ext_resource type="PackedScene" uid="uid://cykkf088brpwm" path="res://scenes/components/hurtbox/hurtbox_component.tscn" id="8_wn1dc"]
 [ext_resource type="PackedScene" uid="uid://cprlunajl2x8s" path="res://scenes/components/health/health_component.tscn" id="9_5h631"]
 
@@ -26,6 +27,10 @@ position = Vector2(0, 1)
 collision_layer = 2
 collision_mask = 0
 script = ExtResource("1_bm2he")
+
+[node name="RangeDetectorComponent" parent="." instance=ExtResource("6_v7x57")]
+unique_name_in_owner = true
+position = Vector2(0, 71)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1, 3)

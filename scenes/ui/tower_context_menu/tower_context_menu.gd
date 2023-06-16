@@ -23,8 +23,9 @@ signal conext_menu_closed()
 
 @onready var panel_container: Control = $%PanelContainer
 @onready var tower_name: Label = $%TowerName
-@onready var damage: Label = $%Damage
-@onready var shoot_speed: Label = $%ShotSpeed
+@onready var damage_label: Label = $%Damage
+@onready var shoot_speed_label: Label = $%ShotSpeed
+@onready var range_label: Label = $%Range
 @onready var upgrade_button: Button = $%UpgradeButton
 @onready var sell_button: Button = $%SellButton
 
@@ -90,7 +91,7 @@ func _on_sell_button_pressed() -> void:
 # class functions
 # ========
 
-func set_values(node_id: int, tower_type: String, can_be_upgraded: bool, is_max_level: bool, can_be_sold: bool, upgrade_costs: int, sell_value: int, current_level: int, speed: float, damage: float) -> void: 
+func set_values(node_id: int, tower_type: String, can_be_upgraded: bool, is_max_level: bool, can_be_sold: bool, upgrade_costs: int, sell_value: int, current_level: int, speed: float, damage: float, range: float) -> void: 
 	""" update the context menu with the values for the selected tower """
 	self.selected_tower_node_id = node_id
 	self.selected_tower_is_max_level = is_max_level
@@ -100,6 +101,9 @@ func set_values(node_id: int, tower_type: String, can_be_upgraded: bool, is_max_
 	set_tower_name(tower_type + ' (Lvl: ' + str(current_level+1) + ')')
 	set_upgrade_costs(selected_tower_upgrade_costs, selected_tower_is_max_level)
 	set_sell_value(selected_tower_sell_value)
+	set_damage_label(damage)
+	set_shot_speed_label(speed)
+	set_range_label(range)
 	enable_sell_button(can_be_sold)
 	enable_upgrade_button(can_be_upgraded, selected_tower_is_max_level)
 
@@ -127,13 +131,37 @@ func set_sell_value(sell_value: int) -> void:
 	if not self.sell_button:
 		return
 
-
 	sell_button.text = 'Sell (G: ' + str(sell_value) + ')'
 
-	
+func set_damage_label(damage: float) -> void:
+	""" sets the damage label"""
+
+	if not self.damage_label:
+		return
+
+	damage_label.text = "Damage: " + str(damage)
+
+
+func set_shot_speed_label(speed: float) -> void:
+	""" sets the shoot speed label """
+
+	if not self.shoot_speed_label:
+		return
+
+	shoot_speed_label.text = "Shot Speed: " + str(speed)
+
+func set_range_label(range: float) -> void:
+	""" set the tower range label """
+
+	if not self.range_label:
+		return
+
+	range_label.text = str(range) + " Tile(s)" 
+
+
 func enable_sell_button(sell_is_enabled: bool) -> void:
 	
-	if not sell_button:
+	if not self.sell_button:
 		return
 
 	sell_button.disabled = not sell_is_enabled

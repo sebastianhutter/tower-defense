@@ -27,6 +27,7 @@ signal tower_clicked(tower: Tower)
 @onready var tower_action_component: TowerActionComponent = $%TowerActionComponent
 @onready var tower_upgrade_component: TowerUpgradeComponent = $%TowerUpgradeComponent
 @onready var tower_sell_component: TowerSellComponent = $%TowerSellComponent
+@onready var range_detector_component: RangeDetectorComponent = $%RangeDetectorComponent
 
 # ========
 # class vars
@@ -47,12 +48,12 @@ func _ready():
 	# ensure no shader is highlightng the tower
 	highligh_tower(false)
 
+	# enable highlighing of tower by hover
+	mouse_entered.connect(_on_mouse_entered)
+	mouse_exited.connect(_on_mouse_exited)
+
 	# if the tower supports user actions
 	if tower_action_component:
-		# enable highlighing of tower by hover
-		mouse_entered.connect(_on_mouse_entered)
-		mouse_exited.connect(_on_mouse_exited)
-
 		# pass mouse entered and exited signal to component
 		mouse_entered.connect(tower_action_component._on_parent_mouse_entered)
 		mouse_exited.connect(tower_action_component._on_parent_mouse_exited)
@@ -66,6 +67,10 @@ func _ready():
 
 	if tower_sell_component:
 		tower_sell_component.tower_sold.connect(_on_tower_sold)
+
+	if range_detector_component:
+		mouse_entered.connect(range_detector_component._on_parent_mouse_entered)
+		mouse_exited.connect(range_detector_component._on_parent_mouse_exited)
 		
 # ========
 # signal handler
@@ -106,6 +111,9 @@ func initialize(resource: TowerResource) -> void:
 	set_tower_level()
 	set_upgrade_component()
 	set_sell_component()
+	set_tower_body_texture()
+	set_tower_shoot_range()
+
 
 
 func set_tower_level() -> void:
@@ -190,6 +198,7 @@ func finish_upgrade_tower() -> void:
 	tower_current_level += 1
 	set_tower_level()
 	set_tower_body_texture()
+	set_tower_shoot_range()
 	tower_upgrade_finished.emit(self)
 
 
@@ -210,3 +219,21 @@ func set_tower_body_texture() -> void:
 		return
 
 	body.texture = texture
+
+func set_tower_shoot_range() -> void:
+	""" set the tower shoot range """
+
+	if not range_detector_component:
+		print_debug("Tower: RangeComponent not found, can not set range")
+		return
+	
+	if not tower_level:
+		print_debug("Tower: no tower level set, cannot set the texture")
+		return
+
+	var shoot_range: float = tower_level.shoot_range
+	if not shoot_range:
+		print_debug("Tower: no shoot_range set, cannot set the new shoot_rangee")
+		return
+
+	range_detector_component.detection_radius = shoot_range

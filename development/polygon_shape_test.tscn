@@ -6,6 +6,7 @@
 
 [node name="polygon_shape_test" type="Node2D"]
 script = ExtResource("1_i1hrf")
+length = 10.0
 metadata/_edit_horizontal_guides_ = [-116.0, 29.0, -43.0, -263.0, 174.0, -406.0, 318.0, -553.0, 465.0]
 metadata/_edit_vertical_guides_ = [-125.0, 126.0, 0.0, -373.0, 250.0, 375.0, -499.0, 503.0, 625.0, -623.0, -875.0, 877.0]
 

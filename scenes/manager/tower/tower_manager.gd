@@ -120,6 +120,7 @@ func _on_tower_clicked(tower: Tower) -> void:
 		print_debug("TowerManager: could not find game events singleton")
 		return
 
+	# retrieve all information for the tower context menu
 	var tower_upgrade_component: TowerUpgradeComponent = tower.tower_upgrade_component as TowerUpgradeComponent
 	var can_be_upgraded: bool = false
 	var is_max_level: bool = false
@@ -141,9 +142,9 @@ func _on_tower_clicked(tower: Tower) -> void:
 		can_be_sold = not tower_sell_component.is_selling and tower_sell_component.can_be_sold
 		tower_sell_value = tower.get_tower_level_resource().sell_value
 
-	# TODO: add speed and damage when properly added to tower
-	var tower_speed: float = 0
-	var tower_damage: float = 0
+	var tower_speed: float = tower.get_tower_level_resource().shoot_speed
+	var tower_damage: float = tower.get_tower_level_resource().shoot_damage
+	var tower_range: float = tower.get_tower_level_resource().shoot_range
 
 	print_debug("TowerManager: tower clicked: " + str(tower))
 	_game_events.tower_clicked.emit(
@@ -157,7 +158,8 @@ func _on_tower_clicked(tower: Tower) -> void:
 		tower_sell_value, 
 		tower.tower_current_level, 
 		tower_speed, 
-		tower_damage
+		tower_damage,
+		tower_range,
 	)
 
 func _on_tower_context_menu_sell_button_clicked(node_id: int) -> void:
