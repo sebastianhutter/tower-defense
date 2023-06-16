@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://crde1qxwqli1i"]
+[gd_scene load_steps=14 format=3 uid="uid://crde1qxwqli1i"]
 
 [ext_resource type="PackedScene" uid="uid://cbq3r0r2rnp01" path="res://scenes/game_camera/game_camera.tscn" id="1_qnpjk"]
 [ext_resource type="PackedScene" uid="uid://2c848wdr7l8r" path="res://scenes/tilemap/tile_map.tscn" id="2_ek14y"]
@@ -7,6 +7,7 @@
 [ext_resource type="Shader" path="res://resources/shader/highlight/highlight.gdshader" id="6_kv66f"]
 [ext_resource type="PackedScene" uid="uid://dhmk82a7o8f6u" path="res://scenes/portal/portal.tscn" id="6_uoefq"]
 [ext_resource type="PackedScene" uid="uid://pkmm7mbeupn0" path="res://scenes/manager/resource/resource_manager.tscn" id="7_du3kg"]
+[ext_resource type="PackedScene" uid="uid://bpooopgsgkah0" path="res://scenes/tower/archer/archer.tscn" id="8_8ulyg"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8qvc8"]
 resource_local_to_scene = true
@@ -126,11 +127,8 @@ shadow_enabled = true
 [node name="HQ2" parent="." instance=ExtResource("3_5xbpu")]
 position = Vector2(124, -75)
 
-[node name="Body" parent="HQ2" index="2"]
+[node name="Body" parent="HQ2" index="1"]
 material = SubResource("ShaderMaterial_8qvc8")
-
-[node name="TowerContextMenu" parent="HQ2" index="5"]
-visible = false
 
 [node name="TowerRangeComponent" type="Area2D" parent="HQ2"]
 collision_layer = 0
@@ -139,7 +137,6 @@ collision_mask = 4
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HQ2/TowerRangeComponent"]
 position = Vector2(-609, -163)
 rotation = 2.23402
-scale = Vector2(1, 1)
 skew = -0.10472
 shape = SubResource("CircleShape2D_ia4ve")
 
@@ -151,7 +148,6 @@ material = SubResource("ShaderMaterial_uujo2")
 use_parent_material = true
 position = Vector2(-695, 397)
 rotation = 2.23402
-scale = Vector2(1, 1)
 skew = -0.10472
 shape = SubResource("CircleShape2D_ia4ve")
 
@@ -168,5 +164,18 @@ position = Vector2(-62, -21)
 position = Vector2(-62, -21)
 
 [node name="ResourceManager" parent="." instance=ExtResource("7_du3kg")]
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(2620, 497)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+polygon = PackedVector2Array(-17, 304, 93, 306, 70, 389, -37, 352, -20, 305)
+
+[node name="Archer" parent="." instance=ExtResource("8_8ulyg")]
+position = Vector2(2110, 540)
+
+[node name="ColorRect" type="ColorRect" parent="Archer"]
+offset_right = 40.0
+offset_bottom = 40.0
 
 [editable path="HQ2"]
