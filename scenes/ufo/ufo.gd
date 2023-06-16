@@ -13,6 +13,8 @@ class_name Ufo
 # class signals
 # ========
 
+signal hit_player_hq()
+
 # ========
 # class onready vars
 # ========
@@ -39,3 +41,11 @@ class_name Ufo
 # class functions
 # ========
 
+func hit_feedback_from_hq() -> void:
+    """ workaround for missing bi-directional area2d entered support """
+
+    # this function is called by the players hq while the two objects are colliding
+    # this allows the ufo itself to handle what happens with the collision
+    # but it's kinda hacky
+
+    hit_player_hq.emit()

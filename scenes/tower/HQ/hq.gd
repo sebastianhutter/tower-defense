@@ -44,10 +44,11 @@ func _on_hurtbox_area_entered(area: Area2D) -> void:
 	""" we send the enemy that hit the hq the hit signal so it goes puff """
 	
 	var parent_node = area.owner
-	if not parent_node is Enemy:
+	if not parent_node is Ufo:
 		return
 
-	parent_node.hit_feedback_from_hq()
+	if parent_node.has_method("hit_feedback_from_hq"):
+		parent_node.hit_feedback_from_hq()
 
 # ========
 # class functions
@@ -56,7 +57,6 @@ func _on_hurtbox_area_entered(area: Area2D) -> void:
 func _tower_ready() -> void:
 	""" setup health component """
 
-	print('weiorgnioergnioerngioerniogneoigneiorgnioerngioperngiopenriopgneruiopgneuiropgnuiopergnuiperbnguerbnguebnuipgrnbiuerngioerngioperngiopneriognioergnioerngioerngiongioerngioernio')
 	if health_component:
 		health_component.died.connect(_on_health_component_died)
 		health_component.health_changed.connect(_on_health_changed)

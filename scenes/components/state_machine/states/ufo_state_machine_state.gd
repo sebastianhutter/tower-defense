@@ -16,9 +16,6 @@ class_name UfoStateMachineState
 # class signals
 # ========
 
-signal request_transition_to_new_state(state_name: String, msg: Dictionary)
-signal request_transition_to_last_state(msg: Dictionary)
-
 # ========
 # class onready vars
 # ========
@@ -28,7 +25,7 @@ signal request_transition_to_last_state(msg: Dictionary)
 # ========
 
 var ufo: Ufo = null
-var fsm: UfoStateMachineUfo = null
+var fsm: UfoStateMachine = null
 
 # ========
 # godot functions

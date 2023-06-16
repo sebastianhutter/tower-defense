@@ -51,7 +51,7 @@ func _on_hurtbox_area_entered(area: Area2D) -> void:
 		return
 
 
-	(parent_node as Projectile).increase_hit_count()
+	(parent_node as Projectile).increase_hit_count() 
 
 # ========
 # class functions

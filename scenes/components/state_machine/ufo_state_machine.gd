@@ -1,7 +1,7 @@
 # thanks to: https://www.gdquest.com/tutorial/godot/design-patterns/finite-state-machine/
 # and https://docs.godotengine.org/en/3.2/tutorials/misc/state_design_pattern.html
 extends Node
-class_name UfoStateMachineUfo
+class_name UfoStateMachine
 
 # ========
 # singleton references

@@ -73,7 +73,7 @@ func _on_area_entered(area: Area2D):
 
 func _on_area_exited(area: Area2D):
 	# try to remove body from array, if it doesnt exist nothin happens to the array
-	enemies_in_range.erase(area)
+	enemies_in_range.erase(area as Ufo)
 
 func _on_parent_mouse_entered() -> void:
 	if not show_indicator:
