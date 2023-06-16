@@ -25,6 +25,8 @@ class_name Portal
 # class vars
 # ========
 
+var portal_open: bool = false
+
 # ========
 # godot functions
 # ========
@@ -43,10 +45,14 @@ func _ready():
 # ========
 
 func _on_timer_timeout():
+	portal_open = true
 	animation_player.play("portal")
 
 func _on_wave_incoming(time_to_wave: float, current_wave: int, next_wave: int, wave_count: int) -> void:
 	""" setup an internal timer to end shortly before the wave arrives """
+
+	if portal_open:
+		return
 
 	if not timer:
 		print_debug("no timer node found")

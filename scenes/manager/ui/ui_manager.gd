@@ -40,6 +40,7 @@ func _ready() -> void:
 		_game_events.resource_gold_amount_changed.connect(hud._on_resource_gold_amount_changed)
 		_game_events.tower_clicked.connect(hud._on_tower_clicked)
 		_game_events.wave_incoming.connect(hud._on_wave_incoming)
+		_game_events.wave_started.connect(hud._on_wave_started)
 
 	if hud:
 		hud.tower_card_clicked.connect(_on_tower_card_clicked)

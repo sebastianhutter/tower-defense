@@ -97,6 +97,10 @@ func _on_wave_incoming(time_to_wave: float, current_wave: int, next_wave: int, w
 		wave_ui.start_timer()
 		wave_ui.wave_count = wave_count
 
+func _on_wave_started(wave: int) -> void:
+	if wave_ui:
+		wave_ui.current_wave = wave+1 # indexed at 0!
+
 # ========
 # class functions
 # ========
