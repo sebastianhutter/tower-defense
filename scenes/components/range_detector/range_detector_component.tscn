@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://c5diftm0fh4yr"]
+
+[ext_resource type="Script" path="res://scenes/components/range_detector/range_detector_component.gd" id="1_30jvh"]
+
+[node name="RangeDetectorComponent" type="Area2D"]
+editor_description = "Detects enemies in the tower range
+"
+position = Vector2(-6, -55)
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("1_30jvh")

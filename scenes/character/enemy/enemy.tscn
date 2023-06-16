@@ -68,7 +68,7 @@ shape = SubResource("CircleShape2D_7a1ju")
 [node name="HitboxComponent" parent="." instance=ExtResource("9_ysjkd")]
 visible = false
 collision_layer = 2
-damage = 100.0
+damage = 9.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
 shape = SubResource("CircleShape2D_g5j1s")
