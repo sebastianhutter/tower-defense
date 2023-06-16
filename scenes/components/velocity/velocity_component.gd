@@ -41,14 +41,6 @@ func get_velocity() -> Vector2:
 	"""returns the velocity"""
 
 	return velocity
-
-func fall(is_on_floor: bool, fall_speed: float) -> void:
-	"""fall"""
-
-	if is_on_floor:
-		velocity.y = 0.0
-	else:
-		velocity.y -= fall_speed
 	
 func accelerate(direction: Vector2) -> void:
 	"""accelerate into the given direction"""
@@ -57,7 +49,6 @@ func accelerate(direction: Vector2) -> void:
 		return
 		
 	velocity = direction * max_speed
-
 
 
 func decelerate(direction: Vector2) -> void:
@@ -69,7 +60,7 @@ func decelerate(direction: Vector2) -> void:
 	velocity.x = move_toward(velocity.x, 0.0, max_speed)
 	velocity.y = move_toward(velocity.y, 0.0, max_speed)
 
-func move(body: Character) -> void:
+func move(body: Node2D) -> void:
 	"""
 	moves the body
 	"""

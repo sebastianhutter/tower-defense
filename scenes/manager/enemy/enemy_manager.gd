@@ -21,7 +21,7 @@ class_name EnemyManager
 # ========
 
 @onready var pulse: Timer = $%Pulse
-@onready var enemy_scene: PackedScene = preload("res://scenes/character/enemy/enemy.tscn")
+@onready var enemy_scene: PackedScene = preload("res://scenes/enemy/enemy.tscn")
 
 # ========
 # class vars

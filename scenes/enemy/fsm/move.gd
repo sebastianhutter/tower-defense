@@ -61,7 +61,7 @@ func physics_update(_delta):
 
 	var direction = fsm.movement_component.get_movement_direction(fsm.body, target_position)
 	fsm.movement_component.move(fsm.body, direction, _delta)
-	fsm.movement_component.look_at(fsm.body, target_position, _delta)
+
 
 func enter(_msg = {}):
 	pass
