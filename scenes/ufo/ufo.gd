@@ -21,6 +21,7 @@ class_name Ufo
 @onready var hitbox_component: HitboxComponent = $%HitboxComponent
 @onready var movement_component: MovementComponent = $%MovementComponent
 @onready var navigation_component: NavigationComponent = $%NavigationComponent
+@onready var health_component: HealthComponent = $%HealthComponent
 
 # ========
 # class vars

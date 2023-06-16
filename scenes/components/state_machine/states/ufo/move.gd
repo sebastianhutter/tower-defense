@@ -32,7 +32,6 @@ extends UfoStateMachineState
 # class functions
 # ========
 
-
 func physics_update(_delta):
 
 	if not ufo.navigation_component or not ufo.movement_component:
@@ -40,7 +39,6 @@ func physics_update(_delta):
 
 	var next_position: Vector2 = ufo.navigation_component.get_next_path_position()
 	ufo.movement_component.move(next_position, _delta)
-
 
 func enter(_msg = {}):
 

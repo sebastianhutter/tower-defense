@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://53tqvexpa0rk"]
+
+[ext_resource type="Script" path="res://scenes/components/state_machine/states/ufo/hit.gd" id="1_6ovg0"]
+
+[node name="Hit" type="Node"]
+script = ExtResource("1_6ovg0")

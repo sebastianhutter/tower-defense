@@ -33,4 +33,4 @@ unique_name_in_owner = true
 navigation_polygon = SubResource("NavigationPolygon_d14fw")
 
 [node name="WeakUfo" parent="." instance=ExtResource("4_7y8ll")]
-position = Vector2(-643, 598)
+position = Vector2(-370, -278)

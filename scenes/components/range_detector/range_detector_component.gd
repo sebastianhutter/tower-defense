@@ -39,15 +39,15 @@ class_name RangeDetectorComponent
 # class vars
 # ========
 
-var enemies_in_range: Array[CharacterBody2D] = [] 
+var enemies_in_range: Array[Ufo] = [] 
 
 # ========
 # godot functions
 # ========
 
 func _ready():
-	body_entered.connect(_on_body_entered)
-	body_exited.connect(_on_body_exited)
+	area_entered.connect(_on_area_entered)
+	area_exited.connect(_on_area_exited)
 
 	# calculate the initial polygon shape
 	calculate_collision_polygon()
@@ -59,16 +59,21 @@ func _ready():
 # signal handler
 # ========
 
-func _on_body_entered(body: Node2D):
-	# TODO: check if body is really enemy body
+func _on_area_entered(area: Area2D):
+
+
+	print(area)
+
+	if not area is Ufo:
+		return
 
 	# store reference to enemy
-	enemies_in_range.append(body)
+	enemies_in_range.append(area as Ufo)
 
 
-func _on_body_exited(body: Node2D):
+func _on_area_exited(area: Area2D):
 	# try to remove body from array, if it doesnt exist nothin happens to the array
-	enemies_in_range.erase(body)
+	enemies_in_range.erase(area)
 
 func _on_parent_mouse_entered() -> void:
 	if not show_indicator:
@@ -82,8 +87,7 @@ func _on_parent_mouse_exited() -> void:
 # class functions
 # ========
 
-# TODO: change return type
-func get_first_enemy_in_line() -> CharacterBody2D:
+func get_first_enemy_in_line() -> Ufo:
 	""" returns the first enemy in range """
 
 	if enemies_in_range.is_empty():

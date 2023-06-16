@@ -100,7 +100,7 @@ func get_target() -> Vector2:
 	if not range_detector_component:
 		return Vector2.ZERO
 
-	var e: CharacterBody2D = range_detector_component.get_first_enemy_in_line()
+	var e: Ufo = range_detector_component.get_first_enemy_in_line()
 	if not e:
 		return Vector2.ZERO
 

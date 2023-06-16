@@ -24,8 +24,11 @@ class_name UfoStateMachineUfo
 # ========
 
 var ufo: Ufo = null
-var last_state: UfoStateMachineState = null
+
+
 var current_state: UfoStateMachineState = null
+var current_state_id: STATE
+var last_state_id: STATE = STATE.MOVE
 
 # ========
 # godot functions
@@ -41,8 +44,11 @@ func _ready():
 	# initialize fsm signals etc
 	initialize()
 
+	# pass parent components for easier use
 	pass_components_to_state()
-	set_initial_state()
+	
+	# transition to first state
+	transition_to(last_state_id)
 
 # pass the loop executions to the current state
 func _unhandled_input(event: InputEvent) -> void:
@@ -62,14 +68,25 @@ func _physics_process(delta: float) -> void:
 # signal handler
 # ========
 
+func _on_health_component_died() -> void:
+	transition_to(STATE.DIE)
+
 # ========
 # class functions
 # ========
 
+enum STATE {
+	MOVE = 0,
+	HIT,
+	DIE,
+}
 
 func initialize() -> void:
-	"""virtual function to initialize child fsms"""
-	pass
+	""" ensure the 'die' state can be reached in any case """
+
+	if ufo.health_component:
+		ufo.health_component.died.connect(_on_health_component_died)
+
 
 func pass_components_to_state() -> void:
 	"""pass the fsm to the state"""
@@ -80,32 +97,31 @@ func pass_components_to_state() -> void:
 			child.ufo = ufo
 			child.initialize()
 
-func set_initial_state() -> void:
-	"""set the initial state of the state machine"""
-	
-	if current_state == null:
-		for i in range(get_child_count()):
-			var child = get_child(i)
-			if child is UfoStateMachineState:
-				transition_to(child.name)
-				break
-
 func transition_to_last_state(msg: Dictionary = {}) -> void:
 	"""transition to the last state"""
 
-	print_debug("transitioning to last state")
-	transition_to(last_state.name, msg)
+	print_debug("transitioning to last state " + str(last_state_id) + ")")
+	transition_to(last_state_id, msg)
 
-func transition_to(target_state_name: String, msg: Dictionary = {}) -> void:
+func transition_to(state_id: STATE, msg: Dictionary = {}) -> void:
 	"""transition between states """
-	if not has_node(target_state_name):
-		return
 
-	print_debug("transitioning to " + target_state_name)
+	
+	var next_state = get_child(state_id)
+	if not next_state:
+		print_debug("unable to find state with id " + str(state_id))
+		return
+	
+	print_debug("transitioning to " + str(state_id))
 	if current_state:
 		current_state.exit()
-		last_state = current_state
-	
-	current_state = get_node(target_state_name)
+
+	if current_state_id:
+		(get_child(current_state_id) as UfoStateMachineState).exit()
+		last_state_id = current_state_id
+
+	current_state_id = state_id
+	current_state = next_state
 	current_state.enter(msg)
+
 

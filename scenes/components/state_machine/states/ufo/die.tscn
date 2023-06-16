@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ijd2ei8al4ab"]
+
+[ext_resource type="Script" path="res://scenes/components/state_machine/states/ufo/die.gd" id="1_cdlup"]
+
+[node name="Die" type="Node"]
+script = ExtResource("1_cdlup")
