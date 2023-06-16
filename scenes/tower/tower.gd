@@ -28,6 +28,7 @@ signal tower_clicked(tower: Tower)
 @onready var tower_upgrade_component: TowerUpgradeComponent = $%TowerUpgradeComponent
 @onready var tower_sell_component: TowerSellComponent = $%TowerSellComponent
 @onready var range_detector_component: RangeDetectorComponent = $%RangeDetectorComponent
+@onready var tower_attack_component: TowerAttackComponent = $%TowerAttackComponent
 
 # ========
 # class vars
@@ -124,7 +125,7 @@ func set_tower_level() -> void:
 	tower_level = tower_resource.get_level(tower_current_level)
 
 func set_upgrade_component() -> void:
-	""" enable or disable the upgrade component """
+	""" enable or disable the upgrade component """ 
 
 	if not tower_resource:
 		print_debug("Tower: no tower resource set, can not pass can_be_upgraded")

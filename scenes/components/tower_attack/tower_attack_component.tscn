@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://idi8snkubom7"]
+
+[ext_resource type="Script" path="res://scenes/components/tower_attack/tower_attack_component.gd" id="1_6ojtn"]
+
+[node name="TowerAttackComponent" type="Node"]
+editor_description = "The TowerAttackComponent handles the basic attacking rules.
+It fires attacks if not upgrading, in the defined speed and if an enemy is in range"
+script = ExtResource("1_6ojtn")
+
+[node name="AttackTimer" type="Timer" parent="."]
+unique_name_in_owner = true

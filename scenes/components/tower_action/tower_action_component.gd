@@ -13,7 +13,6 @@ class_name TowerActionComponent
 @export var tower_upgrade_component: TowerUpgradeComponent
 @export var tower_sell_compoonent: TowerSellComponent
 
-
 # ========
 # class signals
 # ========

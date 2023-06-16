@@ -23,6 +23,9 @@ tilemap_biome = 2
 [node name="Towers" type="Node2D" parent="." groups=["towers"]]
 unique_name_in_owner = true
 
+[node name="Projectiles" type="Node2D" parent="." groups=["projectiles"]]
+unique_name_in_owner = true
+
 [node name="Enemies" type="Node2D" parent="." groups=["enemies"]]
 unique_name_in_owner = true
 

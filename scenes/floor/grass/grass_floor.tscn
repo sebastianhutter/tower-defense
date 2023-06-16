@@ -22,6 +22,9 @@ layer_0/tile_data = PackedInt32Array(131074, 110, 0, 65537, 110, 0, 1, 110, 0, -
 [node name="Towers" type="Node2D" parent="." groups=["towers"]]
 unique_name_in_owner = true
 
+[node name="Projectiles" type="Node2D" parent="." groups=["projectiles"]]
+unique_name_in_owner = true
+
 [node name="Enemies" type="Node2D" parent="." groups=["enemies"]]
 unique_name_in_owner = true
 

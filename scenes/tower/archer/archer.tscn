@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bpooopgsgkah0"]
+[gd_scene load_steps=13 format=3 uid="uid://bpooopgsgkah0"]
 
 [ext_resource type="Script" path="res://scenes/tower/archer/archer.gd" id="1_3cfng"]
 [ext_resource type="Texture2D" uid="uid://cjmo2hwl4n6fi" path="res://resources/sprite/tower/Archer/archer_level_1.png" id="2_42bef"]
@@ -7,6 +7,7 @@
 [ext_resource type="Shader" path="res://resources/shader/highlight/highlight.gdshader" id="2_tboa3"]
 [ext_resource type="PackedScene" uid="uid://dsj880miek66l" path="res://scenes/components/tower_upgrade/tower_upgrade_component.tscn" id="3_ig1fk"]
 [ext_resource type="PackedScene" uid="uid://bns5gw22psqm3" path="res://scenes/components/tower_sell/tower_sell_component.tscn" id="4_7onuw"]
+[ext_resource type="PackedScene" uid="uid://idi8snkubom7" path="res://scenes/components/tower_attack/tower_attack_component.tscn" id="6_ofw48"]
 [ext_resource type="PackedScene" uid="uid://c5diftm0fh4yr" path="res://scenes/components/range_detector/range_detector_component.tscn" id="8_15iqn"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_p3not"]
@@ -40,6 +41,11 @@ construction_component = NodePath("../ConstructionComponent")
 
 [node name="TowerSellComponent" parent="." instance=ExtResource("4_7onuw")]
 unique_name_in_owner = true
+
+[node name="TowerAttackComponent" parent="." node_paths=PackedStringArray("tower_upgrade_component", "range_detector_component") instance=ExtResource("6_ofw48")]
+unique_name_in_owner = true
+tower_upgrade_component = NodePath("../TowerUpgradeComponent")
+range_detector_component = NodePath("../RangeDetectorComponent")
 
 [node name="Body" type="Sprite2D" parent="."]
 unique_name_in_owner = true

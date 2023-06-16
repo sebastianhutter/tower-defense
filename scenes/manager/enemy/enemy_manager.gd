@@ -55,16 +55,16 @@ func _on_pulse_timeout() -> void:
 
 	var enemy_container: Node2D = level_manager.get_floor().enemies
 
-	# if enemy_container.get_child_count() > 8:
-	# 	return
-
-	# for spawn_tile_position in self.spawn_tile_positiions:
-	# 	var enemy = enemy_scene.instantiate()
-	# 	enemy.position = spawn_tile_position
-	# 	enemy_container.add_child(enemy)
-
-	if spawned_once:
+	if enemy_container.get_child_count() > 5:
 		return
+
+	for spawn_tile_position in self.spawn_tile_positiions:
+		var enemy = enemy_scene.instantiate()
+		enemy.position = spawn_tile_position
+		enemy_container.add_child(enemy)
+
+	# if spawned_once:
+	# 	return
 
 	var enemy = enemy_scene.instantiate()
 	enemy.position = spawn_tile_positiions[0]

@@ -23,6 +23,7 @@ class_name Floor
 @onready var tile_map: FloorTileMap = $%TileMap
 @onready var towers: Node2D = $%Towers
 @onready var enemies: Node2D = $%Enemies
+@onready var projectiles: Node2D = $%Projectiles
 
 
 # ========
