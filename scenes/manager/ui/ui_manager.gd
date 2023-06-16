@@ -39,6 +39,7 @@ func _ready() -> void:
 		# pass the resource changed event to the hud
 		_game_events.resource_gold_amount_changed.connect(hud._on_resource_gold_amount_changed)
 		_game_events.tower_clicked.connect(hud._on_tower_clicked)
+		_game_events.wave_incoming.connect(hud._on_wave_incoming)
 
 	if hud:
 		hud.tower_card_clicked.connect(_on_tower_card_clicked)
@@ -78,7 +79,6 @@ func _menu_loop(menu: Types.Menu) -> void:
 	disable_ui()
 	
 func _enter_game_loop() -> void:
-	load_floor()
 	hud.load_tower_cards()
 	
 
@@ -87,8 +87,6 @@ func _game_loop() -> void:
 	enable_ui()
 	show_ui()
 
-	# TODO: connect to signal from enemy/wave manager
-	start_wave_progress_bar()
 
 func _exit_game_loop() -> void:
 	hide_ui()
@@ -97,18 +95,6 @@ func _exit_game_loop() -> void:
 func _game_over() -> void:
 	disable_ui()
 
-func load_floor() -> void:
-	"""load the given floor information into the UI """
-
-
-	# setup the initial progress bar timer for the wave
-	hud.wave_ui.set_timer(_game_data.selected_floor.wave_initial_delay)
-	hud.wave_ui.set_wave_counter(0, _game_data.selected_floor.wave_count)
-
-
-func start_wave_progress_bar() -> void:
-
-	hud.wave_ui.start_timer()
 
 func hide_ui() -> void:
 	"""hide all game ui elements"""

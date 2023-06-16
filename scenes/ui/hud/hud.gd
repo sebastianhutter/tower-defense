@@ -90,6 +90,13 @@ func _on_tower_context_menu_sell_button_clicked(node_id: int) -> void:
 	""" pass the sell button signal to the ui manager """
 	tower_context_menu_sell_button_clicked.emit(node_id)
 
+func _on_wave_incoming(time_to_wave: float, current_wave: int, next_wave: int, wave_count: int) -> void:
+	
+	if wave_ui:
+		wave_ui.set_timer(time_to_wave)
+		wave_ui.start_timer()
+		wave_ui.wave_count = wave_count
+
 # ========
 # class functions
 # ========

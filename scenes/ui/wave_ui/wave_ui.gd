@@ -25,12 +25,27 @@ class_name WaveUi
 # class vars
 # ========
 
+var current_wave: int = 0: 
+	get:
+		return current_wave
+	set(value):
+		current_wave = value
+		set_wave_counter()
+
+var wave_count: int = 0:
+	get:
+		return wave_count
+	set(value):
+		wave_count = value
+		set_wave_counter()
+
 # ========
 # godot functions
 # ========
 
 func _ready():
 	wave_timer.timeout.connect(_on_timer_timeout)
+
 
 func _physics_process(_delta: float) -> void:
 	if wave_timer.is_stopped():
@@ -50,8 +65,8 @@ func _on_timer_timeout():
 # class functions
 # ========
 
-func set_wave_counter(wave: int, wave_count: int) -> void:
-	wave_counter_label.text = str(wave) + " / " + str(wave_count)
+func set_wave_counter() -> void:
+	wave_counter_label.text = str(current_wave) + " / " + str(wave_count)
 
 func set_timer(time: float) -> void:
 	wave_timer.wait_time = time

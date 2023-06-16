@@ -5,7 +5,6 @@ class_name Portal
 # singleton references
 # ========
 
-
 # ========
 # export vars
 # ========
@@ -13,8 +12,6 @@ class_name Portal
 # ========
 # class signals
 # ========
-
-signal portal_ready(position: Vector2)
 
 # ========
 # class onready vars
@@ -33,7 +30,6 @@ signal portal_ready(position: Vector2)
 # ========
 
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	
 	if sprite:
@@ -49,22 +45,17 @@ func _ready():
 func _on_timer_timeout():
 	animation_player.play("portal")
 
+func _on_wave_incoming(time_to_wave: float, current_wave: int, next_wave: int, wave_count: int) -> void:
+	""" setup an internal timer to end shortly before the wave arrives """
+
+	if not timer:
+		print_debug("no timer node found")
+		return
+
+	timer.wait_time = time_to_wave - 0.55 # the animation time of the open animation is ~ 0.5s
+	timer.start()
+
+
 # ========
 # class functions
 # ========
-
-func initiate(wave_initial_delay: float) -> void:
-
-	if not timer:
-		print_debug("Portal: timer not found")
-		return
-
-	if not animation_player:
-		print_debug("Portal: animation_player not found")
-		return
-
-	timer.wait_time = wave_initial_delay
-	timer.start()
-
-func animation_finished() -> void:
-	portal_ready.emit(position)

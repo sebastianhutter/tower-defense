@@ -15,5 +15,4 @@ class_name FloorResource
 @export var gold_auto_increase_amount: int
 
 # enemy wave setup
-@export var wave_initial_delay: float 
-@export var wave_count: int
+@export var waves: Array[WaveResource]

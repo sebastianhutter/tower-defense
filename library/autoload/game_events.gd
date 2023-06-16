@@ -30,6 +30,13 @@ signal tower_destroyed(id: Types.Tower, position: Vector2)
 signal tower_clicked(node_id: int, tower_name: String, position: Vector2, can_be_upgraded: bool, is_max_level: bool, can_be_sold: bool, upgrade_costs: int, sell_value: int, current_level: int, speed: float, damage: float, range: float)
 signal tower_context_menu_upgrade_button_clicked(node_id: int)
 signal tower_context_menu_sell_button_clicked(node_id: int)
+# enemy wave signals
+# before a wave start warn all the systems, we pass more information then really required for most
+# but this allows us setting the ui information without any additional references
+signal wave_incoming(time_to_wave: float, current_wave: int, next_wave: int, wave_count: int)
+signal wave_started(wave: int)
+signal wave_finished(wave: int, is_last_wave: bool)
+
 
 # ========
 # class onready vars

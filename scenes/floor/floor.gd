@@ -6,6 +6,8 @@ class_name Floor
 # singleton references
 # ========
 
+@onready var _game_events = get_node("/root/GameEventsSingleton") as GameEvents
+
 # ========
 # export vars
 # ========
@@ -49,11 +51,6 @@ func _ready():
 # signal handler
 # ========
 
-func _on_portal_ready(position: Vector2) -> void:
-	""" portals have spawned, the enemy manager can start spawning enemies """
-	# TODO: implement more signals
-	pass
-
 # ========
 # class functions
 # ========
@@ -70,11 +67,12 @@ func setup_portal_scene(pos: Vector2) -> void:
 	""" instntiate the spawner portal scene for some animation on the floor """
 
 	var portal: Node2D = portal_scene.instantiate()
-	portal.portal_ready.connect(_on_portal_ready)
 	add_child(portal)
 	portal.position = pos + Constants.TOWER_BUILD_OFFSET
-	portal.initiate(floor_resource.wave_initial_delay)
-	
+	# connect the wave_incomfing signal with the portal opening animation
+	# so when the first enemy wave arrives the portals are opened up
+	_game_events.wave_incoming.connect(portal._on_wave_incoming)
+
 
 func place_tile(tile_origin: Types.TileOrigin, local_position: Vector2) -> void:
 	""" set a predefined tile at the given position """

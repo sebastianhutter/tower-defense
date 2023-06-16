@@ -51,6 +51,8 @@ func _ready():
 		registered_managers.append(level_manager)
 	if resource_manager: 
 		registered_managers.append(resource_manager)
+	if enemy_manager:
+		registered_managers.append(enemy_manager)
 	if ui_manager:
 		registered_managers.append(ui_manager)
 	if menu_manager:
@@ -58,9 +60,7 @@ func _ready():
 	if tower_manager:
 		registered_managers.append(tower_manager)
 	if build_manager:
-		registered_managers.append(build_manager)
-	if enemy_manager:
-		registered_managers.append(enemy_manager)
+		registered_managers.append(build_manager)	
 	if round_manager:
 		registered_managers.append(round_manager)
 
