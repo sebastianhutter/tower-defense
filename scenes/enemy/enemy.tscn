@@ -18,7 +18,7 @@
 radius = 21.0238
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7a1ju"]
-radius = 38.0526
+radius = 42.0119
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_g5j1s"]
 radius = 41.0488
@@ -41,7 +41,7 @@ movement_component = NodePath("../MovementComponent")
 [node name="Die" parent="EnemyFSM" instance=ExtResource("6_2kgl4")]
 
 [node name="VelocityComponent" parent="." instance=ExtResource("4_ewlsu")]
-max_speed = 150.0
+max_speed = 120.0
 
 [node name="MovementComponent" parent="." node_paths=PackedStringArray("velocity_component") instance=ExtResource("4_rwbg1")]
 velocity_component = NodePath("../VelocityComponent")
@@ -56,7 +56,7 @@ texture = ExtResource("2_4yp34")
 shape = SubResource("CircleShape2D_5818s")
 
 [node name="HurtboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("9_ldjay")]
-visible = false
+unique_name_in_owner = true
 collision_mask = 4
 health_component = NodePath("../HealthComponent")
 
@@ -66,11 +66,10 @@ shape = SubResource("CircleShape2D_7a1ju")
 [node name="HitboxComponent" parent="." instance=ExtResource("9_ysjkd")]
 visible = false
 collision_layer = 2
-damage = 2.08165e-12
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
 shape = SubResource("CircleShape2D_g5j1s")
 
 [node name="HealthComponent" parent="." instance=ExtResource("11_kl34n")]
 unique_name_in_owner = true
-max_health = 1.0
+max_health = 5.0

@@ -15,7 +15,8 @@ class_name HealthComponent
 # class signals
 # ========
 
-signal died
+signal died()
+signal health_changed()
 
 # ========
 # class onready vars
@@ -52,7 +53,15 @@ func _process(delta):
 
 func take_damage(damage: float) -> void:
 	current_health = max(current_health - damage, 0)
+	health_changed.emit()
 
 	if current_health == 0:
 		print_debug("HealthComponent: died")
 		died.emit()
+
+func get_health_percent() -> float:
+	""" return normalized health value """
+	if current_health <= 0:
+		return 0
+
+	return min(current_health/max_health, 1)

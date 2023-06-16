@@ -9,6 +9,7 @@ class_name Projectile
 # export vars
 # ========
 
+@export var max_hits: int = 1
 @export var speed: float = 100.0
 
 # ========
@@ -28,6 +29,14 @@ class_name Projectile
 # ========
 
 var target_position: Vector2 = Vector2.ZERO
+var hit_count: int = 0 :
+    get:
+        return hit_count
+    set(value):
+        hit_count = value
+        print(hit_count)
+        if hit_count >= max_hits:
+            stop_projectil()
 
 # ========
 # godot functions
@@ -41,7 +50,6 @@ func _ready() -> void:
         expiry_timer.start()
 
 
-
 func _physics_process(delta):
     if target_position == Vector2.ZERO:
         return
@@ -53,13 +61,7 @@ func _physics_process(delta):
 # ========
 
 func _on_expiry_timer_timeout() -> void:
-    print("_on_expiry_timer)")
-    if animation_player:
-        if animation_player.has_animation("expired"):
-            animation_player.play("expired")
-            await animation_player.animation_finished
-    
-    queue_free()
+    stop_projectil()
 
 
 # ========
@@ -74,3 +76,17 @@ func set_damage_modifier(modifier: float) -> void:
         return
 
     hitbox_component.damage *= modifier
+
+func stop_projectil() -> void:
+    """ stop the projectil either after timeout or after max hit count is reached """
+    if animation_player:
+        if animation_player.has_animation("expired"):
+            animation_player.play("expired")
+            await animation_player.animation_finished
+    
+    queue_free()
+
+func increase_hit_count() -> void:
+    """ increases the hit count by one """
+
+    print("A: B: C: 1")

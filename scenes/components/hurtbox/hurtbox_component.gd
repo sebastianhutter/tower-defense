@@ -15,8 +15,6 @@ class_name HurtboxComponent
 # class signals
 # ========
 
-# signal my_custom_signal
-
 # ========
 # class onready vars
 # ========
@@ -35,7 +33,7 @@ class_name HurtboxComponent
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	area_entered.connect(_on_area_entered)
-
+	area_exited.connect(_on_area_exited)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -54,6 +52,10 @@ func _on_area_entered(area: Area2D):
 
 	print_debug("HurtboxComponent: hit by " + area.name)
 	health_component.take_damage((area as HitboxComponent).damage)
+	
+func _on_area_exited(area: Area2D) -> void:
+	if not area is HitboxComponent:
+		return
 
 # ========
 # class functions

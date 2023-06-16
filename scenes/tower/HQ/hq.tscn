@@ -42,6 +42,7 @@ attack_controller_component = NodePath("../AttackControllerComponentHQ")
 
 [node name="HealthComponent" parent="." instance=ExtResource("9_5h631")]
 unique_name_in_owner = true
+max_health = 25.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1, 3)
@@ -65,3 +66,16 @@ health_component = NodePath("../HealthComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
 shape = SubResource("CircleShape2D_ekliy")
+
+[node name="HealthProgressBar" type="ProgressBar" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(128, 20)
+offset_left = -18.0
+offset_top = -83.0
+offset_right = 110.0
+offset_bottom = -63.0
+rotation = 0.561996
+pivot_offset = Vector2(64, 10)
+max_value = 1.0
+value = 1.0
+show_percentage = false

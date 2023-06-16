@@ -25,7 +25,7 @@ signal transitioned_to(state_name)
 # class vars
 # ========
 
-var body: Character = null
+var body: CharacterBody2D = null
 var last_state: FSMState = null
 var current_state: FSMState = null
 
@@ -42,7 +42,7 @@ func _ready():
 	initialize()
 
 	# initialize variables to pass along
-	body = owner as Character
+	body = owner as CharacterBody2D
 	pass_components_to_state()
 	set_initial_state()
 
