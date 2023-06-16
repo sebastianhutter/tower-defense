@@ -34,7 +34,6 @@ var hit_count: int = 0 :
         return hit_count
     set(value):
         hit_count = value
-        print(hit_count)
         if hit_count >= max_hits:
             stop_projectil()
 
@@ -43,9 +42,7 @@ var hit_count: int = 0 :
 # ========
 
 func _ready() -> void:
-    print('eriopgnoipergniognioerngio')
     if expiry_timer:
-        print("timer found")
         expiry_timer.timeout.connect(_on_expiry_timer_timeout)
         expiry_timer.start()
 
@@ -62,7 +59,6 @@ func _physics_process(delta):
 
 func _on_expiry_timer_timeout() -> void:
     stop_projectil()
-
 
 # ========
 # class functions

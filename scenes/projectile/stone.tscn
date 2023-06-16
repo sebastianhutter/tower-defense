@@ -95,7 +95,7 @@ texture = ExtResource("1_3e0xm")
 unique_name_in_owner = true
 rotation = -0.970098
 collision_layer = 4
-damage = 2.08165e-12
+damage = 2.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/HitboxComponent"]
 position = Vector2(1.64988, -1.13044)

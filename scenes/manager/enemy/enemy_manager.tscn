@@ -7,3 +7,4 @@ script = ExtResource("1_wcdca")
 
 [node name="Pulse" type="Timer" parent="."]
 unique_name_in_owner = true
+wait_time = 2.0

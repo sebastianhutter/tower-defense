@@ -21,7 +21,7 @@ class_name EnemyManager
 # ========
 
 @onready var pulse: Timer = $%Pulse
-@onready var enemy_scene: PackedScene = preload("res://scenes/enemy/enemy.tscn")
+@onready var enemy_scene: PackedScene = preload("res://scenes/ufo/weak_ufo/weak_ufo.tscn")
 
 # ========
 # class vars
@@ -29,7 +29,6 @@ class_name EnemyManager
 
 var spawn_tile_positiions: Array[Vector2]
 
-var spawned_once: bool = false
 
 # ========
 # godot functions
@@ -53,31 +52,22 @@ func _on_pulse_timeout() -> void:
 
 	pass
 
-	# var enemy_container: Node2D = level_manager.get_floor().enemies
+	var enemy_container: Node2D = level_manager.get_floor().enemies
 
-	# if enemy_container.get_child_count() > 1:
-	# 	return
+	if enemy_container.get_child_count() > 3:
+		return
 
 	# # for spawn_tile_position in self.spawn_tile_positiions:
-	# var enemy = enemy_scene.instantiate()
-	# enemy.position = self.spawn_tile_positiions[0]
-	# enemy_container.add_child(enemy)
+	var enemy = enemy_scene.instantiate()
+	enemy.position = self.spawn_tile_positiions[0]
+	enemy_container.add_child(enemy)
 
-	# if spawned_once:
-	# 	return
-
-	# var enemy = enemy_scene.instantiate()
-	# enemy.position = spawn_tile_positiions[0]
-	# enemy_container.add_child(enemy)
-
-	# spawned_once = true
 
 # ========
 # class functions
 # ========
 
 func _enter_game_loop() -> void:
-	self.spawned_once = false
 	self.spawn_tile_positiions = level_manager.get_floor().spawn_tile_positions
 
 func _game_loop() -> void:
