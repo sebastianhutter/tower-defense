@@ -1,11 +1,17 @@
-[gd_scene load_steps=11 format=3 uid="uid://crx7v2qie73tg"]
+[gd_scene load_steps=14 format=3 uid="uid://crx7v2qie73tg"]
 
 [ext_resource type="Script" path="res://scenes/tower/HQ/hq.gd" id="1_bm2he"]
 [ext_resource type="Shader" path="res://resources/shader/highlight/highlight.gdshader" id="1_ecwd0"]
 [ext_resource type="Texture2D" uid="uid://cuh4k7x8q4smd" path="res://resources/sprite/tower/HQ/hq_level_1.png" id="2_cwquf"]
 [ext_resource type="PackedScene" uid="uid://c5diftm0fh4yr" path="res://scenes/components/range_detector/range_detector_component.tscn" id="6_v7x57"]
+[ext_resource type="PackedScene" uid="uid://b0c0xxwxk0c5p" path="res://scenes/components/tower_attack/controller/attack_controller_component_hq.tscn" id="7_lu13t"]
+[ext_resource type="PackedScene" uid="uid://ntmbeu3yyshn" path="res://scenes/projectile/stone.tscn" id="8_8s3tv"]
+[ext_resource type="PackedScene" uid="uid://idi8snkubom7" path="res://scenes/components/tower_attack/tower_attack_component.tscn" id="8_npyft"]
 [ext_resource type="PackedScene" uid="uid://cykkf088brpwm" path="res://scenes/components/hurtbox/hurtbox_component.tscn" id="8_wn1dc"]
 [ext_resource type="PackedScene" uid="uid://cprlunajl2x8s" path="res://scenes/components/health/health_component.tscn" id="9_5h631"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ekliy"]
+radius = 56.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yrhwt"]
 size = Vector2(76, 68)
@@ -19,18 +25,31 @@ shader_parameter/highlight_color = Color(1, 1, 1, 0.0980392)
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_ndovr"]
 polygon = PackedVector2Array(24, -69.2, 24, -67.8, 29, -62.8, 29, -59, 29.7, -55, 30.7, -55, 35.7, -51, 36.5, -51, 49, -56, 49, -53.1, 71, -40.3, 71, 9, 65, 13, 65, 41.5, 62.2, 47, 60.5, 47, 11.8, 77, -11.9, 77, -63, 46.1, -63, 43, -64.9, 14, -65.7, 14, -71, 9.6, -71, -40, -67, -45, -64.5, -45, -47.5, -55, -42.4, -55, -36.4, -51, -35.5, -51, -33, -52.2, -33, -53.4, -30, -54.4, -30, -59.6, -23.1, -70, -20.5, -70, -9.2, -77, 9.4, -77)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_ekliy"]
-radius = 56.0
-
 [node name="HQ" type="Area2D" groups=["hq"]]
 position = Vector2(0, 1)
-collision_layer = 2
+collision_layer = 0
 collision_mask = 0
 script = ExtResource("1_bm2he")
+
+[node name="HurtboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("8_wn1dc")]
+collision_mask = 2
+health_component = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
+shape = SubResource("CircleShape2D_ekliy")
 
 [node name="RangeDetectorComponent" parent="." instance=ExtResource("6_v7x57")]
 unique_name_in_owner = true
 position = Vector2(0, 71)
+show_indicator = true
+
+[node name="TowerAttackComponent" parent="." node_paths=PackedStringArray("range_detector_component", "attack_controller_component") instance=ExtResource("8_npyft")]
+unique_name_in_owner = true
+range_detector_component = NodePath("../RangeDetectorComponent")
+attack_controller_component = NodePath("../AttackControllerComponentHQ")
+
+[node name="HealthComponent" parent="." instance=ExtResource("9_5h631")]
+unique_name_in_owner = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1, 3)
@@ -41,15 +60,8 @@ unique_name_in_owner = true
 material = SubResource("ShaderMaterial_68nu3")
 texture = ExtResource("2_cwquf")
 
+[node name="AttackControllerComponentHQ" parent="." instance=ExtResource("7_lu13t")]
+projectile_scene = ExtResource("8_8s3tv")
+
 [node name="LightOccluder2D" type="LightOccluder2D" parent="."]
 occluder = SubResource("OccluderPolygon2D_ndovr")
-
-[node name="HurtboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("8_wn1dc")]
-collision_mask = 2
-health_component = NodePath("../HealthComponent")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
-shape = SubResource("CircleShape2D_ekliy")
-
-[node name="HealthComponent" parent="." instance=ExtResource("9_5h631")]
-unique_name_in_owner = true

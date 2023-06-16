@@ -1,0 +1,112 @@
+[gd_scene load_steps=10 format=3 uid="uid://ntmbeu3yyshn"]
+
+[ext_resource type="Texture2D" uid="uid://d3k21t8bk6ekq" path="res://resources/sprite/tower/HQ/stone.png" id="1_3e0xm"]
+[ext_resource type="Script" path="res://scenes/projectile/stone.gd" id="1_ka0ml"]
+[ext_resource type="PackedScene" uid="uid://k3ejxmxw8n5c" path="res://scenes/components/hitbox/hitbox_component.tscn" id="2_2odbf"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mjohw"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_m8sbv"]
+radius = 18.868
+
+[sub_resource type="Animation" id="Animation_hvhyo"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_i17kq"]
+resource_name = "attack"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 3.14159, 6.28319]
+}
+
+[sub_resource type="Animation" id="Animation_buirj"]
+resource_name = "expired"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(3.4822, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.1, 0.1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rbj1x"]
+_data = {
+"RESET": SubResource("Animation_hvhyo"),
+"attack": SubResource("Animation_i17kq"),
+"expired": SubResource("Animation_buirj")
+}
+
+[node name="Stone" type="Area2D"]
+editor_description = "A stone projectile
+Relatively slow moving but high damage
+"
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_ka0ml")
+speed = 200.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_mjohw")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_3e0xm")
+
+[node name="HitboxComponent" parent="Sprite2D" instance=ExtResource("2_2odbf")]
+unique_name_in_owner = true
+rotation = -0.970098
+collision_layer = 4
+damage = 2.08165e-12
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/HitboxComponent"]
+position = Vector2(1.64988, -1.13044)
+shape = SubResource("CircleShape2D_m8sbv")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+autoplay = "attack"
+libraries = {
+"": SubResource("AnimationLibrary_rbj1x")
+}
+
+[node name="Timer" type="Timer" parent="."]
+unique_name_in_owner = true
+one_shot = true

@@ -12,7 +12,7 @@ class_name TowerAttackComponent
 # the upgrade component is used to reference upgrade events and ensure the tower can't attack if it's being upgraded
 @export var tower_upgrade_component: TowerUpgradeComponent
 @export var range_detector_component: RangeDetectorComponent
-@export var attack_controller_component: Node # TODO: create components for archer, hq and wizard
+@export var attack_controller_component: AttackControllerComponent # TODO: create components for archer, hq and wizard
 
 
 # ========
@@ -31,6 +31,7 @@ class_name TowerAttackComponent
 # ========
 
 var can_attack: bool = true
+var damage_modifier: float = 1.0
 
 # ========
 # godot functions
@@ -62,7 +63,6 @@ func _on_tower_upgrade_finished() -> void:
 	attack_timer.start()
 
 func _on_attack_timer_timeout() -> void:
-	print("timer")
 	if not can_attack:
 		return
 
@@ -73,7 +73,7 @@ func _on_attack_timer_timeout() -> void:
 	if pos == Vector2.ZERO:
 		return
 
-	attack_controller_component.attack(pos)
+	attack_controller_component.attack(pos, damage_modifier)
 
 
 # ========
@@ -88,6 +88,11 @@ func set_shot_speed(speed: float) -> void:
 		return
 
 	attack_timer.wait_time = speed
+
+func set_shot_damage(damage: float) -> void: 
+	""" sets the damage modifier """
+
+	damage_modifier = damage
 	
 func get_target() -> Vector2:
 	""" returns the position of the first enemy in the towers target list. """
