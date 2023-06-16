@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cfb28kh0nj8om"]
+
+[ext_resource type="Script" path="res://scenes/components/state_machine/ufo_state_machine.gd" id="1_xvtfy"]
+
+[node name="UfoStateMachine" type="Node"]
+script = ExtResource("1_xvtfy")

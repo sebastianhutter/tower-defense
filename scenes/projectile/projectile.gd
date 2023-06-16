@@ -85,8 +85,3 @@ func stop_projectil() -> void:
             await animation_player.animation_finished
     
     queue_free()
-
-func increase_hit_count() -> void:
-    """ increases the hit count by one """
-
-    print("A: B: C: 1")

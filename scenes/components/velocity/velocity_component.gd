@@ -59,11 +59,3 @@ func decelerate(direction: Vector2) -> void:
 
 	velocity.x = move_toward(velocity.x, 0.0, max_speed)
 	velocity.y = move_toward(velocity.y, 0.0, max_speed)
-
-func move(body: Node2D) -> void:
-	"""
-	moves the body
-	"""
-
-	body.velocity = velocity
-	body.move_and_slide()

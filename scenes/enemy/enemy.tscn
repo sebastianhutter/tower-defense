@@ -43,8 +43,7 @@ movement_component = NodePath("../MovementComponent")
 [node name="VelocityComponent" parent="." instance=ExtResource("4_ewlsu")]
 max_speed = 120.0
 
-[node name="MovementComponent" parent="." node_paths=PackedStringArray("velocity_component") instance=ExtResource("4_rwbg1")]
-velocity_component = NodePath("../VelocityComponent")
+[node name="MovementComponent" parent="." instance=ExtResource("4_rwbg1")]
 
 [node name="NavigationComponent" parent="." instance=ExtResource("5_wathy")]
 

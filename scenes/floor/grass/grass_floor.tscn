@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://cuol0u1i8ev53"]
+[gd_scene load_steps=6 format=3 uid="uid://cuol0u1i8ev53"]
 
 [ext_resource type="Script" path="res://scenes/floor/grass/grass_floor.gd" id="1_4w18i"]
 [ext_resource type="PackedScene" uid="uid://cbq3r0r2rnp01" path="res://scenes/game_camera/game_camera.tscn" id="2_gx5rp"]
 [ext_resource type="PackedScene" uid="uid://2c848wdr7l8r" path="res://scenes/tilemap/tile_map.tscn" id="3_ibnap"]
+[ext_resource type="PackedScene" uid="uid://d0n7w41v514bb" path="res://scenes/ufo/weak_ufo/weak_ufo.tscn" id="4_7y8ll"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_d14fw"]
 vertices = PackedVector2Array(-750, -477, 166, 42, 156, 48, -757, -473, -802, 722, -806, 718, 9, 244, 16, 245, -504, -44, -502, -35, -872, 167, -872, 179, -1391, -118, -1374, -119, -124, -843, -126, -835, 375, -554, 366, -554, 16, -334, 2, -334, 502, -37, 500, -46, 1285, -495, 1280, -500)
@@ -30,3 +31,6 @@ unique_name_in_owner = true
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
 navigation_polygon = SubResource("NavigationPolygon_d14fw")
+
+[node name="WeakUfo" parent="." instance=ExtResource("4_7y8ll")]
+position = Vector2(-643, 598)

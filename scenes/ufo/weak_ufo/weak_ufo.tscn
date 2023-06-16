@@ -1,0 +1,73 @@
+[gd_scene load_steps=13 format=3 uid="uid://d0n7w41v514bb"]
+
+[ext_resource type="Script" path="res://scenes/ufo/weak_ufo/weak_ufo.gd" id="1_fiepn"]
+[ext_resource type="PackedScene" uid="uid://cfb28kh0nj8om" path="res://scenes/components/state_machine/ufo_state_machine.tscn" id="2_l6bh3"]
+[ext_resource type="Texture2D" uid="uid://bk7uvuoowfjdq" path="res://resources/sprite/ufo/weak_ufo.png" id="2_xl0gr"]
+[ext_resource type="PackedScene" uid="uid://cob3hdki1opg8" path="res://scenes/components/state_machine/states/ufo/move.tscn" id="3_4swwr"]
+[ext_resource type="PackedScene" uid="uid://k3ejxmxw8n5c" path="res://scenes/components/hitbox/hitbox_component.tscn" id="3_howr2"]
+[ext_resource type="PackedScene" uid="uid://de1pxhvtqpadi" path="res://scenes/components/movement/movement_component.tscn" id="3_xyk3e"]
+[ext_resource type="PackedScene" uid="uid://cykkf088brpwm" path="res://scenes/components/hurtbox/hurtbox_component.tscn" id="4_ou67c"]
+[ext_resource type="PackedScene" uid="uid://cprlunajl2x8s" path="res://scenes/components/health/health_component.tscn" id="5_cko8u"]
+[ext_resource type="PackedScene" uid="uid://dgiqi5o1u8u5c" path="res://scenes/components/navigation/navigation_component.tscn" id="6_8frx1"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_apa3s"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_w4m1p"]
+radius = 37.0135
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0yy11"]
+radius = 12.0
+height = 40.0
+
+[node name="WeakUfo" type="Area2D"]
+editor_description = "Wekeast of thems ufos
+
+The collection of everything in Body which has shape is due to how the movment works. we simply rotate and use the area2ds translation to move forward.
+
+we dont want the rotation to impact the sprite or collisionshapes. so they are marked as \"toplevel\" but remotetransform2d pushes the correct position and scale"
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_fiepn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_apa3s")
+
+[node name="UfoStateMachine" parent="." instance=ExtResource("2_l6bh3")]
+
+[node name="Move" parent="UfoStateMachine" instance=ExtResource("3_4swwr")]
+
+[node name="HealthComponent" parent="." instance=ExtResource("5_cko8u")]
+unique_name_in_owner = true
+max_health = 3.0
+
+[node name="MovementComponent" parent="." instance=ExtResource("3_xyk3e")]
+unique_name_in_owner = true
+
+[node name="NavigationComponent" parent="." instance=ExtResource("6_8frx1")]
+unique_name_in_owner = true
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="."]
+remote_path = NodePath("../Body")
+update_rotation = false
+
+[node name="Body" type="Node2D" parent="."]
+top_level = true
+
+[node name="Sprite" type="Sprite2D" parent="Body"]
+texture = ExtResource("2_xl0gr")
+
+[node name="HurtboxComponent" parent="Body" node_paths=PackedStringArray("health_component") instance=ExtResource("4_ou67c")]
+unique_name_in_owner = true
+collision_mask = 4
+health_component = NodePath("../../HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Body/HurtboxComponent"]
+shape = SubResource("CircleShape2D_w4m1p")
+
+[node name="HitboxComponent" parent="Body" instance=ExtResource("3_howr2")]
+unique_name_in_owner = true
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Body/HitboxComponent"]
+shape = SubResource("CapsuleShape2D_0yy11")
+debug_color = Color(0.945098, 0, 0.87451, 0.419608)

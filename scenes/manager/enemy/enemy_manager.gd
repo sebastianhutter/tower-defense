@@ -51,17 +51,17 @@ func _process(delta):
 
 func _on_pulse_timeout() -> void:
 
+	pass
 
+	# var enemy_container: Node2D = level_manager.get_floor().enemies
 
-	var enemy_container: Node2D = level_manager.get_floor().enemies
+	# if enemy_container.get_child_count() > 1:
+	# 	return
 
-	if enemy_container.get_child_count() > 1:
-		return
-
-	# for spawn_tile_position in self.spawn_tile_positiions:
-	var enemy = enemy_scene.instantiate()
-	enemy.position = self.spawn_tile_positiions[0]
-	enemy_container.add_child(enemy)
+	# # for spawn_tile_position in self.spawn_tile_positiions:
+	# var enemy = enemy_scene.instantiate()
+	# enemy.position = self.spawn_tile_positiions[0]
+	# enemy_container.add_child(enemy)
 
 	# if spawned_once:
 	# 	return

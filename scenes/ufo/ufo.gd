@@ -1,5 +1,5 @@
-extends NavigationAgent2D
-class_name NavigationComponent
+extends Area2D
+class_name Ufo
 
 # ========
 # singleton references
@@ -16,6 +16,11 @@ class_name NavigationComponent
 # ========
 # class onready vars
 # ========
+
+@onready var hurtbox_component: HurtboxComponent = $%HurtboxComponent
+@onready var hitbox_component: HitboxComponent = $%HitboxComponent
+@onready var movement_component: MovementComponent = $%MovementComponent
+@onready var navigation_component: NavigationComponent = $%NavigationComponent
 
 # ========
 # class vars

@@ -10,7 +10,7 @@ class_name MovementComponent
 # export vars
 # ========
 
-@export var velocity_component: VelocityComponent 
+@export var speed: float = 100.0
 
 # ========
 # class signals
@@ -24,7 +24,6 @@ class_name MovementComponent
 # class vars
 # ========
 
-
 # ========
 # godot functions
 # ========
@@ -37,21 +36,10 @@ class_name MovementComponent
 # class functions
 # ========
 
-func get_velocity() -> Vector2:
-	"""get the velocity"""
-	return velocity_component.get_velocity()
 
-func move(body: Node2D, direction: Vector2, delta: float) -> void:
-	"""move the body towards the direction"""
-	if direction:
-		velocity_component.accelerate(direction)
-	else:
-		velocity_component.decelerate(direction)
+func move(target_position: Vector2, delta: float) -> void:
+	""" move the parent node towards the position """
 
-	velocity_component.move(body)
-
-
-func get_movement_direction(body: Node2D, pos: Vector2) -> Vector2:
-	"""returns the direction to the given position"""
-
-	return body.global_position.direction_to(pos)
+	# there is no stopping as the enemies will despawn once they hit the hq
+	(owner as Area2D).look_at(target_position)
+	(owner as Area2D).position += (owner as Area2D).transform.x * speed * delta

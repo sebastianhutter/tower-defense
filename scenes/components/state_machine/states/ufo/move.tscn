@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cob3hdki1opg8"]
+
+[ext_resource type="Script" path="res://scenes/components/state_machine/states/ufo/move.gd" id="1_masxh"]
+
+[node name="Move" type="Node"]
+script = ExtResource("1_masxh")
