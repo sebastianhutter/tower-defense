@@ -8,7 +8,6 @@ class_name Main
 
 @onready var _game_events = get_node("/root/GameEventsSingleton") as GameEvents
 
-
 # ========
 # export vars
 # ========
@@ -19,13 +18,9 @@ class_name Main
 # class signals
 # ========
 
-# signal my_custom_signal
-
 # ========
 # class onready vars
 # ========
-
-@onready var game_state_manager: GameStateManager = $%GameStateManager
 
 # ========
 # class vars
@@ -37,6 +32,9 @@ class_name Main
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+
+	# get game_state manager from managers inherited scene
+	
 
 	# simple helper for faster debugging, allow switching between default gamestate that is passed
 	# if main menu is passed we need to ensure to load the correct menu

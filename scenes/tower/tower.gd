@@ -73,6 +73,8 @@ func _ready():
 		mouse_entered.connect(range_detector_component._on_parent_mouse_entered)
 		mouse_exited.connect(range_detector_component._on_parent_mouse_exited)
 		
+	_tower_ready()
+
 # ========
 # signal handler
 # ========
@@ -105,6 +107,10 @@ func _on_tower_clicked() -> void:
 # class functions
 # ========
 
+func _tower_ready() -> void:
+	""" ready functiuon for custom tower ready functions """
+	pass
+
 func initialize(resource: TowerResource) -> void:
 	""" initialize the tower object """
 
@@ -114,8 +120,6 @@ func initialize(resource: TowerResource) -> void:
 	set_sell_component()
 	set_tower_body_texture()
 	set_tower_shoot_range()
-
-
 
 func set_tower_level() -> void:
 	if not tower_resource:
@@ -169,6 +173,8 @@ func get_second_next_tower_level_resource() -> TowerLevel:
 	return tower_resource.get_level(tower_current_level+2)
 
 func highligh_tower(is_higlighted: bool) -> void:
+
+	print("highlight?")
 
 	if not body or not body.material:
 		return

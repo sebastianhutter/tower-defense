@@ -118,6 +118,7 @@ Cancel={
 3d_physics/layer_3="Summon"
 2d_physics/layer_4="Tower"
 3d_physics/layer_4="Enemy"
+2d_physics/layer_10="MouseOnly"
 
 [rendering]
 

@@ -41,7 +41,7 @@ movement_component = NodePath("../MovementComponent")
 [node name="Die" parent="EnemyFSM" instance=ExtResource("6_2kgl4")]
 
 [node name="VelocityComponent" parent="." instance=ExtResource("4_ewlsu")]
-max_speed = 50.0
+max_speed = 150.0
 
 [node name="MovementComponent" parent="." node_paths=PackedStringArray("velocity_component") instance=ExtResource("4_rwbg1")]
 velocity_component = NodePath("../VelocityComponent")
@@ -57,6 +57,7 @@ shape = SubResource("CircleShape2D_5818s")
 
 [node name="HurtboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("9_ldjay")]
 visible = false
+collision_mask = 4
 health_component = NodePath("../HealthComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
