@@ -97,6 +97,9 @@ func _on_spawn_timer_timeout() -> void:
 func _on_enemy_decrease_wave_count(wave_id: int) -> void:
 	""" called when an enemy object is removed from the scene tree, ensure the count of 'alive' enemies is reduced """
 
+	print("###################################")
+	print("_on_enemy_ecrese: " + str(wave_id))
+
 	enemies_per_wave_count[wave_id] -= 1
 
 	if enemies_per_wave_count[wave_id] <= 0:
@@ -165,11 +168,6 @@ func _enter_game_loop() -> void:
 	load_placement_node()
 
 
-func _exit_game_loop() -> void:
-	unload_spawn_positions()
-	unload_waves()
-	unload_placement_node()
-
 func _game_loop() -> void:
 	if initial_wave_started:
 		return
@@ -203,6 +201,7 @@ func unload_waves() -> void:
 	self.incoming_wave = 0
 	self.last_used_spawn_tile_position = -1
 	self.preloaded_enemies_per_wave = []
+	self.enemies_per_wave_count = []
 
 	if wave_incoming_timer:
 		wave_incoming_timer.stop()

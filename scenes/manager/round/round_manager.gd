@@ -70,3 +70,8 @@ func _on_wave_defeated(_wave_id: int) -> void:
 # class functions
 # ========
 
+func _enter_game_loop() -> void:
+	""" reset win condition when game loop is entered """
+
+	waves_to_defeat = 100 
+	waves_defeated = 0

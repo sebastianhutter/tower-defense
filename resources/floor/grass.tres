@@ -17,7 +17,7 @@ entities = Array[PackedScene]([ExtResource("5_f534f"), ExtResource("5_f534f"), E
 
 [sub_resource type="Resource" id="Resource_l25iu"]
 script = ExtResource("4_lgnf1")
-start_delay = 3.0
+start_delay = 1.0
 spawn_groups = Array[ExtResource("5_sfoeu")]([SubResource("Resource_fr00t"), SubResource("Resource_ky3ye")])
 
 [sub_resource type="Resource" id="Resource_jknpm"]
@@ -34,7 +34,7 @@ entities = Array[PackedScene]([ExtResource("5_f534f"), ExtResource("5_f534f")])
 
 [sub_resource type="Resource" id="Resource_7x3st"]
 script = ExtResource("4_lgnf1")
-start_delay = 30.0
+start_delay = 2.0
 spawn_groups = Array[ExtResource("5_sfoeu")]([SubResource("Resource_jknpm"), SubResource("Resource_b6riw"), SubResource("Resource_xuw46")])
 
 [resource]
