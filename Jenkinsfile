@@ -82,13 +82,11 @@ spec:
                     // open and quit the editor to import all resources
                     sh(
                         script: '''
-                            echo initializing .godot folder. running twice to make sure all resources are imported
-                            env > /tmp/env_before
-                            $GODOT_BIN --headless --editor --quit 
-                            sleep 1
-                            $GODOT_BIN --headless --editor --quit 
-                            sleep 1
-                            env > /tmp/env_after
+                            echo dummy export linux binary to ensure all resources are imported before running tests
+                            $GODOT_BIN --export-release linux dummy.x86_64.bin > /dev/null 2>&1
+                            ls -la dummy.x86_64.bin
+                            ls -la .godot
+                            rm -rf dummy.x86_64.bin
                         '''
                     )
                     sh(
