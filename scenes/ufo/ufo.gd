@@ -14,6 +14,7 @@ class_name Ufo
 # ========
 
 signal hit_player_hq()
+signal decrease_wave_count(wave_id: int)
 
 # ========
 # class onready vars
@@ -29,13 +30,23 @@ signal hit_player_hq()
 # class vars
 # ========
 
-func _ready():
-	if hurtbox_component:
-		hurtbox_component.area_entered.connect(_on_hurtbox_area_entered)
+# the wave the ufo belongs too
+var wave_id: int = -1
 
 # ========
 # godot functions
 # ========
+
+func _ready():
+	if hurtbox_component:
+		hurtbox_component.area_entered.connect(_on_hurtbox_area_entered)
+
+func _exit_tree():
+	""" when the object is removed from the scene ensure the enemy manager can remove it from the wave counter """
+
+	# running this in _exit_tree and not in die or hit fsm ensures that the
+	# win condition can be achieved even if the object is removed due to some uunforseen reason!
+	decrease_wave_count.emit(wave_id)
 
 # ========
 # signal handler

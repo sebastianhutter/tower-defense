@@ -48,6 +48,7 @@ max_health = 2.0
 
 [node name="MovementComponent" parent="." instance=ExtResource("3_xyk3e")]
 unique_name_in_owner = true
+speed = 500.0
 
 [node name="NavigationComponent" parent="." instance=ExtResource("6_8frx1")]
 unique_name_in_owner = true
