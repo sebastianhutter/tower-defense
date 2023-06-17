@@ -82,24 +82,19 @@ spec:
                     // open and quit the editor to import all resources
                     sh(
                         script: '''
-                            echo dummy export ci-setup binary to ensure all resources are imported before running tests
+                            echo run a dummy full export and re-open of editor to ensure all resources are loaded
                             $GODOT_BIN --export-release ci-setup /tmp/ci-setup > /dev/null 2>&1
-                            sleep 5
+                            sleep 3
                             $GODOT_BIN --headless --editor --quit .
-                            ls -la /tmp/ci-setup
-                            ls -la .godot
-                            rm -rf /tmp/ci-setup
-           
-                            bash addons/gdUnit4/runtest.sh --continue --add ./test
                         '''
                     )
-                    // sh(
-                    //     script: '''
-                    //     if [ -d "./test" ]; then
-                    //         bash addons/gdUnit4/runtest.sh --continue --add ./test
-                    //     fi
-                    //     '''
-                    // )
+                    sh(
+                        script: '''
+                        if [ -d "./test" ]; then
+                            bash addons/gdUnit4/runtest.sh --continue --add ./test
+                        fi
+                        '''
+                    )
                 }
             }
             post {
