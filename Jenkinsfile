@@ -82,10 +82,12 @@ spec:
                     // open and quit the editor to import all resources
                     sh(
                         script: '''
-                            echo initializing .godot folder
+                            echo initializing .godot folder. running twice to make sure all resources are imported
                             env > /tmp/env_before
                             $GODOT_BIN --editor --quit >/dev/null 2>&1
+                            sleep 1
                             $GODOT_BIN --editor --quit >/dev/null 2>&1
+                            sleep 1
                             env > /tmp/env_after
                         '''
                     )
