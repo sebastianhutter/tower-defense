@@ -81,6 +81,7 @@ spec:
                 container('build-container') {
                     sh(
                         script: '''
+                            sleep 3600
                             $GODOT_BIN --export-release "ci-setup" /tmp/gdunit4
                             rm -rf /tmp/gdunit4
                         '''
