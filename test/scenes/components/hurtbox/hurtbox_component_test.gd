@@ -5,12 +5,12 @@ extends GdUnitTestSuite
 @warning_ignore('return_value_discarded')
 
 
-var other_area3d: Area3D
+var other_area2d: Area2D
 var hitbox_component: HitboxComponent
 var hurtbox_component: HurtboxComponent
 
 func before_test() -> void:
-	other_area3d = auto_free(Area3D.new())
+	other_area2d = auto_free(Area2D.new())
 	hitbox_component = auto_free(HitboxComponent.new())
 	hurtbox_component = auto_free(HurtboxComponent.new())
 	
@@ -22,7 +22,7 @@ func test_on_area_entered_other_area2d() -> void:
 	ensure function is only executed if hitbox component enters
 	"""
 	
-	hurtbox_component._on_area_entered(other_area3d)
+	hurtbox_component._on_area_entered(other_area2d)
 	assert_float(hurtbox_component.health_component.current_health).is_equal(10)
 	
 

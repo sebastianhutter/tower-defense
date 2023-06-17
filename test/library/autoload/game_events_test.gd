@@ -20,9 +20,18 @@ func test_ensure_signals_are_registered() -> void:
 	"""ensure the game events singleton has all signals registered"""
 	
 	assert_signal(game_events).is_signal_exists("game_state_changed")
-	assert_signal(game_events).is_signal_exists("ability_activated")
-	assert_signal(game_events).is_signal_exists("ability_recovery_started")
-	assert_signal(game_events).is_signal_exists("ability_recovery_complete")
-
-# TODO: check signal emition after next gdunit4 release
-# https://github.com/users/MikeSchulze/projects/5/views/6?pane=issue&itemId=19139780
+	assert_signal(game_events).is_signal_exists("tower_card_clicked")
+	assert_signal(game_events).is_signal_exists("tower_build_started")
+	assert_signal(game_events).is_signal_exists("tower_build_completed")
+	
+	assert_signal(game_events).is_signal_exists("tower_build_completed")
+	assert_signal(game_events).is_signal_exists("tower_upgrade_started")
+	assert_signal(game_events).is_signal_exists("tower_sold")
+	assert_signal(game_events).is_signal_exists("tower_destroyed")
+	assert_signal(game_events).is_signal_exists("tower_clicked")
+	assert_signal(game_events).is_signal_exists("tower_context_menu_upgrade_button_clicked")
+	assert_signal(game_events).is_signal_exists("tower_context_menu_sell_button_clicked")
+	assert_signal(game_events).is_signal_exists("wave_incoming")
+	assert_signal(game_events).is_signal_exists("wave_started")
+	assert_signal(game_events).is_signal_exists("wave_defeated")
+	assert_signal(game_events).is_signal_exists("send_wave")

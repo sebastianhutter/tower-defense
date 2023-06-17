@@ -7,18 +7,15 @@ extends GdUnitTestSuite
 # TestSuite generated from
 const __source = 'res://scenes/game_camera/game_camera.gd'
 
-func create_scene() -> Node3D:
+func create_scene() -> Node2D:
 	"""initializes the unit test scene for the tests"""
 
 	return auto_free(load("res://test/tscn/scenes/game_camera/game_camera_test.tscn").instantiate())
 
-func test_camera_offset() -> void:
+func test_camera() -> void:
 	
-	var scene: Node3D = create_scene()
+	var scene: Node2D = create_scene()
 	var runner: GdUnitSceneRunner = scene_runner(scene)
 	var game_camera = scene.get_node("GameCamera") as GameCamera
-	
-	# player is at pos 0,0,0
-	# camera is at pos 0,10,10
-	# offset should be 0,10,10 after initi
-	assert_vector3(game_camera.camera_offset).is_equal(game_camera.global_position)
+
+	assert_bool(game_camera.is_current()).is_true()

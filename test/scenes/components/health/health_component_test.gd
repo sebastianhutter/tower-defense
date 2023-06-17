@@ -51,21 +51,29 @@ func test_emit_died_signal_exists() -> void:
 	
 	
 
-# SIGNAL UNIT TESTS ARE BROKEN ATM
-# https://github.com/MikeSchulze/gdUnit4/issues/103
-# will be fixed with v41.1.1
-# https://github.com/users/MikeSchulze/projects/5/views/6
-func test_emit_died_signal_emited() -> void:
-	"""
-	ensure died signal is emitted when health reaches 0 (test_take_damage takes
-	care of this!)
-	"""
-
-	health_component.current_health = 10
-	health_component.take_damage(100)
-
-	#await assert_signal(health_component).is_emitted("died")
-	pass
-
-	
-	
+## SIGNAL UNIT TESTS ARE BROKEN ATM
+## https://github.com/MikeSchulze/gdUnit4/issues/103
+## will be fixed with v41.1.1
+## https://github.com/users/MikeSchulze/projects/5/views/6
+#
+#class TestEmitter extends Node:
+#	var health_component: HealthComponent = HealthComponent.new()
+#
+#	func _ready():
+#		health_component.max_health = 10
+#		health_component.current_health = 10
+#
+#func test_emit_died_signal_emited() -> void:
+#	"""
+#	ensure died signal is emitted when health reaches 0 (test_take_damage takes
+#	care of this!)
+#	"""
+#
+#	var test_emitter = auto_free(TestEmitter.new())
+#	add_child(test_emitter)
+#	test_emitter.health_component.take_damage(100)
+#
+#	await assert_signal(test_emitter.health_component).is_emitted("died")
+#
+#
+#

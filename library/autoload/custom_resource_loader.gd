@@ -61,7 +61,6 @@ func get_floor_resources() -> Array[FloorResource]:
 
 	return floor_resources
 
-
 func _init() -> void:
 	"""preload resources for faster access"""
 	load_tower_resources()

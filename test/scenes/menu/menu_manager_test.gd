@@ -5,7 +5,7 @@ extends GdUnitTestSuite
 @warning_ignore('return_value_discarded')
 
 # TestSuite generated from
-const __source = 'res://scenes/menu/menu_manager.gd'
+const __source = 'res://scenes/manager/menu/menu_manager.gd'
 
 var menu_manager: MenuManager
 
@@ -13,8 +13,10 @@ var menus_to_test = {
 	"%MainMenu": GameMainMenu,
 	"%PauseMenu": GamePauseMenu,
 	"%OptionsMenu": GameOptionsMenu,
-	"%AbilitySelectMenu": GameAbilitySelectMenu,
-	"%LevelSelectMenu": GameLevelSelectMenu,
+	"%FloorSelectMenu": GameFloorSelectMenu,
+	"%GameOverWinMenu": GameOverWinMenu,
+	"%GameOverLooseMenu": GameOverLooseMenu,
+	
 }
 
 func before_test() -> void:
@@ -25,7 +27,7 @@ func before_test() -> void:
 func create_scene() -> MenuManager:
 	"""initializes the unit test scene for the tests"""
 
-	return auto_free(load("res://scenes/menu/menu_manager.tscn").instantiate())
+	return auto_free(load("res://scenes/manager/menu/menu_manager.tscn").instantiate())
 
 func test_scene_type() -> void:
 	"""ensure the menu manager has the correct script assigned"""
@@ -126,14 +128,14 @@ func test_show_last_menu() -> void:
 	# do the same test with three menus
 	scene.hide_menus()
 	scene.show_menu(Types.Menu.MAIN_MENU)
-	scene.show_menu(Types.Menu.ABILITY_SELECT_MENU)
-	scene.show_menu(Types.Menu.LEVEL_SELECT_MENU)
+	scene.show_menu(Types.Menu.FLOOR_SELECT_MENU)
+	scene.show_menu(Types.Menu.GAME_OVER_LOOSE_MENU)
 	
 	scene.show_last_menu()
 	assert_bool(scene.main_menu.visible).is_false()
-	assert_bool(scene.ability_select_menu.visible).is_true()
-	assert_bool(scene.level_select_menu.visible).is_false()
-	assert_array(scene.menu_stack).contains_exactly([scene.main_menu, scene.ability_select_menu])
+	assert_bool(scene.floor_select_menu.visible).is_true()
+	assert_bool(scene.game_over_loose_menu.visible).is_false()
+	assert_array(scene.menu_stack).contains_exactly([scene.main_menu, scene.floor_select_menu])
 	
 	
 func test_handle_escape_keys_with_stack() -> void:
@@ -152,8 +154,3 @@ func test_handle_escape_keys_with_stack() -> void:
 	assert_bool(scene.main_menu.visible).is_true()
 	assert_array(scene.menu_stack).contains_exactly([scene.main_menu])
 	
-	
-	
-	
-# TODO: fix up emit signal tests when gdunit4 fix is out!
-# this then al

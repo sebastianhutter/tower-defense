@@ -17,22 +17,9 @@ func before_test() -> void:
 
 	custom_resource_loader = auto_free(CustomResourceLoader.new())
 
-func test_ability_resources_count() -> void:
-	"""ensure all ability resources are loaded"""
+func test_floor_resources_count() -> void:
+	"""ensure all floor resources are loaded"""
 	
-	# TODO: write own fs find to find all tres files
-	assert_array(custom_resource_loader.ability_resources).has_size(2)
+	assert_array(custom_resource_loader.floor_resources).has_size(3)
 	
-func test_get_ability_resource() -> void:
-	"""ensure we get an ability resource back"""
-	var ability_resource = custom_resource_loader.get_ability_resource("shield")
-	
-	assert_object(ability_resource).is_instanceof(AbilityResource)
-	assert_str(ability_resource.id).is_equal("shield")
-	
-func test_get_ability_resource_null() -> void:
-	"""ensure we get null back for a non existing resource"""
-	
-	var ability_resource = custom_resource_loader.get_ability_resource("thisabilitydoesnotexist")
-	assert_object(ability_resource).is_null()
 

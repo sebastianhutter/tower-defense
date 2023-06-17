@@ -1,14 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://wmgp4ub4qiu6"]
+[gd_scene load_steps=2 format=3 uid="uid://wmgp4ub4qiu6"]
 
 [ext_resource type="PackedScene" uid="uid://cbq3r0r2rnp01" path="res://scenes/game_camera/game_camera.tscn" id="1_qus62"]
-[ext_resource type="PackedScene" uid="uid://bvawb13hlx1wi" path="res://scenes/character/player/player.tscn" id="2_yotjm"]
 
-[node name="game_camera_test" type="Node3D"]
+[node name="game_camera_test" type="Node2D"]
 
 [node name="GameCamera" parent="." instance=ExtResource("1_qus62")]
 unique_name_in_owner = true
-projection = 0
-
-[node name="Player" parent="." instance=ExtResource("2_yotjm")]
-transform = Transform3D(1, -8.71967e-16, 6.50845e-16, 4.29723e-16, 0.866026, 0.5, -9.99632e-16, -0.5, 0.866026, 2.08165e-12, 2.08165e-12, 2.08165e-12)
-motion_mode = 1

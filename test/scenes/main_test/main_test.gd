@@ -17,22 +17,10 @@ func test_managers_registered() -> void:
 	var scene: Main = create_scene()
 	var runner: GdUnitSceneRunner = scene_runner(scene)
 	
-	assert_int(scene.managers.get_child_count()).is_equal(4)
-	for manager in scene.managers.get_children():
-		assert_object(manager).is_not_null()
+	assert_int(scene.get_child_count(2)).is_equal(2)
+	for child in scene.get_children():
+		assert_object(child).is_not_null()
 		
 	# the main scene loads the menu, so we need to unpause the scene tree!
 	scene.get_tree().paused = false
 	
-func test_manager_types() -> void:
-	"""ensure all managers are registered with their correct types"""
-	
-	var scene: Main = create_scene()
-	var runner: GdUnitSceneRunner = scene_runner(scene)
-	
-	assert_object(scene.game_state_manager).is_instanceof(GameStateManager)
-	assert_object(scene.ui_manager).is_instanceof(UiManager)
-	assert_object(scene.menu_manager).is_instanceof(MenuManager)
-	assert_object(scene.level_manager).is_instanceof(LevelManager)
-
-	scene.get_tree().paused = false
