@@ -84,10 +84,12 @@ spec:
                         script: '''
                             echo dummy export ci-setup binary to ensure all resources are imported before running tests
                             $GODOT_BIN --export-release ci-setup /tmp/ci-setup > /dev/null 2>&1
+                            sleep 5
+                            $GODOT_BIN --headless --editor --quit .
                             ls -la /tmp/ci-setup
                             ls -la .godot
                             rm -rf /tmp/ci-setup
-                            sleep 3600
+           
                             bash addons/gdUnit4/runtest.sh --continue --add ./test
                         '''
                     )
