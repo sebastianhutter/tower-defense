@@ -1,0 +1,714 @@
+[gd_scene load_steps=22 format=3 uid="uid://bfhogs8g8dc3u"]
+
+[ext_resource type="Script" path="res://scenes/background/main_menu_background_effect.gd" id="1_5ty5s"]
+[ext_resource type="TileSet" uid="uid://chi0m1r446bdv" path="res://resources/tileset/tileset.tres" id="1_gyl8g"]
+[ext_resource type="Texture2D" uid="uid://d04s8kqpd0xe4" path="res://resources/sprite/tower/HQ/hq_level_3.png" id="2_goefj"]
+[ext_resource type="Shader" path="res://resources/shader/portal/portal.gdshader" id="2_uu27c"]
+[ext_resource type="Texture2D" uid="uid://cwt3tev0411w0" path="res://resources/sprite/ufo/StrongUfo.png" id="3_5kb7q"]
+[ext_resource type="Texture2D" uid="uid://cp7h0ob77fnip" path="res://resources/sprite/portal/portal.svg" id="3_whpgw"]
+[ext_resource type="Texture2D" uid="uid://bk7uvuoowfjdq" path="res://resources/sprite/ufo/weak_ufo.png" id="4_uvcxq"]
+[ext_resource type="Texture2D" uid="uid://dlgoto2a14ejl" path="res://resources/sprite/ufo/medium_ufo.png" id="5_x8m0u"]
+[ext_resource type="Texture2D" uid="uid://do1wr32j0edla" path="res://resources/sprite/tower/Archer/archer_level_3.png" id="6_o1q8i"]
+[ext_resource type="Texture2D" uid="uid://dk1csb8la4vhg" path="res://resources/sprite/tower/Wizard/wizard_level_3.png" id="7_48ksq"]
+[ext_resource type="Texture2D" uid="uid://fodga5fwip0d" path="res://resources/sprite/tower/Archer/arrow.png" id="8_tjpip"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_g2kun"]
+vertices = PackedVector2Array(-745, 718, -831, 679, -614, 609, -611, 608, -1629, 24, -1637, 23, -1132, -271, -1131, -266, 0, 378, 0, 385, 101, 17, 100, 12, 386, 167, 380, 168)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2), PackedInt32Array(3, 0, 2), PackedInt32Array(4, 3, 2, 5), PackedInt32Array(4, 5, 6, 7), PackedInt32Array(7, 6, 8, 9), PackedInt32Array(10, 11, 12, 13), PackedInt32Array(13, 12, 9, 8)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-831, 679, -614, 609, -1637, 23, -1132, -271, 0, 378, 380, 168, 101, 17, 100, 12, 386, 167, 0, 385, -1131, -266, -1629, 24, -611, 608, -745, 718)])
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_gwdod"]
+seed = 12354
+fractal_octaves = 10
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ja3is"]
+generate_mipmaps = false
+noise = SubResource("FastNoiseLite_gwdod")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xjprc"]
+shader = ExtResource("2_uu27c")
+shader_parameter/effect_color = Color(0, 0.584689, 0.877234, 1)
+shader_parameter/amplitude = 1.64
+shader_parameter/frequency = 6.48
+shader_parameter/rippleRate = 5.0
+shader_parameter/waveAmplitude = 0.3
+shader_parameter/waveFrequency = 2.0
+shader_parameter/blendingAmount = 0.5
+shader_parameter/noise = SubResource("NoiseTexture2D_ja3is")
+
+[sub_resource type="Animation" id="Animation_ly4ov"]
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:skew")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-1.21107e-17]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_d12pb"]
+resource_name = "portal"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 1.6245, 1),
+"update": 0,
+"values": [Vector2(2.08165e-12, 2.08165e-12), Vector2(1.5, 1.5), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:skew")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 0.812252, 1),
+"update": 0,
+"values": [-1.21107e-17, 0.357792, -0.139626, 0.336849, -1.21107e-17]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"values": []
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hmjmb"]
+_data = {
+"RESET": SubResource("Animation_ly4ov"),
+"portal": SubResource("Animation_d12pb")
+}
+
+[sub_resource type="Animation" id="Animation_bf3ay"]
+resource_name = "menu"
+length = 18.0
+loop_mode = 1
+step = 1.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Levels/GrassFloor:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-925, 2.08165e-12), Vector2(1250, 2.08165e-12)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Levels/GrassFloor:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Levels/WinterFloor:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 6, 12),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Levels/DesertFloor:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 12, 18),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Levels/WinterFloor:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(6, 12),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(2.08165e-12, -600), Vector2(2.08165e-12, 600)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Levels/DesertFloor:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(12, 18),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1000, 600), Vector2(-650, -650)]
+}
+
+[sub_resource type="Animation" id="Animation_huwi6"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Levels/GrassFloor:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Levels/GrassFloor:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Levels/WinterFloor:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Levels/DesertFloor:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Levels/WinterFloor:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Levels/DesertFloor:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_remvy"]
+_data = {
+"RESET": SubResource("Animation_huwi6"),
+"grass": SubResource("Animation_bf3ay")
+}
+
+[node name="MainMenuBackgroundEffect" type="Node2D"]
+script = ExtResource("1_5ty5s")
+
+[node name="Levels" type="Node2D" parent="."]
+position = Vector2(640, 320)
+
+[node name="GrassFloor" type="Node2D" parent="Levels"]
+unique_name_in_owner = true
+scale = Vector2(0.3, 0.3)
+
+[node name="TileMap" type="TileMap" parent="Levels/GrassFloor"]
+unique_name_in_owner = true
+editor_description = "the tilemap is moved 125px to the left so the the center of the middle tile witll be at 0,0
+
+(this as the tiles are 250px in witdh"
+y_sort_enabled = true
+position = Vector2(2.08165e-12, 2.08165e-12)
+tile_set = ExtResource("1_gyl8g")
+format = 2
+layer_0/name = "floor"
+layer_0/y_sort_enabled = true
+layer_0/tile_data = PackedInt32Array(131074, 110, 0, 65537, 110, 0, 1, 110, 0, -65536, 110, 0, -131072, 110, 0, -131073, 110, 0, -196609, 110, 0, -196610, 110, 0, -262147, 2, 0, -131074, 110, 0, -65537, 110, 0, -1, 110, 0, 65536, 200, 0, 131073, 300, 0, 196609, 110, 0, 262145, 110, 0, 327680, 110, 0, 393216, 110, 0, 524287, 110, 0, 589823, 110, 0, -262146, 110, 0, -327682, 3, 0, -393219, 4, 0, 196608, 210, 0, 131072, 110, 0, 131071, 110, 0, 65535, 110, 0, -2, 110, 0, -65538, 110, 0, -131075, 110, 0, -196611, 110, 0, -262148, 110, 0, -327684, 110, 0, 262144, 210, 0, 327679, 200, 0, 262143, 110, 0, 196607, 110, 0, 327678, 110, 0, 262142, 200, 0, 196606, 200, 0, 131070, 110, 0, 65534, 110, 0, 327677, 4, 0, 262141, 110, 0, 196605, 110, 0, 131069, 200, 0, 65533, 200, 0, -3, 110, 0, -65539, 110, 0, -262150, 110, 0, -327685, 110, 0, -393221, 110, 0, -458756, 4, 0, -524292, 4, 0, -131079, 110, 0, -196614, 110, 0, -8, 110, 0, 65529, 290, 0, 327675, 200, 0, -65543, 110, 0, 0, 120, 0, 393214, 110, 0, 393213, 4, 0, 393212, 110, 0, 262140, 110, 0, 196604, 110, 0, 131068, 110, 0, 65532, 110, 0, -4, 200, 0, -65540, 200, 0, -131076, 110, 0, -196612, 110, 0, 131067, 110, 0, 65531, 110, 0, -5, 110, 0, -65541, 110, 0, -131077, 200, 0, -196613, 270, 0, -262149, 110, 0, 458750, 110, 0, -7, 210, 0, 65530, 110, 0, 131066, 110, 0, 458749, 4, 0, -131078, 210, 0, -65542, 210, 0, -6, 110, 0, -458755, 110, 0, -393220, 4, 0, 458751, 110, 0, 524286, 1, 0, 589822, 110, 0, 524285, 110, 0, 65538, 110, 0, 655358, 110, 0, 2, 110, 0, -65535, 110, 0, -131071, 110, 0, -196608, 110, 0, -262144, 110, 0, -262145, 110, 0, -327681, 1, 0, -393218, 3, 0, -458754, 3, 0, -524291, 3, 0, -589827, 4, 0, 131065, 200, 0, 196602, 200, 0, 262138, 200, 0, 393211, 200, 0, 458747, 110, 0, 524283, 110, 0, 589820, 110, 0, 524284, 200, 0, 589821, 300, 0, 655357, 4, 0, 720894, 3, 0, 786429, 4, 0, 720893, 2, 0, 327676, 110, 0, 262139, 110, 0, 196603, 110, 0, 458748, 200, 0, 393210, 110, 0, 327674, 110, 0, 262137, 110, 0, 196601, 110, 0, 131064, 110, 0, 65528, 1, 0, 393215, 280, 0, -327683, 110, 0, 655356, 90, 0)
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="Levels/GrassFloor"]
+navigation_polygon = SubResource("NavigationPolygon_g2kun")
+
+[node name="Portal3" type="Node2D" parent="Levels/GrassFloor"]
+position = Vector2(-755, 664)
+
+[node name="Sprite" type="Sprite2D" parent="Levels/GrassFloor/Portal3"]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_xjprc")
+position = Vector2(2.08165e-12, 2.08165e-12)
+texture = ExtResource("3_whpgw")
+
+[node name="Timer" type="Timer" parent="Levels/GrassFloor/Portal3"]
+unique_name_in_owner = true
+one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Levels/GrassFloor/Portal3"]
+unique_name_in_owner = true
+libraries = {
+"": SubResource("AnimationLibrary_hmjmb")
+}
+
+[node name="HQ" type="Sprite2D" parent="Levels/GrassFloor"]
+position = Vector2(122, -7)
+texture = ExtResource("2_goefj")
+
+[node name="StrongUfo" type="Sprite2D" parent="Levels/GrassFloor"]
+position = Vector2(-772, 489)
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("3_5kb7q")
+
+[node name="WeakUfo" type="Sprite2D" parent="Levels/GrassFloor"]
+position = Vector2(-246, 218)
+texture = ExtResource("4_uvcxq")
+
+[node name="MediumUfo" type="Sprite2D" parent="Levels/GrassFloor"]
+position = Vector2(-923, 386)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("5_x8m0u")
+
+[node name="ArcherL3" type="Sprite2D" parent="Levels/GrassFloor"]
+position = Vector2(4, 196)
+texture = ExtResource("6_o1q8i")
+
+[node name="ArcherL4" type="Sprite2D" parent="Levels/GrassFloor"]
+position = Vector2(-990, 492)
+texture = ExtResource("6_o1q8i")
+
+[node name="ArcherL5" type="Sprite2D" parent="Levels/GrassFloor"]
+position = Vector2(-1127, 132)
+texture = ExtResource("6_o1q8i")
+
+[node name="WizardL3" type="Sprite2D" parent="Levels/GrassFloor"]
+position = Vector2(-870, 292)
+texture = ExtResource("7_48ksq")
+
+[node name="WizardL4" type="Sprite2D" parent="Levels/GrassFloor"]
+position = Vector2(-493, 513)
+texture = ExtResource("7_48ksq")
+
+[node name="Arrow" type="Sprite2D" parent="Levels/GrassFloor"]
+position = Vector2(-1087, 215)
+rotation = 1.05545
+scale = Vector2(1, 1)
+texture = ExtResource("8_tjpip")
+
+[node name="Arrow2" type="Sprite2D" parent="Levels/GrassFloor"]
+position = Vector2(-992, 326)
+rotation = 1.05545
+scale = Vector2(1, 1)
+texture = ExtResource("8_tjpip")
+
+[node name="WinterFloor" type="Node2D" parent="Levels"]
+unique_name_in_owner = true
+visible = false
+scale = Vector2(0.2, 0.2)
+
+[node name="TileMap" type="TileMap" parent="Levels/WinterFloor"]
+editor_description = "the tilemap is moved 125px to the left so the the center of the middle tile witll be at 0,0
+
+(this as the tiles are 250px in witdh"
+y_sort_enabled = true
+position = Vector2(2.08165e-12, 2.08165e-12)
+tile_set = ExtResource("1_gyl8g")
+format = 2
+layer_0/name = "floor"
+layer_0/y_sort_enabled = true
+layer_0/tile_data = PackedInt32Array(131074, 112, 0, 65537, 112, 0, 1, 112, 0, -65536, 112, 0, -131072, 112, 0, -131073, 112, 0, -196609, 112, 0, -196610, 272, 0, -262147, 112, 0, -327683, 23, 0, -393220, 212, 0, -131074, 202, 0, -65537, 202, 0, -1, 202, 0, 65536, 202, 0, 131073, 202, 0, 196609, 202, 0, 262145, 112, 0, 327680, 112, 0, 393216, 112, 0, 524287, 112, 0, 65538, 112, 0, 3, 25, 0, -65533, 25, 0, -327682, 112, 0, -458755, 212, 0, -393219, 112, 0, 196608, 112, 0, 131072, 112, 0, 131071, 112, 0, 65535, 112, 0, -2, 112, 0, -65538, 112, 0, -131075, 212, 0, -196611, 112, 0, -262148, 112, 0, -327684, 212, 0, 262144, 112, 0, -196608, 112, 0, -262144, 112, 0, -327680, 25, 0, -393216, 112, 0, -458752, 25, 0, -524288, 112, 0, 327679, 23, 0, 262143, 112, 0, 196607, 23, 0, -262145, 112, 0, -393217, 112, 0, -458753, 112, 0, -524289, 112, 0, 327678, 112, 0, 262142, 24, 0, 196606, 24, 0, 131070, 24, 0, 65534, 112, 0, -524290, 112, 0, 262141, 112, 0, 196605, 112, 0, 131069, 112, 0, 65533, 112, 0, -3, 112, 0, -65539, 282, 0, -524291, 302, 0, 393215, 112, 0, 458751, 112, 0, -720898, 24, 0, -262150, 112, 0, -327685, 112, 0, -393221, 112, 0, -458756, 112, 0, -524292, 112, 0, -589827, 202, 0, -655363, 112, 0, -196614, 112, 0, 0, 122, 0, 393214, 112, 0, 131068, 112, 0, 65532, 112, 0, -4, 112, 0, -65540, 112, 0, -131076, 202, 0, -196612, 202, 0, -5, 112, 0, -65541, 112, 0, -131077, 112, 0, -196613, 112, 0, -262149, 292, 0, -131078, 112, 0, -589826, 112, 0, -655362, 112, 0, -589825, 112, 0, -393215, 25, 0, -262143, 23, 0, -65535, 112, 0, -65534, 24, 0, 2, 112, 0, -131071, 112, 0, -196606, 112, 0, -131070, 112, 0, -131069, 25, 0, -262142, 112, 0, -327679, 25, 0, -196607, 112, 0, 458754, 112, 0, 393218, 212, 0, 327681, 112, 0, 655361, 112, 0, 589825, 202, 0, 524290, 112, 0, 589824, 112, 0, -327687, 21, 0, -262151, 112, 0, 524288, 112, 0, 393219, 112, 0, 327682, 302, 0, 262146, 202, 0, 262147, 112, 0, 196610, 112, 0, 327683, 112, 0, 262148, 112, 0, 196612, 112, 0, 131077, 112, 0, 65540, 112, 0, 4, 23, 0, -851971, 23, 0, -786435, 24, 0, 458753, 212, 0, 458752, 112, 0, 524289, 292, 0, 393217, 112, 0, 65539, 25, 0, 131076, 112, 0, 196611, 112, 0, 131075, 112, 0, -393223, 202, 0, -327686, 282, 0, -786436, 112, 0, -720900, 112, 0, -655365, 112, 0, -589829, 112, 0, -524294, 112, 0, -458758, 20, 0, -720899, 112, 0, -655364, 272, 0, -393222, 212, 0, -524293, 212, 0, -458757, 212, 0, -589828, 212, 0, 720897, 112, 0, 655362, 202, 0, 589826, 112, 0, 524291, 112, 0, 458755, 112, 0, 393220, 112, 0, 327684, 112, 0, 262149, 112, 0, 196613, 20, 0, 262150, 112, 0, 327685, 92, 0, 393221, 212, 0, 458756, 212, 0, 524292, 212, 0, 589827, 212, 0, 655363, 212, 0, 720898, 282, 0, 786434, 112, 0, 851970, 112, 0, 786435, 25, 0, 720899, 25, 0, 655364, 112, 0, 589828, 112, 0, 524293, 112, 0, 458757, 112, 0, 393222, 21, 0, 327686, 112, 0, 393223, 112, 0, 458758, 112, 0, 524294, 112, 0, 589829, 112, 0, 655365, 112, 0, 720900, 112, 0, 786436, 112, 0, 851971, 25, 0, 917507, 25, 0, -458759, 92, 0, -458754, 112, 0, -393218, 112, 0, -327681, 112, 0, -262146, 112, 0)
+
+[node name="Portal" type="Node2D" parent="Levels/WinterFloor"]
+position = Vector2(-1626, -588)
+
+[node name="Sprite" type="Sprite2D" parent="Levels/WinterFloor/Portal"]
+material = SubResource("ShaderMaterial_xjprc")
+position = Vector2(2.08165e-12, 2.08165e-12)
+texture = ExtResource("3_whpgw")
+
+[node name="Timer" type="Timer" parent="Levels/WinterFloor/Portal"]
+one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Levels/WinterFloor/Portal"]
+libraries = {
+"": SubResource("AnimationLibrary_hmjmb")
+}
+
+[node name="Portal2" type="Node2D" parent="Levels/WinterFloor"]
+position = Vector2(1501, 368)
+
+[node name="Sprite" type="Sprite2D" parent="Levels/WinterFloor/Portal2"]
+material = SubResource("ShaderMaterial_xjprc")
+position = Vector2(2.08165e-12, 2.08165e-12)
+texture = ExtResource("3_whpgw")
+
+[node name="Timer" type="Timer" parent="Levels/WinterFloor/Portal2"]
+one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Levels/WinterFloor/Portal2"]
+libraries = {
+"": SubResource("AnimationLibrary_hmjmb")
+}
+
+[node name="HQ2" type="Sprite2D" parent="Levels/WinterFloor"]
+position = Vector2(122, -7)
+texture = ExtResource("2_goefj")
+
+[node name="StrongUfo2" type="Sprite2D" parent="Levels/WinterFloor"]
+position = Vector2(-1373, -446)
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("3_5kb7q")
+
+[node name="StrongUfo3" type="Sprite2D" parent="Levels/WinterFloor"]
+position = Vector2(-1150, -572)
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("3_5kb7q")
+
+[node name="StrongUfo4" type="Sprite2D" parent="Levels/WinterFloor"]
+position = Vector2(-943, -689)
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("3_5kb7q")
+
+[node name="WeakUfo2" type="Sprite2D" parent="Levels/WinterFloor"]
+position = Vector2(1375, 443)
+texture = ExtResource("4_uvcxq")
+
+[node name="WeakUfo3" type="Sprite2D" parent="Levels/WinterFloor"]
+position = Vector2(1247, 516)
+texture = ExtResource("4_uvcxq")
+
+[node name="WeakUfo4" type="Sprite2D" parent="Levels/WinterFloor"]
+position = Vector2(1247, 516)
+texture = ExtResource("4_uvcxq")
+
+[node name="MediumUfo2" type="Sprite2D" parent="Levels/WinterFloor"]
+position = Vector2(387, 154)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("5_x8m0u")
+
+[node name="MediumUfo5" type="Sprite2D" parent="Levels/WinterFloor"]
+position = Vector2(-1582, -564)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("5_x8m0u")
+
+[node name="MediumUfo3" type="Sprite2D" parent="Levels/WinterFloor"]
+position = Vector2(555, 246)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("5_x8m0u")
+
+[node name="MediumUfo4" type="Sprite2D" parent="Levels/WinterFloor"]
+position = Vector2(737, 350)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("5_x8m0u")
+
+[node name="ArcherL6" type="Sprite2D" parent="Levels/WinterFloor"]
+position = Vector2(4, 196)
+texture = ExtResource("6_o1q8i")
+
+[node name="ArcherL7" type="Sprite2D" parent="Levels/WinterFloor"]
+position = Vector2(753, 634)
+texture = ExtResource("6_o1q8i")
+
+[node name="ArcherL8" type="Sprite2D" parent="Levels/WinterFloor"]
+position = Vector2(-631, -308)
+texture = ExtResource("6_o1q8i")
+
+[node name="WizardL5" type="Sprite2D" parent="Levels/WinterFloor"]
+position = Vector2(-244, -351)
+texture = ExtResource("7_48ksq")
+
+[node name="WizardL6" type="Sprite2D" parent="Levels/WinterFloor"]
+position = Vector2(386, 301)
+texture = ExtResource("7_48ksq")
+
+[node name="DesertFloor" type="Node2D" parent="Levels"]
+unique_name_in_owner = true
+visible = false
+scale = Vector2(0.2, 0.2)
+
+[node name="TileMap" type="TileMap" parent="Levels/DesertFloor"]
+editor_description = "the tilemap is moved 125px to the left so the the center of the middle tile witll be at 0,0
+
+(this as the tiles are 250px in witdh"
+y_sort_enabled = true
+position = Vector2(2.08165e-12, 2.08165e-12)
+tile_set = ExtResource("1_gyl8g")
+format = 2
+layer_0/name = "floor"
+layer_0/y_sort_enabled = true
+layer_0/tile_data = PackedInt32Array(-262147, 201, 0, -327682, 111, 0, -65536, 211, 0, -1, 201, 0, 131071, 211, 0, 0, 121, 0, 131073, 281, 0, 65537, 211, 0, 1, 111, 0, 131072, 111, 0, 65536, 201, 0, 655366, 111, 0, 589830, 201, 0, 524294, 201, 0, 458758, 111, 0, 393222, 111, 0, 327686, 111, 0, 262150, 12, 0, 196614, 111, 0, 131078, 111, 0, 65542, 111, 0, 6, 111, 0, -65530, 111, 0, -131066, 111, 0, -196602, 111, 0, -262138, 111, 0, -327674, 111, 0, -393210, 111, 0, -458746, 111, 0, -524282, 11, 0, 655365, 111, 0, 589829, 111, 0, 524293, 211, 0, 458757, 271, 0, 393221, 111, 0, 327685, 111, 0, 262149, 111, 0, 196613, 111, 0, 131077, 111, 0, 65541, 111, 0, 5, 111, 0, -65531, 111, 0, -131067, 111, 0, -196603, 111, 0, -262139, 111, 0, -327675, 111, 0, -393211, 111, 0, -458747, 111, 0, -524283, 111, 0, 655364, 211, 0, 589828, 211, 0, 524292, 111, 0, 458756, 111, 0, 393220, 111, 0, 327684, 111, 0, 262148, 301, 0, 196612, 111, 0, 131076, 111, 0, 65540, 111, 0, 4, 111, 0, -65532, 111, 0, -131068, 13, 0, -196604, 111, 0, -262140, 111, 0, -327676, 111, 0, -393212, 111, 0, -458748, 111, 0, -524284, 211, 0, 655363, 201, 0, 589827, 111, 0, 524291, 111, 0, 458755, 111, 0, 393219, 211, 0, 327683, 211, 0, 262147, 111, 0, 196611, 201, 0, 131075, 201, 0, 65539, 111, 0, 3, 111, 0, -65533, 111, 0, -131069, 111, 0, -196605, 111, 0, -262141, 111, 0, -327677, 111, 0, -393213, 211, 0, -458749, 211, 0, -524285, 111, 0, 655362, 111, 0, 589826, 201, 0, 524290, 291, 0, 458754, 211, 0, 393218, 111, 0, 327682, 111, 0, 262146, 111, 0, 196610, 111, 0, 131074, 111, 0, 65538, 201, 0, 2, 271, 0, -65534, 111, 0, -131070, 111, 0, -196606, 111, 0, -262142, 211, 0, -327678, 211, 0, -393214, 111, 0, -458750, 111, 0, -524286, 111, 0, 655361, 111, 0, 589825, 111, 0, 524289, 111, 0, 458753, 111, 0, 393217, 111, 0, 327681, 111, 0, 262145, 111, 0, 196609, 111, 0, -65535, 111, 0, -131071, 211, 0, -196607, 211, 0, -262143, 111, 0, -327679, 111, 0, -393215, 111, 0, -458751, 111, 0, -524287, 111, 0, 655360, 111, 0, 589824, 111, 0, 524288, 111, 0, 458752, 111, 0, 393216, 12, 0, 327680, 111, 0, 262144, 111, 0, 196608, 111, 0, -131072, 111, 0, -196608, 111, 0, -262144, 111, 0, -327680, 111, 0, -393216, 12, 0, -458752, 111, 0, -524288, 111, 0, 720895, 111, 0, 655359, 111, 0, 589823, 111, 0, 524287, 111, 0, 458751, 13, 0, 393215, 111, 0, 327679, 111, 0, 262143, 111, 0, 196607, 281, 0, 65535, 111, 0, -65537, 201, 0, -131073, 111, 0, -196609, 111, 0, -262145, 111, 0, -327681, 111, 0, -393217, 111, 0, -458753, 111, 0, 720894, 111, 0, 655358, 111, 0, 589822, 111, 0, 524286, 111, 0, 458750, 111, 0, 393214, 111, 0, 327678, 111, 0, 262142, 111, 0, 196606, 211, 0, 131070, 271, 0, 65534, 111, 0, -65538, 111, 0, -131074, 201, 0, -196610, 201, 0, -262146, 111, 0, -393218, 111, 0, -458754, 111, 0, 720893, 111, 0, 655357, 111, 0, 589821, 111, 0, 524285, 111, 0, 458749, 111, 0, 393213, 111, 0, 327677, 211, 0, 262141, 211, 0, 196605, 111, 0, 131069, 111, 0, 65533, 111, 0, -3, 111, 0, -65539, 111, 0, -131075, 111, 0, -196611, 111, 0, -327683, 291, 0, -393219, 301, 0, -458755, 201, 0, 720892, 111, 0, 655356, 111, 0, 589820, 111, 0, 524284, 111, 0, 458748, 211, 0, 393212, 211, 0, 327676, 111, 0, 262140, 111, 0, 196604, 111, 0, 131068, 111, 0, 65532, 111, 0, -4, 111, 0, -65540, 111, 0, -131076, 111, 0, -196612, 111, 0, -262148, 111, 0, -327684, 111, 0, -393220, 111, 0, -458756, 211, 0, 720891, 111, 0, 655355, 111, 0, 589819, 211, 0, 524283, 211, 0, 458747, 111, 0, 393211, 111, 0, 327675, 111, 0, 262139, 111, 0, 196603, 111, 0, 131067, 111, 0, 65531, 111, 0, -5, 111, 0, -65541, 111, 0, -131077, 11, 0, -196613, 13, 0, -262149, 111, 0, -327685, 281, 0, -393221, 211, 0, 720890, 211, 0, 655354, 211, 0, 589818, 111, 0, 524282, 111, 0, 458746, 111, 0, 393210, 111, 0, 327674, 111, 0, 262138, 13, 0, 196602, 111, 0, 131066, 111, 0, 65530, 111, 0, -6, 111, 0, -65542, 111, 0, -131078, 111, 0, -196614, 111, 0, -262150, 111, 0, -327686, 111, 0, -393222, 201, 0, -458758, 291, 0, 786438, 111, 0, 720902, 111, 0, 786437, 111, 0, 720901, 111, 0, 786436, 111, 0, 720900, 111, 0, 786435, 111, 0, 720899, 281, 0, 786434, 111, 0, 720898, 111, 0, 786433, 111, 0, 720897, 111, 0, 786432, 111, 0, 720896, 111, 0, 851967, 111, 0, 786431, 111, 0, 851966, 111, 0, 786430, 111, 0, 851965, 111, 0, 786429, 111, 0, 851964, 111, 0, 786428, 111, 0, 851963, 111, 0, 786427, 111, 0, 851962, 111, 0, 786426, 111, 0, -589818, 111, 0, -655354, 111, 0, -589819, 111, 0, -655355, 211, 0, -589820, 211, 0, -655356, 111, 0, -589821, 111, 0, -655357, 111, 0, -589822, 111, 0, -655358, 111, 0, -589823, 111, 0, -655359, 11, 0, -589824, 111, 0, -655360, 111, 0, -524289, 111, 0, -589825, 111, 0, -524290, 111, 0, -589826, 111, 0, -524291, 111, 0, -589827, 111, 0, -524292, 271, 0, -589828, 111, 0, -524293, 111, 0, -589829, 301, 0, -524294, 211, 0, -589830, 111, 0, -720890, 111, 0, -786426, 211, 0, -720891, 211, 0, -786427, 111, 0, -720892, 111, 0, -786428, 111, 0, -720893, 111, 0, -786429, 111, 0, -720894, 111, 0, -786430, 111, 0, -720895, 111, 0, -786431, 111, 0, -720896, 111, 0, -786432, 111, 0, -655361, 111, 0, -720897, 111, 0, -655362, 111, 0, -720898, 111, 0, -655363, 111, 0, -720899, 111, 0, -720900, 111, 0, -655365, 10, 0, -720901, 111, 0, -655366, 201, 0, -720902, 201, 0, -458757, 111, 0, -786439, 91, 0, -851962, 91, 0, 655367, 91, 0, 786425, 91, 0, -2, 111, 0, -655364, 111, 0)
+
+[node name="Portal3" type="Node2D" parent="Levels/DesertFloor"]
+position = Vector2(-1503, -941)
+
+[node name="Sprite" type="Sprite2D" parent="Levels/DesertFloor/Portal3"]
+material = SubResource("ShaderMaterial_xjprc")
+position = Vector2(2.08165e-12, 2.08165e-12)
+texture = ExtResource("3_whpgw")
+
+[node name="Timer" type="Timer" parent="Levels/DesertFloor/Portal3"]
+one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Levels/DesertFloor/Portal3"]
+libraries = {
+"": SubResource("AnimationLibrary_hmjmb")
+}
+
+[node name="Portal5" type="Node2D" parent="Levels/DesertFloor"]
+position = Vector2(-1506, 801)
+
+[node name="Sprite" type="Sprite2D" parent="Levels/DesertFloor/Portal5"]
+material = SubResource("ShaderMaterial_xjprc")
+position = Vector2(2.08165e-12, 2.08165e-12)
+texture = ExtResource("3_whpgw")
+
+[node name="Timer" type="Timer" parent="Levels/DesertFloor/Portal5"]
+one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Levels/DesertFloor/Portal5"]
+libraries = {
+"": SubResource("AnimationLibrary_hmjmb")
+}
+
+[node name="Portal4" type="Node2D" parent="Levels/DesertFloor"]
+position = Vector2(1873, 737)
+
+[node name="Sprite" type="Sprite2D" parent="Levels/DesertFloor/Portal4"]
+material = SubResource("ShaderMaterial_xjprc")
+position = Vector2(2.08165e-12, 2.08165e-12)
+texture = ExtResource("3_whpgw")
+
+[node name="Timer" type="Timer" parent="Levels/DesertFloor/Portal4"]
+one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Levels/DesertFloor/Portal4"]
+libraries = {
+"": SubResource("AnimationLibrary_hmjmb")
+}
+
+[node name="Portal6" type="Node2D" parent="Levels/DesertFloor"]
+position = Vector2(1750, -939)
+
+[node name="Sprite" type="Sprite2D" parent="Levels/DesertFloor/Portal6"]
+material = SubResource("ShaderMaterial_xjprc")
+position = Vector2(2.08165e-12, 2.08165e-12)
+texture = ExtResource("3_whpgw")
+
+[node name="Timer" type="Timer" parent="Levels/DesertFloor/Portal6"]
+one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Levels/DesertFloor/Portal6"]
+libraries = {
+"": SubResource("AnimationLibrary_hmjmb")
+}
+
+[node name="HQ3" type="Sprite2D" parent="Levels/DesertFloor"]
+position = Vector2(122, -7)
+texture = ExtResource("2_goefj")
+
+[node name="StrongUfo5" type="Sprite2D" parent="Levels/DesertFloor"]
+position = Vector2(-1443, -910)
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("3_5kb7q")
+
+[node name="StrongUfo6" type="Sprite2D" parent="Levels/DesertFloor"]
+position = Vector2(-1231, -786)
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("3_5kb7q")
+
+[node name="StrongUfo7" type="Sprite2D" parent="Levels/DesertFloor"]
+position = Vector2(-1289, -633)
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("3_5kb7q")
+
+[node name="StrongUfo8" type="Sprite2D" parent="Levels/DesertFloor"]
+position = Vector2(1368, -722)
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("3_5kb7q")
+
+[node name="WeakUfo5" type="Sprite2D" parent="Levels/DesertFloor"]
+position = Vector2(1127, 735)
+texture = ExtResource("4_uvcxq")
+
+[node name="WeakUfo6" type="Sprite2D" parent="Levels/DesertFloor"]
+position = Vector2(899, 739)
+texture = ExtResource("4_uvcxq")
+
+[node name="WeakUfo8" type="Sprite2D" parent="Levels/DesertFloor"]
+position = Vector2(-998, 517)
+texture = ExtResource("4_uvcxq")
+
+[node name="WeakUfo7" type="Sprite2D" parent="Levels/DesertFloor"]
+position = Vector2(746, 654)
+texture = ExtResource("4_uvcxq")
+
+[node name="WeakUfo9" type="Sprite2D" parent="Levels/DesertFloor"]
+position = Vector2(1556, -828)
+texture = ExtResource("4_uvcxq")
+
+[node name="WeakUfo10" type="Sprite2D" parent="Levels/DesertFloor"]
+position = Vector2(1556, -828)
+texture = ExtResource("4_uvcxq")
+
+[node name="MediumUfo6" type="Sprite2D" parent="Levels/DesertFloor"]
+position = Vector2(387, 154)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("5_x8m0u")
+
+[node name="MediumUfo7" type="Sprite2D" parent="Levels/DesertFloor"]
+position = Vector2(-1582, -564)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("5_x8m0u")
+
+[node name="MediumUfo8" type="Sprite2D" parent="Levels/DesertFloor"]
+position = Vector2(621, 4.00002)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("5_x8m0u")
+
+[node name="MediumUfo10" type="Sprite2D" parent="Levels/DesertFloor"]
+position = Vector2(-1129, 584)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("5_x8m0u")
+
+[node name="MediumUfo11" type="Sprite2D" parent="Levels/DesertFloor"]
+position = Vector2(-1290, 676)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("5_x8m0u")
+
+[node name="MediumUfo9" type="Sprite2D" parent="Levels/DesertFloor"]
+position = Vector2(852, 137)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("5_x8m0u")
+
+[node name="MediumUfo12" type="Sprite2D" parent="Levels/DesertFloor"]
+position = Vector2(1184, -622)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("5_x8m0u")
+
+[node name="MediumUfo13" type="Sprite2D" parent="Levels/DesertFloor"]
+position = Vector2(996, -509)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("5_x8m0u")
+
+[node name="ArcherL9" type="Sprite2D" parent="Levels/DesertFloor"]
+position = Vector2(-747, 493)
+texture = ExtResource("6_o1q8i")
+
+[node name="ArcherL13" type="Sprite2D" parent="Levels/DesertFloor"]
+position = Vector2(372, -12)
+texture = ExtResource("6_o1q8i")
+
+[node name="ArcherL10" type="Sprite2D" parent="Levels/DesertFloor"]
+position = Vector2(1497, 632)
+texture = ExtResource("6_o1q8i")
+
+[node name="ArcherL12" type="Sprite2D" parent="Levels/DesertFloor"]
+position = Vector2(1247, -812)
+texture = ExtResource("6_o1q8i")
+
+[node name="ArcherL11" type="Sprite2D" parent="Levels/DesertFloor"]
+position = Vector2(-631, -308)
+texture = ExtResource("6_o1q8i")
+
+[node name="WizardL7" type="Sprite2D" parent="Levels/DesertFloor"]
+position = Vector2(-244, -351)
+texture = ExtResource("7_48ksq")
+
+[node name="WizardL9" type="Sprite2D" parent="Levels/DesertFloor"]
+position = Vector2(748, -216)
+texture = ExtResource("7_48ksq")
+
+[node name="WizardL8" type="Sprite2D" parent="Levels/DesertFloor"]
+position = Vector2(-133, 7)
+texture = ExtResource("7_48ksq")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "grass"
+libraries = {
+"": SubResource("AnimationLibrary_remvy")
+}

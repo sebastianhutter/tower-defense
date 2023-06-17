@@ -1,10 +1,16 @@
-[gd_scene load_steps=3 format=3 uid="uid://dj0h01t2w4cja"]
+[gd_scene load_steps=4 format=3 uid="uid://dj0h01t2w4cja"]
 
 [ext_resource type="Script" path="res://scenes/tower/construction/tower_under_construction.gd" id="1_78om8"]
 [ext_resource type="PackedScene" uid="uid://bqbkecclfiqvn" path="res://scenes/components/construction/construction_component.tscn" id="2_dsd2o"]
+[ext_resource type="AudioStream" uid="uid://dbmkvjrmkjkao" path="res://resources/sfx/place_tower.ogg" id="3_2m1di"]
 
 [node name="TowerUnderConstruction" type="Node2D"]
 script = ExtResource("1_78om8")
 
 [node name="ConstructionComponent" parent="." instance=ExtResource("2_dsd2o")]
 unique_name_in_owner = true
+
+[node name="TowerPlacedSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_2m1di")
+autoplay = true
+bus = &"sfx"

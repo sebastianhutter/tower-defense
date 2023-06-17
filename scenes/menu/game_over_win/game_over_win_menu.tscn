@@ -1,11 +1,22 @@
-[gd_scene load_steps=2 format=3 uid="uid://cagyovi7sb1p7"]
+[gd_scene load_steps=5 format=3 uid="uid://cagyovi7sb1p7"]
 
 [ext_resource type="Script" path="res://scenes/menu/game_over_win/game_over_win_menu.gd" id="1_p5tr1"]
+[ext_resource type="AudioStream" uid="uid://ce1rpqchloqq6" path="res://resources/sfx/victory.ogg" id="2_j6708"]
+[ext_resource type="PackedScene" uid="uid://dsvopicockuog" path="res://scenes/background/menu_background.tscn" id="2_s6mkn"]
+[ext_resource type="PackedScene" uid="uid://d0xuj2fyubr35" path="res://scenes/ui/sound_button/sound_button.tscn" id="4_hjg6k"]
 
 [node name="GameOverWinMenu" type="CanvasLayer"]
 process_mode = 3
 layer = 20
 script = ExtResource("1_p5tr1")
+
+[node name="MenuBackground" parent="." instance=ExtResource("2_s6mkn")]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("2_j6708")
+volume_db = -15.0
+bus = &"sfx"
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 anchors_preset = 15
@@ -29,12 +40,12 @@ vertical_alignment = 1
 layout_mode = 2
 text = "You successfully repelled the enemy. Well done!"
 
-[node name="ReplayButton" type="Button" parent="MarginContainer/VBoxContainer"]
+[node name="ReplayButton" parent="MarginContainer/VBoxContainer" instance=ExtResource("4_hjg6k")]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Replay"
+text = "Play Again"
 
-[node name="QuitToMenuButton" type="Button" parent="MarginContainer/VBoxContainer"]
+[node name="QuitToMenuButton" parent="MarginContainer/VBoxContainer" instance=ExtResource("4_hjg6k")]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Quit to Menu"
+text = "Quit to Main Menu"

@@ -162,8 +162,10 @@ unique_name_in_owner = true
 stream = ExtResource("4_3fdrr")
 volume_db = -15.0
 pitch_scale = 2.5
+bus = &"sfx"
 
 [node name="Hit" type="AudioStreamPlayer2D" parent="."]
 unique_name_in_owner = true
 stream = ExtResource("5_dq5de")
 volume_db = -10.0
+bus = &"sfx"

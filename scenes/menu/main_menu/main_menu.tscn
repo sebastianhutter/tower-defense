@@ -1,11 +1,18 @@
-[gd_scene load_steps=2 format=3 uid="uid://lrtgfxdhlk13"]
+[gd_scene load_steps=5 format=3 uid="uid://lrtgfxdhlk13"]
 
 [ext_resource type="Script" path="res://scenes/menu/main_menu/main_menu.gd" id="1_kh0xe"]
+[ext_resource type="PackedScene" uid="uid://bfhogs8g8dc3u" path="res://scenes/background/main_menu_background_effect.tscn" id="2_3d62v"]
+[ext_resource type="PackedScene" uid="uid://dsvopicockuog" path="res://scenes/background/menu_background.tscn" id="3_bfdf1"]
+[ext_resource type="PackedScene" uid="uid://d0xuj2fyubr35" path="res://scenes/ui/sound_button/sound_button.tscn" id="4_o3fsd"]
 
 [node name="MainMenu" type="CanvasLayer"]
 process_mode = 3
 layer = 20
 script = ExtResource("1_kh0xe")
+
+[node name="MainMenuBackgroundEffect" parent="." instance=ExtResource("2_3d62v")]
+
+[node name="MenuBackground" parent="." instance=ExtResource("3_bfdf1")]
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 anchors_preset = 15
@@ -14,22 +21,33 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="RichTextLabel" type="Label" parent="MarginContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "
+Tower Defense: The Game
+\"Prepare to defend your turf like never before!\""
+horizontal_alignment = 1
+
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="PlayButton" type="Button" parent="MarginContainer/VBoxContainer"]
+[node name="PlayButton" parent="MarginContainer/VBoxContainer" instance=ExtResource("4_o3fsd")]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Play"
 
-[node name="OptionsButton" type="Button" parent="MarginContainer/VBoxContainer"]
+[node name="OptionsButton" parent="MarginContainer/VBoxContainer" instance=ExtResource("4_o3fsd")]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Options"
 
-[node name="QuitButton" type="Button" parent="MarginContainer/VBoxContainer"]
+[node name="QuitButton" parent="MarginContainer/VBoxContainer" instance=ExtResource("4_o3fsd")]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Quit"
+text = "Quit Game"

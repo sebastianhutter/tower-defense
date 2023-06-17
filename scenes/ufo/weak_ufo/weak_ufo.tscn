@@ -333,7 +333,9 @@ libraries = {
 stream = ExtResource("13_10rvp")
 volume_db = -10.0
 pitch_scale = 0.6
+bus = &"sfx"
 
 [node name="DieSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("15_lnni7")
 volume_db = -15.0
+bus = &"sfx"

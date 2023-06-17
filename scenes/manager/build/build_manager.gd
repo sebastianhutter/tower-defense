@@ -131,9 +131,6 @@ func start_build_process(resource: TowerResource) -> void:
 	if is_instance_valid(tower_build_preview_instance):
 		tower_build_preview_instance.queue_free()
 
-	
-
-
 	is_building = true
 	tower_build_resource = resource
 

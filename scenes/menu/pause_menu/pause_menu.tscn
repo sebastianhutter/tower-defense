@@ -1,11 +1,15 @@
-[gd_scene load_steps=2 format=3 uid="uid://c8ew1lrlsxjut"]
+[gd_scene load_steps=4 format=3 uid="uid://c8ew1lrlsxjut"]
 
 [ext_resource type="Script" path="res://scenes/menu/pause_menu/pause_menu.gd" id="1_56tfv"]
+[ext_resource type="PackedScene" uid="uid://dsvopicockuog" path="res://scenes/background/menu_background.tscn" id="2_83tkm"]
+[ext_resource type="PackedScene" uid="uid://d0xuj2fyubr35" path="res://scenes/ui/sound_button/sound_button.tscn" id="3_8virs"]
 
 [node name="PauseMenu" type="CanvasLayer"]
 process_mode = 3
 layer = 20
 script = ExtResource("1_56tfv")
+
+[node name="MenuBackground" parent="." instance=ExtResource("2_83tkm")]
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 anchors_preset = 15
@@ -19,22 +23,23 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="ContinueButton" type="Button" parent="MarginContainer/VBoxContainer"]
+[node name="ContinueButton" parent="MarginContainer/VBoxContainer" instance=ExtResource("3_8virs")]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Continue"
 
-[node name="RestartLevelButton" type="Button" parent="MarginContainer/VBoxContainer"]
+[node name="RestartLevelButton" parent="MarginContainer/VBoxContainer" instance=ExtResource("3_8virs")]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Restart Level"
 
-[node name="OptionsButton" type="Button" parent="MarginContainer/VBoxContainer"]
+[node name="OptionsButton" parent="MarginContainer/VBoxContainer" instance=ExtResource("3_8virs")]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Options"
+text = "Options
+"
 
-[node name="QuitToMenuButton" type="Button" parent="MarginContainer/VBoxContainer"]
+[node name="QuitToMenuButton" parent="MarginContainer/VBoxContainer" instance=ExtResource("3_8virs")]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Quit to Menu"
+text = "Quit To Main Menu"

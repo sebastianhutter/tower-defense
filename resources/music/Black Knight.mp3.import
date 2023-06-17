@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cd5488m4guoa1"
+path="res://.godot/imported/Black Knight.mp3-21f122aa3f0ab5c254fb271ed1ad6b94.mp3str"
+
+[deps]
+
+source_file="res://resources/music/Black Knight.mp3"
+dest_files=["res://.godot/imported/Black Knight.mp3-21f122aa3f0ab5c254fb271ed1ad6b94.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://bk1psgwkkx5g2"]
+
+[ext_resource type="Shader" path="res://resources/shader/vignette/vignette.gdshader" id="1_os4rw"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lq7tw"]
+shader = ExtResource("1_os4rw")
+shader_parameter/vignette_intensity = 0.65
+shader_parameter/vignette_opacity = 0.12
+shader_parameter/vignette_rgb = Color(0.623529, 0.27451, 0.227451, 1)
+
+[node name="Vignette" type="CanvasLayer"]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_lq7tw")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2

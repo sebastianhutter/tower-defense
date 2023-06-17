@@ -31,5 +31,3 @@ unique_name_in_owner = true
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
 navigation_polygon = SubResource("NavigationPolygon_syrsr")
-
-[node name="AudioListener2D" type="AudioListener2D" parent="."]

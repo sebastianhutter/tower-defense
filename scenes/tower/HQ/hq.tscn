@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scenes/tower/HQ/hq.gd" id="1_bm2he"]
 [ext_resource type="Shader" path="res://resources/shader/highlight/highlight.gdshader" id="1_ecwd0"]
-[ext_resource type="Texture2D" uid="uid://cuh4k7x8q4smd" path="res://resources/sprite/tower/HQ/hq_level_1.png" id="2_cwquf"]
+[ext_resource type="Texture2D" uid="uid://d04s8kqpd0xe4" path="res://resources/sprite/tower/HQ/hq_level_3.png" id="6_2n44p"]
 [ext_resource type="PackedScene" uid="uid://c5diftm0fh4yr" path="res://scenes/components/range_detector/range_detector_component.tscn" id="6_v7x57"]
 [ext_resource type="PackedScene" uid="uid://b0c0xxwxk0c5p" path="res://scenes/components/tower_attack/controller/attack_controller_component_hq.tscn" id="7_lu13t"]
 [ext_resource type="PackedScene" uid="uid://ntmbeu3yyshn" path="res://scenes/projectile/stone.tscn" id="8_8s3tv"]
@@ -47,7 +47,7 @@ shape = SubResource("RectangleShape2D_yrhwt")
 [node name="Body" type="Sprite2D" parent="."]
 unique_name_in_owner = true
 material = SubResource("ShaderMaterial_68nu3")
-texture = ExtResource("2_cwquf")
+texture = ExtResource("6_2n44p")
 
 [node name="AttackControllerComponentHQ" parent="." instance=ExtResource("7_lu13t")]
 projectile_scene = ExtResource("8_8s3tv")

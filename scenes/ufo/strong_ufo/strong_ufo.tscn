@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://dgiqi5o1u8u5c" path="res://scenes/components/navigation/navigation_component.tscn" id="8_hj5lm"]
 [ext_resource type="PackedScene" uid="uid://b3p5b2d2m6l40" path="res://scenes/components/damage_indicator/damage_indicator_component.tscn" id="9_ut6fr"]
 [ext_resource type="Shader" path="res://resources/shader/ufo_explosion/ufo_explosion.gdshader" id="10_t4sbb"]
-[ext_resource type="Texture2D" uid="uid://cwt3tev0411w0" path="res://resources/sprite/ufo/strong_ufo.png" id="11_3a18b"]
+[ext_resource type="Texture2D" uid="uid://cwt3tev0411w0" path="res://resources/sprite/ufo/StrongUfo.png" id="11_4kd2h"]
 [ext_resource type="PackedScene" uid="uid://cykkf088brpwm" path="res://scenes/components/hurtbox/hurtbox_component.tscn" id="12_ktbvr"]
 [ext_resource type="PackedScene" uid="uid://k3ejxmxw8n5c" path="res://scenes/components/hitbox/hitbox_component.tscn" id="13_56cjl"]
 [ext_resource type="AudioStream" uid="uid://bgy6i5klwg87e" path="res://resources/sfx/hq_is_hit.ogg" id="14_mknd5"]
@@ -305,7 +305,7 @@ show_smoke_when_health_lower = 0.2
 [node name="Sprite" type="Sprite2D" parent="Body"]
 material = SubResource("ShaderMaterial_hh1eo")
 scale = Vector2(1.4, 1.4)
-texture = ExtResource("11_3a18b")
+texture = ExtResource("11_4kd2h")
 
 [node name="HurtboxComponent" parent="Body" node_paths=PackedStringArray("health_component") instance=ExtResource("12_ktbvr")]
 unique_name_in_owner = true
@@ -335,7 +335,9 @@ libraries = {
 stream = ExtResource("14_mknd5")
 volume_db = -10.0
 pitch_scale = 0.6
+bus = &"sfx"
 
 [node name="DieSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("15_g6fq6")
 volume_db = -15.0
+bus = &"sfx"

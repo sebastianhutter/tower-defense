@@ -1,10 +1,14 @@
-[gd_scene load_steps=2 format=3 uid="uid://cpkolce580a7b"]
+[gd_scene load_steps=4 format=3 uid="uid://cpkolce580a7b"]
 
 [ext_resource type="Script" path="res://scenes/menu/floor_select_menu/floor_select_menu.gd" id="1_0jmnw"]
+[ext_resource type="PackedScene" uid="uid://dsvopicockuog" path="res://scenes/background/menu_background.tscn" id="2_502y4"]
+[ext_resource type="PackedScene" uid="uid://d0xuj2fyubr35" path="res://scenes/ui/sound_button/sound_button.tscn" id="3_ofpql"]
 
 [node name="FloorSelectMenu" type="CanvasLayer"]
 process_mode = 3
 script = ExtResource("1_0jmnw")
+
+[node name="MenuBackground" parent="." instance=ExtResource("2_502y4")]
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 anchors_preset = 15
@@ -25,12 +29,12 @@ layout_mode = 2
 [node name="HSeparator" type="HSeparator" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="StartGameButton" type="Button" parent="MarginContainer/VBoxContainer"]
+[node name="StartGameButton" parent="MarginContainer/VBoxContainer" instance=ExtResource("3_ofpql")]
 unique_name_in_owner = true
 layout_mode = 2
-text = "START GAME"
+text = "Start Game"
 
-[node name="BackButton" type="Button" parent="MarginContainer/VBoxContainer"]
+[node name="BackButton" parent="MarginContainer/VBoxContainer" instance=ExtResource("3_ofpql")]
 unique_name_in_owner = true
 layout_mode = 2
-text = "BACK TO MAIN MENU"
+text = "Back To Main Menu"

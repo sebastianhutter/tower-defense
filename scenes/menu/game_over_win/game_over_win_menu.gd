@@ -24,6 +24,7 @@ signal quit_to_menu_button_pressed
 
 @onready var replay_button: Button = $%ReplayButton
 @onready var quit_to_menu_button: Button = $%QuitToMenuButton
+@onready var audio_stream_player: AudioStreamPlayer = $%AudioStreamPlayer
 
 # ========
 # class vars
@@ -54,3 +55,7 @@ func _on_quit_to_menu_button_pressed() -> void:
 # ========
 # class functions
 # ========
+
+func on_show() -> void:
+	if audio_stream_player:
+		audio_stream_player.play()

@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://desaosxwdpa0c"]
+[gd_scene load_steps=4 format=3 uid="uid://desaosxwdpa0c"]
 
 [ext_resource type="Script" path="res://scenes/ui/wave_ui/wave_ui.gd" id="1_kh2tq"]
 [ext_resource type="Texture2D" uid="uid://cg0pbixx5j25f" path="res://resources/sprite/UI/wave_bar/wave_icon.png" id="2_ly27v"]
+[ext_resource type="PackedScene" uid="uid://d0xuj2fyubr35" path="res://scenes/ui/sound_button/sound_button.tscn" id="3_ib6um"]
 
 [node name="WaveUi" type="CanvasLayer"]
 script = ExtResource("1_kh2tq")
@@ -32,9 +33,8 @@ stretch_mode = 2
 [node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
 
-[node name="SendWaveButton" type="Button" parent="VBoxContainer/HBoxContainer2"]
+[node name="SendWaveButton" parent="VBoxContainer/HBoxContainer2" instance=ExtResource("3_ib6um")]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(150, 2.08165e-12)
 layout_mode = 2
 text = "Send Wave"
 
