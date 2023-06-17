@@ -83,12 +83,14 @@ spec:
                     sh(
                         script: '''
                             $GODOT_BIN --editor --quit
+                            $GODOT_BIN --editor --quit
                         '''
                     )
                     sh(
                         script: '''
                         if [ -d "./test" ]; then
-                            bash addons/gdUnit4/runtest.sh -a ./test
+                            sleep 3600
+                            bash addons/gdUnit4/runtest.sh --continue --add ./test
                         fi
                         '''
                     )
