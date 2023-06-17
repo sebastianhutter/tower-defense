@@ -41,7 +41,7 @@ var incoming_wave: int = 0
 
 var enemy_placement_node: Node2D
 var last_used_spawn_tile_position: int = -1
-var enemies: Array[Ufo]
+var preloaded_enemies_per_wave: Array
 
 
 
@@ -82,12 +82,18 @@ func _on_wave_incoming_timer_timeout() -> void:
 
 func _on_spawn_timer_timeout() -> void:
 
-	var enemy = enemies.pop_front()
-	if not enemy:
-		# TODO: emit event wave finished?
-		return
+	print("===============================")
+	print("timeout for spawener")
+	print("current_wave: " + str(current_wave))
+	print("range: " + str(range(0, current_wave)))
 
-	enemy_placement_node.add_child(enemy)
+	# loop trough preloaded enemies array up to the current wave
+	for i in range(0, current_wave+1):
+		print("in loop, preloaded enemies pwer wave: " + str(i) + " - " + str(preloaded_enemies_per_wave[i]))
+		var enemy = preloaded_enemies_per_wave[i].pop_front()
+		if enemy:
+			enemy_placement_node.add_child(enemy)
+			return
 
 
 func _on_wave_incoming(wave_id: int) -> void:
@@ -102,17 +108,20 @@ func _on_wave_incoming(wave_id: int) -> void:
 	wave_incoming_timer.start()
 
 	# preload all enemies for the incoming wave
+	# store all preloaded enemies in a nested array
+	# to allow the spawner to only spawn enemies which wave has started
 	var spawn_position_to_use = last_used_spawn_tile_position
+	var preloaded_enemies: Array[Ufo] = []
 	for g in waves[wave_id].spawn_groups:
 		spawn_position_to_use +=1 
 		if len(spawn_tile_positiions) <= spawn_position_to_use:
 			spawn_position_to_use = 0
-		print(spawn_position_to_use)
-		
+
 		for e in g.entities:
 			var e_scene = e.instantiate()
 			e_scene.position = spawn_tile_positiions[spawn_position_to_use]
-			enemies.append(e_scene as Ufo)
+			preloaded_enemies.append(e_scene as Ufo)
+	preloaded_enemies_per_wave.append(preloaded_enemies)
 
 	# store the last spawn position so the next group in the next wave can start from the next one
 	last_used_spawn_tile_position = spawn_position_to_use
@@ -145,19 +154,17 @@ func _enter_game_loop() -> void:
 	unload_waves()
 	load_waves()
 
-	if self.enemy_placement_node != null:
-		self.enemy_placement_node = null
-	self.enemy_placement_node = level_manager.get_floor().enemies
-		
+	unload_placement_node()
+	load_placement_node()
 
 
 func _exit_game_loop() -> void:
 	unload_spawn_positions()
 	unload_waves()
+	unload_placement_node()
 
 func _game_loop() -> void:
 	run_wave()
-
 
 func load_spawn_positions() -> void:
 	""" load the spawn positions available in the level """
@@ -171,6 +178,11 @@ func load_waves() -> void:
 	
 	self.waves = _game_data.selected_floor.waves
 
+func load_placement_node() -> void:
+	self.enemy_placement_node = level_manager.get_floor().enemies
+
+func unload_placement_node() -> void:
+	self.enemy_placement_node = null
 
 func unload_waves() -> void: 
 	""" unload stored wave data """
@@ -178,12 +190,13 @@ func unload_waves() -> void:
 	self.current_wave = -1
 	self.incoming_wave = 0
 	self.last_used_spawn_tile_position = -1
-	self.enemies = []
+	self.preloaded_enemies_per_wave = []
 
 	if wave_incoming_timer:
 		wave_incoming_timer.stop()
 	if spawn_timer:
 		spawn_timer.stop()
+
 
 func run_wave() -> void:
 	""" run the current wave """
@@ -195,4 +208,4 @@ func run_wave() -> void:
 	wave_incoming.emit(incoming_wave)
 	# also instruct game events that this is happening to setup ui etc
 	if _game_events:
-		_game_events.wave_incoming.emit(waves[incoming_wave].start_delay, current_wave, incoming_wave, len(waves))
+		_game_events.wave_incoming.emit(waves[incoming_wave].start_delay, 0, 0, len(waves))
