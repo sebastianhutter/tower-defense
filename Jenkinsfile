@@ -82,8 +82,9 @@ spec:
                     // open and quit the editor to import all resources
                     sh(
                         script: '''
-                            $GODOT_BIN --editor --quit
-                            $GODOT_BIN --editor --quit
+                            echo initializing .godot folder
+                            $GODOT_BIN --editor --quit >/dev/null 2>&1
+                            $GODOT_BIN --editor --quit >/dev/null 2>&1
                         '''
                     )
                     sh(
