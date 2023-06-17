@@ -79,11 +79,10 @@ spec:
             }
             steps {
                 container('build-container') {
+                    // open and quit the editor to import all resources
                     sh(
                         script: '''
-                            sleep 3600
-                            $GODOT_BIN --export-release "ci-setup" /tmp/gdunit4
-                            rm -rf /tmp/gdunit4
+                            $GODOT_BIN --editor --quit
                         '''
                     )
                     sh(
