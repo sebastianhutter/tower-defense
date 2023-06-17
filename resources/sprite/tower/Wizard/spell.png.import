@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://kj8inur78x3a"
-path="res://.godot/imported/bow_animation_3.png-f1f56438023c2f8224435f356cf36319.ctex"
+uid="uid://bim5i1u1mt1ry"
+path="res://.godot/imported/spell.png-2daa8f8132bae7f2f3d8380ffcfb1541.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/sprite/tower/Archer/bow_animation_3.png"
-dest_files=["res://.godot/imported/bow_animation_3.png-f1f56438023c2f8224435f356cf36319.ctex"]
+source_file="res://resources/sprite/tower/Wizard/spell.png"
+dest_files=["res://.godot/imported/spell.png-2daa8f8132bae7f2f3d8380ffcfb1541.ctex"]
 
 [params]
 

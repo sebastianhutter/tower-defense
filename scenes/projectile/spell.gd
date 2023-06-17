@@ -1,5 +1,5 @@
-extends AttackControllerComponent
-class_name AttackControllerComponentHQ
+extends Projectile
+class_name SpellProjectile
 
 # ========
 # singleton references
@@ -26,9 +26,6 @@ class_name AttackControllerComponentHQ
 # ========
 
 # ========
-# signal handler
-# ========
-
-# ========
 # class functions
 # ========
+

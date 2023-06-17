@@ -23,6 +23,7 @@ signal construction_completed
 
 @onready var timer: Timer = $%Timer
 @onready var progress_bar: ProgressBar = $%ProgressBar
+@onready var animation_player: AnimationPlayer = $%AnimationPlayer
 
 # ========
 # class vars
@@ -49,13 +50,12 @@ func _on_timer_timeout() -> void:
 	"""hide and emit signal"""
 	hide()
 	construction_completed.emit()
+	animation_player.stop()
 
 # ========
 # class functions
 # ========
 
-func set_timer(time: float) -> void:
-	timer.set_wait_time(time)
-
-func start_timer() -> void:
-	timer.start()
+func start_timer(time: float) -> void:
+	timer.start(time)
+	animation_player.play("construction")

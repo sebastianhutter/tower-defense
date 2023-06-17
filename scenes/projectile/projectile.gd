@@ -23,6 +23,8 @@ class_name Projectile
 @onready var expiry_timer: Timer = $%Timer
 @onready var animation_player: AnimationPlayer = $%AnimationPlayer
 @onready var hitbox_component: HitboxComponent = $%HitboxComponent
+@onready var start_sound: AudioStreamPlayer2D = $%Start
+@onready var hit_sound: AudioStreamPlayer2D = $%Hit
 
 # ========
 # class vars
@@ -35,7 +37,7 @@ var hit_count: int = 0 :
     set(value):
         hit_count = value
         if hit_count >= max_hits:
-            stop_projectil()
+            projectil_hit()
 
 # ========
 # godot functions
@@ -46,11 +48,12 @@ func _ready() -> void:
         expiry_timer.timeout.connect(_on_expiry_timer_timeout)
         expiry_timer.start()
 
+    if start_sound:
+        # when initialized play start sound
+        start_sound.play()
+        
 
 func _physics_process(delta):
-    if target_position == Vector2.ZERO:
-        return
-
     position += transform.x * speed * delta
 
 # ========
@@ -58,7 +61,7 @@ func _physics_process(delta):
 # ========
 
 func _on_expiry_timer_timeout() -> void:
-    stop_projectil()
+    expire_projectil()
 
 # ========
 # class functions
@@ -73,11 +76,22 @@ func set_damage_modifier(modifier: float) -> void:
 
     hitbox_component.damage *= modifier
 
-func stop_projectil() -> void:
+func expire_projectil() -> void:
     """ stop the projectil either after timeout or after max hit count is reached """
     if animation_player:
         if animation_player.has_animation("expired"):
             animation_player.play("expired")
             await animation_player.animation_finished
+    kill_projectil()
+
+func projectil_hit() -> void:
+    if hit_sound:
+        if start_sound:
+            start_sound.stop()
+        
+        hit_sound.play()
+        await hit_sound.finished
+    kill_projectil()
     
+func kill_projectil() -> void:
     queue_free()

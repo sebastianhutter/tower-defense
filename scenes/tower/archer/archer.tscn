@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bpooopgsgkah0"]
+[gd_scene load_steps=14 format=3 uid="uid://bpooopgsgkah0"]
 
 [ext_resource type="Script" path="res://scenes/tower/archer/archer.gd" id="1_3cfng"]
 [ext_resource type="Texture2D" uid="uid://cjmo2hwl4n6fi" path="res://resources/sprite/tower/Archer/archer_level_1.png" id="2_42bef"]
@@ -9,6 +9,8 @@
 [ext_resource type="PackedScene" uid="uid://bns5gw22psqm3" path="res://scenes/components/tower_sell/tower_sell_component.tscn" id="4_7onuw"]
 [ext_resource type="PackedScene" uid="uid://idi8snkubom7" path="res://scenes/components/tower_attack/tower_attack_component.tscn" id="6_ofw48"]
 [ext_resource type="PackedScene" uid="uid://c5diftm0fh4yr" path="res://scenes/components/range_detector/range_detector_component.tscn" id="8_15iqn"]
+[ext_resource type="PackedScene" uid="uid://kdodymovvlt8" path="res://scenes/components/tower_attack/controller/attack_controller_component_archer.tscn" id="9_heph3"]
+[ext_resource type="PackedScene" uid="uid://bxe8wjo271tac" path="res://scenes/projectile/arrow.tscn" id="10_j4vkf"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_p3not"]
 resource_local_to_scene = true
@@ -18,9 +20,6 @@ shader_parameter/highlight_color = Color(1, 1, 1, 0.0980392)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p2g25"]
 size = Vector2(125, 160)
-
-[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_4xjo8"]
-polygon = PackedVector2Array(27, -71.1, 27, -68.4, 29.4, -62, 30.6, -62, 32.3, -60.9, 47, -63.4, 47, -61.1, 65, -50.3, 65, 6.2, 64, 7.5, 65, 9.5, 65, 50, 43.6, 64, 34.4, 64, 31.1, 62, 23.2, 76, 20.6, 76, 9.7, 83, -9.2, 83, -30, 69.1, -30, 65.3, -31.4, 61.1, -45, 64.6, -45, 62.1, -65, 50.3, -65, 9.4, -63.8, 7, -65, 5.8, -65, -50, -45.6, -63, -36.7, -63, -31.5, -61.5, -28, -63.2, -28, -69.7, -21.9, -77, -19.5, -77, -9.2, -83, 9.1, -83)
 
 [node name="Archer" type="Area2D"]
 collision_layer = 512
@@ -43,10 +42,11 @@ construction_component = NodePath("../ConstructionComponent")
 [node name="TowerSellComponent" parent="." instance=ExtResource("4_7onuw")]
 unique_name_in_owner = true
 
-[node name="TowerAttackComponent" parent="." node_paths=PackedStringArray("tower_upgrade_component", "range_detector_component") instance=ExtResource("6_ofw48")]
+[node name="TowerAttackComponent" parent="." node_paths=PackedStringArray("tower_upgrade_component", "range_detector_component", "attack_controller_component") instance=ExtResource("6_ofw48")]
 unique_name_in_owner = true
 tower_upgrade_component = NodePath("../TowerUpgradeComponent")
 range_detector_component = NodePath("../RangeDetectorComponent")
+attack_controller_component = NodePath("../AttackControllerComponentArcher")
 
 [node name="Body" type="Sprite2D" parent="."]
 unique_name_in_owner = true
@@ -54,13 +54,12 @@ material = SubResource("ShaderMaterial_p3not")
 position = Vector2(-4, -10)
 texture = ExtResource("2_42bef")
 
+[node name="AttackControllerComponentArcher" parent="." instance=ExtResource("9_heph3")]
+projectile_scene = ExtResource("10_j4vkf")
+
 [node name="ConstructionComponent" parent="." instance=ExtResource("2_p83js")]
 unique_name_in_owner = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-3.5, -15)
 shape = SubResource("RectangleShape2D_p2g25")
-
-[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
-position = Vector2(-4, -10)
-occluder = SubResource("OccluderPolygon2D_4xjo8")

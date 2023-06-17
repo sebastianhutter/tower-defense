@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://11wfy7ebhcd6"
-path="res://.godot/imported/bow_animation_2.png-9e1b6f7105c302355bd6cf403d9cb985.ctex"
+uid="uid://fgnykdksn0yw"
+path="res://.godot/imported/grey_cloud.png-d4cbb6f68ea7635ed164ada174edb34f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/sprite/tower/Archer/bow_animation_2.png"
-dest_files=["res://.godot/imported/bow_animation_2.png-9e1b6f7105c302355bd6cf403d9cb985.ctex"]
+source_file="res://resources/sprite/effects/grey_cloud.png"
+dest_files=["res://.godot/imported/grey_cloud.png-d4cbb6f68ea7635ed164ada174edb34f.ctex"]
 
 [params]
 

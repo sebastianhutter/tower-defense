@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://clla1llkcluio"]
+
+[ext_resource type="Texture2D" uid="uid://fgnykdksn0yw" path="res://resources/sprite/effects/grey_cloud.png" id="1_y0j6a"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_jefsb"]
+emission_shape = 1
+emission_sphere_radius = 10.0
+direction = Vector3(2.08165e-12, -1, 2.08165e-12)
+spread = 15.0
+gravity = Vector3(2.08165e-12, 2.08165e-12, 2.08165e-12)
+initial_velocity_min = 50.0
+initial_velocity_max = 50.0
+scale_min = 0.15
+scale_max = 0.15
+hue_variation_max = 2.08167e-17
+
+[node name="EffectDamageSmoke" type="GPUParticles2D"]
+position = Vector2(2.08165e-12, 2.08165e-12)
+amount = 25
+process_material = SubResource("ParticleProcessMaterial_jefsb")
+texture = ExtResource("1_y0j6a")
+lifetime = 3.0
+trail_enabled = true

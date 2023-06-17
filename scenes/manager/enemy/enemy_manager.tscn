@@ -4,7 +4,7 @@
 
 [node name="EnemyManager" type="Node"]
 script = ExtResource("1_wcdca")
-spawn_delay = 0.3
+spawn_delay = 0.4
 
 [node name="SpawnTimer" type="Timer" parent="."]
 unique_name_in_owner = true

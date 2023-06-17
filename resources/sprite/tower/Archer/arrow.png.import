@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bkbaxbp18cdxk"
-path="res://.godot/imported/bow_animation_1.png-7fa0cd961fc769e45ef0169b2e45b52d.ctex"
+uid="uid://fodga5fwip0d"
+path="res://.godot/imported/arrow.png-0f9b5bd1b8cbbba1241c5d329a84ea94.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/sprite/tower/Archer/bow_animation_1.png"
-dest_files=["res://.godot/imported/bow_animation_1.png-7fa0cd961fc769e45ef0169b2e45b52d.ctex"]
+source_file="res://resources/sprite/tower/Archer/arrow.png"
+dest_files=["res://.godot/imported/arrow.png-0f9b5bd1b8cbbba1241c5d329a84ea94.ctex"]
 
 [params]
 

@@ -1,0 +1,95 @@
+[gd_scene load_steps=12 format=3 uid="uid://bxe8wjo271tac"]
+
+[ext_resource type="Texture2D" uid="uid://fodga5fwip0d" path="res://resources/sprite/tower/Archer/arrow.png" id="1_cfsn5"]
+[ext_resource type="Script" path="res://scenes/projectile/arrow.gd" id="1_i1n33"]
+[ext_resource type="PackedScene" uid="uid://k3ejxmxw8n5c" path="res://scenes/components/hitbox/hitbox_component.tscn" id="2_yh7mk"]
+[ext_resource type="AudioStream" uid="uid://egbs3gjkyi58" path="res://resources/sfx/arrow_1.ogg" id="4_svrmy"]
+[ext_resource type="AudioStream" uid="uid://bg2fpefe32k6b" path="res://resources/sfx/ufo_hit.ogg" id="5_5660i"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vk046"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_lc5gr"]
+height = 38.0
+
+[sub_resource type="Animation" id="Animation_p643n"]
+resource_name = "attack"
+
+[sub_resource type="Animation" id="Animation_l1drp"]
+resource_name = "expired"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(3.5, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.1, 0.1)]
+}
+
+[sub_resource type="Animation" id="Animation_q0tfa"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_y27wy"]
+_data = {
+"RESET": SubResource("Animation_q0tfa"),
+"attack": SubResource("Animation_p643n"),
+"expired": SubResource("Animation_l1drp")
+}
+
+[node name="Arrow" type="Area2D"]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_i1n33")
+speed = 500.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("CircleShape2D_vk046")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_cfsn5")
+
+[node name="HitboxComponent" parent="Sprite2D" instance=ExtResource("2_yh7mk")]
+unique_name_in_owner = true
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/HitboxComponent"]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_lc5gr")
+
+[node name="Timer" type="Timer" parent="."]
+unique_name_in_owner = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+libraries = {
+"": SubResource("AnimationLibrary_y27wy")
+}
+
+[node name="Start" type="AudioStreamPlayer2D" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("4_svrmy")
+volume_db = -17.107
+bus = &"sfx"
+
+[node name="Hit" type="AudioStreamPlayer2D" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("5_5660i")
+volume_db = -10.0
+bus = &"sfx"

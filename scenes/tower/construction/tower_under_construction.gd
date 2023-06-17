@@ -57,5 +57,4 @@ func _on_construction_completed() -> void:
 # ========
 
 func start_construction() -> void:
-	construction_component.timer.wait_time = resource.get_level(0).build_time
-	construction_component.timer.start()
+	construction_component.start_timer(resource.get_level(0).build_time)

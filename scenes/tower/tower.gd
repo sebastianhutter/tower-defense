@@ -120,6 +120,7 @@ func initialize(resource: TowerResource) -> void:
 	set_sell_component()
 	set_tower_body_texture()
 	set_tower_shoot_range()
+	aet_tower_attack_values()
 
 func set_tower_level() -> void:
 	if not tower_resource:
@@ -206,6 +207,7 @@ func finish_upgrade_tower() -> void:
 	set_tower_level()
 	set_tower_body_texture()
 	set_tower_shoot_range()
+	aet_tower_attack_values()
 	tower_upgrade_finished.emit(self)
 
 
@@ -244,3 +246,26 @@ func set_tower_shoot_range() -> void:
 		return
 
 	range_detector_component.detection_radius = shoot_range
+
+func aet_tower_attack_values() -> void:
+	""" set the tower attack values """
+
+	if not tower_attack_component:
+		print_debug("Tower: TowerAttackComponent not found, can not set values")
+		return
+	
+	if not tower_level:
+		print_debug("Tower: no tower level set, cannot set the texture")
+		return
+
+	var shoot_damage: float = tower_level.shoot_damage
+	if not shoot_damage:
+		print_debug("Tower: no shoot_range set, cannot set the new shoot_rangee")
+		return
+	tower_attack_component.set_shot_damage(shoot_damage)
+
+	var shoot_speed: float = tower_level.shoot_speed
+	if not shoot_damage:
+		print_debug("Tower: no shoot_range set, cannot set the new shoot_rangee")
+		return
+	tower_attack_component.set_shot_speed(shoot_speed)

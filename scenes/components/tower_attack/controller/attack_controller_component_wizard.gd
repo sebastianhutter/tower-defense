@@ -1,5 +1,5 @@
 extends AttackControllerComponent
-class_name AttackControllerComponentHQ
+class_name AttackControllerComponentWizard
 
 # ========
 # singleton references

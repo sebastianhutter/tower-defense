@@ -1,10 +1,13 @@
-[gd_scene load_steps=10 format=3 uid="uid://ntmbeu3yyshn"]
+[gd_scene load_steps=12 format=3 uid="uid://ntmbeu3yyshn"]
 
 [ext_resource type="Texture2D" uid="uid://d3k21t8bk6ekq" path="res://resources/sprite/tower/HQ/stone.png" id="1_3e0xm"]
 [ext_resource type="Script" path="res://scenes/projectile/stone.gd" id="1_ka0ml"]
 [ext_resource type="PackedScene" uid="uid://k3ejxmxw8n5c" path="res://scenes/components/hitbox/hitbox_component.tscn" id="2_2odbf"]
+[ext_resource type="AudioStream" uid="uid://c4u5g100b56ec" path="res://resources/sfx/stone_1.ogg" id="4_1vvnu"]
+[ext_resource type="AudioStream" uid="uid://bg2fpefe32k6b" path="res://resources/sfx/ufo_hit.ogg" id="5_5qjvc"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mjohw"]
+radius = 0.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_m8sbv"]
 radius = 18.868
@@ -14,30 +17,31 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/path = NodePath("Sprite2D:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [0.0]
+"values": [Vector2(1, 1)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:scale")
+tracks/1/path = NodePath("Sprite2D:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(1, 1)]
+"values": [0.0]
 }
 
 [sub_resource type="Animation" id="Animation_i17kq"]
 resource_name = "attack"
+length = 0.6
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -46,7 +50,7 @@ tracks/0/path = NodePath("Sprite2D:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5, 1),
+"times": PackedFloat32Array(0, 0.3, 0.6),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [0.0, 3.14159, 6.28319]
@@ -63,7 +67,7 @@ tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(3.4822, 1),
+"transitions": PackedFloat32Array(3.5, 1),
 "update": 0,
 "values": [Vector2(1, 1), Vector2(0.1, 0.1)]
 }
@@ -82,8 +86,7 @@ Relatively slow moving but high damage
 collision_layer = 0
 collision_mask = 0
 script = ExtResource("1_ka0ml")
-max_hits = 2
-speed = 200.0
+speed = 150.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_mjohw")
@@ -95,7 +98,7 @@ texture = ExtResource("1_3e0xm")
 unique_name_in_owner = true
 rotation = -0.970098
 collision_layer = 4
-damage = 2.0
+damage = 5.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/HitboxComponent"]
 position = Vector2(1.64988, -1.13044)
@@ -111,3 +114,16 @@ libraries = {
 [node name="Timer" type="Timer" parent="."]
 unique_name_in_owner = true
 one_shot = true
+
+[node name="Start" type="AudioStreamPlayer2D" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("4_1vvnu")
+volume_db = -13.901
+pitch_scale = 0.33
+bus = &"sfx"
+
+[node name="Hit" type="AudioStreamPlayer2D" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("5_5qjvc")
+volume_db = -10.0
+bus = &"sfx"

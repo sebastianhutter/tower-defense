@@ -111,6 +111,5 @@ func upgrade_tower() -> void:
 	self.is_upgrading = true
 	tower_upgrade_started.emit()
 	construction_component.show()
-	construction_component.set_timer(tower_level.build_time)
-	construction_component.start_timer()
+	construction_component.start_timer(tower_level.build_time)
 

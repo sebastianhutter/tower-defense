@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://cp5ioicgqip83"]
+
+[ext_resource type="AudioStream" uid="uid://db2xxvcaf8fcc" path="res://resources/sfx/damaged_ufo_looped.ogg" id="1_syfu4"]
+
+[node name="EffectDamageAudio" type="AudioStreamPlayer2D"]
+stream = ExtResource("1_syfu4")
+volume_db = -13.429
+pitch_scale = 0.6
+bus = &"sfx"

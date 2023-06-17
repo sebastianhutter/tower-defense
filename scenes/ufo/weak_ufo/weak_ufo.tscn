@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://d0n7w41v514bb"]
+[gd_scene load_steps=19 format=3 uid="uid://d0n7w41v514bb"]
 
 [ext_resource type="Script" path="res://scenes/ufo/weak_ufo/weak_ufo.gd" id="1_fiepn"]
 [ext_resource type="PackedScene" uid="uid://cfb28kh0nj8om" path="res://scenes/components/state_machine/ufo_state_machine.tscn" id="2_l6bh3"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://cprlunajl2x8s" path="res://scenes/components/health/health_component.tscn" id="5_cko8u"]
 [ext_resource type="PackedScene" uid="uid://ijd2ei8al4ab" path="res://scenes/components/state_machine/states/ufo/die.tscn" id="5_q5xp8"]
 [ext_resource type="PackedScene" uid="uid://dgiqi5o1u8u5c" path="res://scenes/components/navigation/navigation_component.tscn" id="6_8frx1"]
+[ext_resource type="PackedScene" uid="uid://b3p5b2d2m6l40" path="res://scenes/components/damage_indicator/damage_indicator_component.tscn" id="12_8uow2"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_apa3s"]
 
@@ -20,6 +21,44 @@ radius = 37.0135
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0yy11"]
 radius = 12.0
 height = 40.0
+
+[sub_resource type="Animation" id="Animation_jex6g"]
+resource_name = "Move"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Body/Sprite:rotation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.0523599, -0.0523599, 3.48787e-16]
+}
+
+[sub_resource type="Animation" id="Animation_auu2n"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Body/Sprite:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_yf28u"]
+_data = {
+"Move": SubResource("Animation_jex6g"),
+"RESET": SubResource("Animation_auu2n")
+}
 
 [node name="WeakUfo" type="Area2D"]
 editor_description = "Wekeast of thems ufos
@@ -44,11 +83,11 @@ shape = SubResource("CircleShape2D_apa3s")
 
 [node name="HealthComponent" parent="." instance=ExtResource("5_cko8u")]
 unique_name_in_owner = true
-max_health = 2.0
+max_health = 5.0
 
 [node name="MovementComponent" parent="." instance=ExtResource("3_xyk3e")]
 unique_name_in_owner = true
-speed = 1000.0
+speed = 150.0
 
 [node name="NavigationComponent" parent="." instance=ExtResource("6_8frx1")]
 unique_name_in_owner = true
@@ -59,6 +98,10 @@ update_rotation = false
 
 [node name="Body" type="Node2D" parent="."]
 top_level = true
+
+[node name="DamageIndicatorComponent" parent="Body" node_paths=PackedStringArray("health_component") instance=ExtResource("12_8uow2")]
+health_component = NodePath("../../HealthComponent")
+show_smoke_when_health_lower = 0.2
 
 [node name="Sprite" type="Sprite2D" parent="Body"]
 texture = ExtResource("2_xl0gr")
@@ -79,3 +122,11 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Body/HitboxComponent"]
 shape = SubResource("CapsuleShape2D_0yy11")
 debug_color = Color(0.945098, 0, 0.87451, 0.419608)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "Move"
+libraries = {
+"": SubResource("AnimationLibrary_yf28u")
+}
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]

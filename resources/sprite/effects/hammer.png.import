@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b57lrwb1kx6q3"
-path="res://.godot/imported/bow_animation_4.png-ff5018727ae4f5c6481c14cfb66e9e2c.ctex"
+uid="uid://cheilbayc6gua"
+path="res://.godot/imported/hammer.png-3a3df19b72f93e7d98fb7aae254ec850.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/sprite/tower/Archer/bow_animation_4.png"
-dest_files=["res://.godot/imported/bow_animation_4.png-ff5018727ae4f5c6481c14cfb66e9e2c.ctex"]
+source_file="res://resources/sprite/effects/hammer.png"
+dest_files=["res://.godot/imported/hammer.png-3a3df19b72f93e7d98fb7aae254ec850.ctex"]
 
 [params]
 

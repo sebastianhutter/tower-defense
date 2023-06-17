@@ -72,6 +72,7 @@ func setup_portal_scene(pos: Vector2) -> void:
 	# connect the wave_incomfing signal with the portal opening animation
 	# so when the first enemy wave arrives the portals are opened up
 	_game_events.wave_incoming.connect(portal._on_wave_incoming)
+	_game_events.send_wave.connect(portal._on_send_wave)
 
 
 func place_tile(tile_origin: Types.TileOrigin, local_position: Vector2) -> void:

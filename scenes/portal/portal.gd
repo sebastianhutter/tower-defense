@@ -61,6 +61,11 @@ func _on_wave_incoming(time_to_wave: float, current_wave: int, next_wave: int, w
 	timer.wait_time = time_to_wave - 0.55 # the animation time of the open animation is ~ 0.5s
 	timer.start()
 
+func _on_send_wave() -> void:
+	""" if the player requests the first wave immediately there is no way of waiting """
+
+	timer.start(0.1)
+
 
 # ========
 # class functions
