@@ -23,6 +23,7 @@ signal tower_card_clicked(tower_resource: Resource)
 @onready var tower_name_label: Label = $%TowerNameLabel
 @onready var tower_cost_label: Label = $%TowerCostLabel
 @onready var background: Panel = $%Background
+@onready var audio_stream_player: AudioStreamPlayer = $%AudioStreamPlayer
 
 # ========
 # class vars
@@ -41,6 +42,8 @@ func _ready():
 
 func _gui_input(event):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed  and can_be_build:
+		if audio_stream_player:
+			audio_stream_player.play()
 		tower_card_clicked.emit(resource)
 
 # ========

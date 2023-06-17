@@ -22,9 +22,8 @@ signal floor_selected(floor_resource: FloorResource)
 @onready var floor_name_label: Label = $%FloorNameLabel
 @onready var floor_descrtiption_label: Label = $%FloorDescriptionLabel
 @onready var floor_preview_texture: TextureRect = $%FloorPreviewTexture
-# TODO: fix up some proper animation / colorng, for now we just show a colorrect
-# if the card is selected
 @onready var floor_card_color_rect: ColorRect = $%FloorCardColorRect
+@onready var audio_stream_player: AudioStreamPlayer = $%AudioStreamPlayer
 
 # ========
 # class vars
@@ -75,6 +74,8 @@ func select():
 	"""
 
 	print_debug("select floor card " + floor_resource.name)
+	if audio_stream_player:
+		audio_stream_player.play()
 	floor_selected.emit(floor_resource)
 	floor_card_color_rect.show()
 
