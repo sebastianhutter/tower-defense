@@ -30,7 +30,7 @@ spec:
     runAsGroup: 1000
   containers:
   - name: build-container
-    image: sebastianhutter/godot-runner:main
+    image: sebastianhutter/godot-runner:v4.0.3
     imagePullPolicy: Always
     command:
     - cat
