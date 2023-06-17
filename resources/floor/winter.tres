@@ -1,8 +1,24 @@
-[gd_resource type="Resource" script_class="FloorResource" load_steps=4 format=3 uid="uid://cyoaq6u5kovuy"]
+[gd_resource type="Resource" script_class="FloorResource" load_steps=10 format=3 uid="uid://cyoaq6u5kovuy"]
 
 [ext_resource type="PackedScene" uid="uid://d07nwt14mpora" path="res://scenes/floor/winter/winter_floor.tscn" id="1_lfxlh"]
 [ext_resource type="Texture2D" uid="uid://b1fk0cl1p02sm" path="res://resources/sprite/UI/floor_preview/winter.png" id="2_cl0lg"]
 [ext_resource type="Script" path="res://resources/floor/floor_resource.gd" id="2_s082l"]
+[ext_resource type="Script" path="res://resources/wave/wave_resource.gd" id="4_bfdsx"]
+[ext_resource type="PackedScene" uid="uid://d0n7w41v514bb" path="res://scenes/ufo/weak_ufo/weak_ufo.tscn" id="5_u2xrj"]
+[ext_resource type="Script" path="res://resources/wave/wave_group_resource.gd" id="6_r0uts"]
+
+[sub_resource type="Resource" id="Resource_lrmch"]
+script = ExtResource("6_r0uts")
+entities = Array[PackedScene]([ExtResource("5_u2xrj"), ExtResource("5_u2xrj")])
+
+[sub_resource type="Resource" id="Resource_xiws1"]
+script = ExtResource("6_r0uts")
+entities = Array[PackedScene]([ExtResource("5_u2xrj"), ExtResource("5_u2xrj"), ExtResource("5_u2xrj")])
+
+[sub_resource type="Resource" id="Resource_j2ykw"]
+script = ExtResource("4_bfdsx")
+start_delay = 0.0
+spawn_groups = Array[ExtResource("6_r0uts")]([SubResource("Resource_lrmch"), SubResource("Resource_xiws1")])
 
 [resource]
 script = ExtResource("2_s082l")
@@ -12,9 +28,8 @@ name = "Winter"
 description = "We are besieged but our resources will last trough the harsh winter months"
 floor_scene = ExtResource("1_lfxlh")
 preview = ExtResource("2_cl0lg")
-gold_starting_amount = 300
+gold_starting_amount = 500
 gold_auto_increase_enabled = true
 gold_auto_increase_time = 15.0
 gold_auto_increase_amount = 10
-wave_initial_delay = 5.0
-wave_count = 5
+waves = Array[ExtResource("4_bfdsx")]([SubResource("Resource_j2ykw")])

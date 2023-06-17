@@ -3,8 +3,8 @@
 [ext_resource type="Texture2D" uid="uid://d3k21t8bk6ekq" path="res://resources/sprite/tower/HQ/stone.png" id="1_3e0xm"]
 [ext_resource type="Script" path="res://scenes/projectile/stone.gd" id="1_ka0ml"]
 [ext_resource type="PackedScene" uid="uid://k3ejxmxw8n5c" path="res://scenes/components/hitbox/hitbox_component.tscn" id="2_2odbf"]
-[ext_resource type="AudioStream" uid="uid://c4u5g100b56ec" path="res://resources/sfx/stone_1.ogg" id="4_1vvnu"]
-[ext_resource type="AudioStream" uid="uid://bg2fpefe32k6b" path="res://resources/sfx/ufo_hit.ogg" id="5_5qjvc"]
+[ext_resource type="AudioStream" uid="uid://egbs3gjkyi58" path="res://resources/sfx/arrow_1.ogg" id="4_mmjfi"]
+[ext_resource type="AudioStream" uid="uid://bg2fpefe32k6b" path="res://resources/sfx/ufo_is_hit.ogg" id="5_fuwrw"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mjohw"]
 radius = 0.0
@@ -117,13 +117,13 @@ one_shot = true
 
 [node name="Start" type="AudioStreamPlayer2D" parent="."]
 unique_name_in_owner = true
-stream = ExtResource("4_1vvnu")
+stream = ExtResource("4_mmjfi")
 volume_db = -13.901
 pitch_scale = 0.33
 bus = &"sfx"
 
 [node name="Hit" type="AudioStreamPlayer2D" parent="."]
 unique_name_in_owner = true
-stream = ExtResource("5_5qjvc")
+stream = ExtResource("5_fuwrw")
 volume_db = -10.0
 bus = &"sfx"

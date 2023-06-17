@@ -39,7 +39,6 @@ attack_controller_component = NodePath("../AttackControllerComponentHQ")
 
 [node name="HealthComponent" parent="." instance=ExtResource("9_5h631")]
 unique_name_in_owner = true
-max_health = 25.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1, 3)

@@ -25,6 +25,7 @@ signal decrease_wave_count(wave_id: int)
 @onready var movement_component: MovementComponent = $%MovementComponent
 @onready var navigation_component: NavigationComponent = $%NavigationComponent
 @onready var health_component: HealthComponent = $%HealthComponent
+@onready var animation_player: AnimationPlayer = $%AnimationPlayer
 
 # ========
 # class vars

@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://bim5i1u1mt1ry" path="res://resources/sprite/tower/Wizard/spell.png" id="2_s2wdi"]
 [ext_resource type="PackedScene" uid="uid://k3ejxmxw8n5c" path="res://scenes/components/hitbox/hitbox_component.tscn" id="3_qi86r"]
 [ext_resource type="AudioStream" uid="uid://ddu230gsdk374" path="res://resources/sfx/spell_1.ogg" id="4_3fdrr"]
-[ext_resource type="AudioStream" uid="uid://bg2fpefe32k6b" path="res://resources/sfx/ufo_hit.ogg" id="4_gfygi"]
+[ext_resource type="AudioStream" uid="uid://bg2fpefe32k6b" path="res://resources/sfx/ufo_is_hit.ogg" id="5_dq5de"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_51vnu"]
 radius = 1.0
@@ -141,7 +141,7 @@ texture = ExtResource("2_s2wdi")
 [node name="HitboxComponent" parent="Sprite2D" instance=ExtResource("3_qi86r")]
 unique_name_in_owner = true
 collision_layer = 4
-damage = 5.0
+damage = 2.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/HitboxComponent"]
 position = Vector2(2.08165e-12, 2.08165e-12)
@@ -165,5 +165,5 @@ pitch_scale = 2.5
 
 [node name="Hit" type="AudioStreamPlayer2D" parent="."]
 unique_name_in_owner = true
-stream = ExtResource("4_gfygi")
+stream = ExtResource("5_dq5de")
 volume_db = -10.0

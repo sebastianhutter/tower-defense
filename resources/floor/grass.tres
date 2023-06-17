@@ -9,7 +9,7 @@
 
 [sub_resource type="Resource" id="Resource_fr00t"]
 script = ExtResource("5_sfoeu")
-entities = Array[PackedScene]([ExtResource("5_f534f"), ExtResource("5_f534f"), ExtResource("5_f534f"), ExtResource("5_f534f"), ExtResource("5_f534f"), ExtResource("5_f534f"), ExtResource("5_f534f"), ExtResource("5_f534f"), ExtResource("5_f534f"), ExtResource("5_f534f"), ExtResource("5_f534f"), ExtResource("5_f534f"), ExtResource("5_f534f"), ExtResource("5_f534f"), ExtResource("5_f534f"), ExtResource("5_f534f"), ExtResource("5_f534f"), ExtResource("5_f534f"), ExtResource("5_f534f"), ExtResource("5_f534f")])
+entities = Array[PackedScene]([ExtResource("5_f534f"), ExtResource("5_f534f"), ExtResource("5_f534f"), ExtResource("5_f534f"), ExtResource("5_f534f"), ExtResource("5_f534f"), ExtResource("5_f534f"), ExtResource("5_f534f"), ExtResource("5_f534f"), ExtResource("5_f534f")])
 
 [sub_resource type="Resource" id="Resource_l25iu"]
 script = ExtResource("4_lgnf1")

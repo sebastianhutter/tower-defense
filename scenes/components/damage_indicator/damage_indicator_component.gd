@@ -21,7 +21,7 @@ class_name DamageIndiciatorCompopnent
 # ========
 
 @onready var effect_damage_smoke: GPUParticles2D = $%EffectDamageSmoke
-@onready var effect_damage_sound: AudioStreamPlayer2D
+
 
 # ========
 # class vars
@@ -51,10 +51,6 @@ func _process(delta):
 
 func _on_health_changed() -> void:
 	var current_health = health_component.get_health_percent()
-	print("===============================")
-	print(current_health)
-	print("============================")
-
 	if current_health <= show_smoke_when_health_lower:
 		if effect_damage_smoke:
 			effect_damage_smoke.show()

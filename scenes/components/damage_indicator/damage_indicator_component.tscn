@@ -1,14 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://b3p5b2d2m6l40"]
+[gd_scene load_steps=3 format=3 uid="uid://b3p5b2d2m6l40"]
 
 [ext_resource type="Script" path="res://scenes/components/damage_indicator/damage_indicator_component.gd" id="1_hb0si"]
 [ext_resource type="PackedScene" uid="uid://clla1llkcluio" path="res://scenes/effect/effect_damage_smoke.tscn" id="2_txbn5"]
-[ext_resource type="PackedScene" uid="uid://cp5ioicgqip83" path="res://scenes/effect/effect_damage_audio.tscn" id="3_ix3rk"]
 
 [node name="DamageIndicatorComponent" type="Node2D"]
 script = ExtResource("1_hb0si")
 
 [node name="EffectDamageSmoke" parent="." instance=ExtResource("2_txbn5")]
-unique_name_in_owner = true
-
-[node name="EffectDamageAudio" parent="." instance=ExtResource("3_ix3rk")]
 unique_name_in_owner = true
