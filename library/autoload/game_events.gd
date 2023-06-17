@@ -36,7 +36,7 @@ signal tower_context_menu_sell_button_clicked(node_id: int)
 signal wave_incoming(time_to_wave: float, current_wave: int, next_wave: int, wave_count: int)
 signal wave_started(wave: int)
 signal wave_defeated(wave: int)
-
+signal send_wave()
 
 # ========
 # class onready vars

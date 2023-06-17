@@ -52,6 +52,8 @@ var enemies_per_wave_count: Array
 # Called when the node enters the scene tree for the first time.
 func _ready():
 
+	_game_events.send_wave.connect(_on_send_wave)
+
 	wave_incoming.connect(_on_wave_incoming)
 	wave_started.connect(_on_wave_started)
 	if wave_incoming_timer:
@@ -64,6 +66,24 @@ func _ready():
 # ========
 # signal handler
 # ========
+
+func _on_send_wave() -> void:
+	""" send in the next wave - we cheat alittle bit by just setting the remaining time of the incoming timer to close to 0 """
+	print("****************************")
+	print("timer?")
+	print(wave_incoming_timer.is_stopped())
+	print(wave_incoming_timer.time_left)
+
+	if wave_incoming_timer.is_stopped():
+		# timer is not running, either round hasnt started yet or 
+		# all waves are already in progress
+		return
+
+	if wave_incoming_timer.time_left <= 0:
+		return
+
+	wave_incoming_timer.start(0.01)
+
 
 func _on_wave_incoming_timer_timeout() -> void:
 	""" when the incoming wave timer has expired """
@@ -81,14 +101,8 @@ func _on_wave_incoming_timer_timeout() -> void:
 
 func _on_spawn_timer_timeout() -> void:
 
-	print("===============================")
-	print("timeout for spawener")
-	print("current_wave: " + str(current_wave))
-	print("range: " + str(range(0, current_wave)))
-
 	# loop trough preloaded enemies array up to the current wave
 	for i in range(0, current_wave+1):
-		print("in loop, preloaded enemies pwer wave: " + str(i) + " - " + str(preloaded_enemies_per_wave[i]))
 		var enemy = preloaded_enemies_per_wave[i].pop_front()
 		if enemy:
 			enemy_placement_node.add_child(enemy)
@@ -96,9 +110,6 @@ func _on_spawn_timer_timeout() -> void:
 
 func _on_enemy_decrease_wave_count(wave_id: int) -> void:
 	""" called when an enemy object is removed from the scene tree, ensure the count of 'alive' enemies is reduced """
-
-	print("###################################")
-	print("_on_enemy_ecrese: " + str(wave_id))
 
 	enemies_per_wave_count[wave_id] -= 1
 

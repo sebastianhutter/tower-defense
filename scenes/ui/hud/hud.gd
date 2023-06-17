@@ -16,6 +16,7 @@ class_name HUD
 signal tower_card_clicked(tower_resource: Resource)
 signal tower_context_menu_upgrade_button_clicked(node_id: int)
 signal tower_context_menu_sell_button_clicked(node_id: int)
+signal send_wave()
 
 # ========
 # class onready vars
@@ -50,6 +51,8 @@ func _ready():
 
 	if wave_ui:
 		registered_uis.append(wave_ui)
+		if wave_ui.send_wave_button:
+			wave_ui.send_wave_button.pressed.connect(_on_wave_ui_send_wave_button_pressed)
 
 	if tower_context_menu:
 		registered_uis.append(tower_context_menu)
@@ -93,13 +96,17 @@ func _on_tower_context_menu_sell_button_clicked(node_id: int) -> void:
 func _on_wave_incoming(time_to_wave: float, current_wave: int, next_wave: int, wave_count: int) -> void:
 	
 	if wave_ui:
-		wave_ui.set_timer(time_to_wave)
-		wave_ui.start_timer()
+		wave_ui.start_timer(time_to_wave)
 		wave_ui.wave_count = wave_count
 
 func _on_wave_started(wave: int) -> void:
 	if wave_ui:
 		wave_ui.current_wave = wave+1 # indexed at 0!
+
+func _on_wave_ui_send_wave_button_pressed() -> void:
+	
+	#if wave_ui.wave_count > wave_ui.current_wave:
+	send_wave.emit()
 
 # ========
 # class functions
@@ -142,7 +149,13 @@ func show_tower_context_menu(node_id: int, tower_type: String, position: Vector2
 	# directly connect up towers action manager 
 	tower_context_menu.show()
 
-func hide_and_disable_context_menu():
+func hide_and_disable_context_menu() -> void:
 	print_debug("HUD: hide_and_disable_context_menu")
 	tower_context_menu.hide()
 	tower_context_menu.process_mode = Node.PROCESS_MODE_DISABLED
+
+func reset_wave_ui() -> void:
+	""" reset wave ui counters """
+
+	if wave_ui:
+		wave_ui.reset_counters()

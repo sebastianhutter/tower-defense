@@ -48,7 +48,7 @@ func _ready() -> void:
 		# so they can be consumed by the tower manager
 		hud.tower_context_menu_upgrade_button_clicked.connect(_on_tower_context_menu_upgrade_button_clicked)
 		hud.tower_context_menu_sell_button_clicked.connect(_on_tower_context_menu_sell_button_clicked)
-
+		hud.send_wave.connect(_on_send_wave_button_clicked)
 
 
 # ========
@@ -70,6 +70,9 @@ func _on_tower_context_menu_sell_button_clicked(node_id: int) -> void:
 
 	_game_events.tower_context_menu_sell_button_clicked.emit(node_id)
 
+func _on_send_wave_button_clicked() -> void:
+	_game_events.send_wave.emit()
+
 # ========
 # class functions
 # ========
@@ -80,6 +83,7 @@ func _menu_loop(menu: Types.Menu) -> void:
 	disable_ui()
 	
 func _enter_game_loop() -> void:
+	hud.reset_wave_ui()
 	hud.load_tower_cards()
 	
 
