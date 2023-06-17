@@ -83,14 +83,15 @@ spec:
                     sh(
                         script: '''
                             echo initializing .godot folder
+                            env > /tmp/env_before
                             $GODOT_BIN --editor --quit >/dev/null 2>&1
                             $GODOT_BIN --editor --quit >/dev/null 2>&1
+                            env > /tmp/env_after
                         '''
                     )
                     sh(
                         script: '''
                         if [ -d "./test" ]; then
-                            sleep 3600
                             bash addons/gdUnit4/runtest.sh --continue --add ./test
                         fi
                         '''
@@ -104,6 +105,15 @@ spec:
                             testResults: '**/reports/report_1/**/results.xml',
                             allowEmptyResults: true,
                         )
+                        publishHTML([
+                            allowMissing: true,
+                            alwaysLinkToLastBuild: false,
+                            keepAll: true,
+                            reportDir: "reports/report_1",
+                            reportFiles: 'index.html',
+                            reportName: "GdUnit4 report",
+                            reportTitles: 'Tower Defense'
+                        ])
                     }
                 }
             }
