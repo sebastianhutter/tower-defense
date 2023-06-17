@@ -87,15 +87,16 @@ spec:
                             ls -la dummy.x86_64.bin
                             ls -la .godot
                             rm -rf dummy.x86_64.bin
-                        '''
-                    )
-                    sh(
-                        script: '''
-                        if [ -d "./test" ]; then
                             bash addons/gdUnit4/runtest.sh --continue --add ./test
-                        fi
                         '''
                     )
+                    // sh(
+                    //     script: '''
+                    //     if [ -d "./test" ]; then
+                    //         bash addons/gdUnit4/runtest.sh --continue --add ./test
+                    //     fi
+                    //     '''
+                    // )
                 }
             }
             post {
