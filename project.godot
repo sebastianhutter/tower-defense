@@ -46,10 +46,6 @@ enabled=PackedStringArray("res://addons/gdUnit4/plugin.cfg")
 
 Shortcuts/filesystem/run_test=PackedInt32Array(4194305)
 
-[gui]
-
-theme/custom="res://resources/theme/theme.tres"
-
 [input]
 
 move_left={
