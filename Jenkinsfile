@@ -82,11 +82,11 @@ spec:
                     // open and quit the editor to import all resources
                     sh(
                         script: '''
-                            echo dummy export linux binary to ensure all resources are imported before running tests
-                            $GODOT_BIN --export-release linux dummy.x86_64.bin > /dev/null 2>&1
-                            ls -la dummy.x86_64.bin
+                            echo dummy export ci-setup binary to ensure all resources are imported before running tests
+                            $GODOT_BIN --export-release ci-setup /tmp/ci-setup > /dev/null 2>&1
+                            ls -la /tmp/ci-setup
                             ls -la .godot
-                            rm -rf dummy.x86_64.bin
+                            rm -rf /tmp/ci-setup
                             sleep 3600
                             bash addons/gdUnit4/runtest.sh --continue --add ./test
                         '''
