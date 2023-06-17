@@ -87,6 +87,7 @@ spec:
                             ls -la dummy.x86_64.bin
                             ls -la .godot
                             rm -rf dummy.x86_64.bin
+                            sleep 3600
                             bash addons/gdUnit4/runtest.sh --continue --add ./test
                         '''
                     )
