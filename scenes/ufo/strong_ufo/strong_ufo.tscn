@@ -1,0 +1,341 @@
+[gd_scene load_steps=25 format=3 uid="uid://bo4f107w5hl18"]
+
+[ext_resource type="Script" path="res://scenes/ufo/weak_ufo/weak_ufo.gd" id="1_7kc3m"]
+[ext_resource type="PackedScene" uid="uid://cfb28kh0nj8om" path="res://scenes/components/state_machine/ufo_state_machine.tscn" id="2_vpgdt"]
+[ext_resource type="PackedScene" uid="uid://cob3hdki1opg8" path="res://scenes/components/state_machine/states/ufo/move.tscn" id="3_1jb5w"]
+[ext_resource type="PackedScene" uid="uid://53tqvexpa0rk" path="res://scenes/components/state_machine/states/ufo/hit.tscn" id="4_rsymi"]
+[ext_resource type="PackedScene" uid="uid://ijd2ei8al4ab" path="res://scenes/components/state_machine/states/ufo/die.tscn" id="5_e5f6k"]
+[ext_resource type="PackedScene" uid="uid://cprlunajl2x8s" path="res://scenes/components/health/health_component.tscn" id="6_hcr5k"]
+[ext_resource type="PackedScene" uid="uid://de1pxhvtqpadi" path="res://scenes/components/movement/movement_component.tscn" id="7_6yack"]
+[ext_resource type="PackedScene" uid="uid://dgiqi5o1u8u5c" path="res://scenes/components/navigation/navigation_component.tscn" id="8_hj5lm"]
+[ext_resource type="PackedScene" uid="uid://b3p5b2d2m6l40" path="res://scenes/components/damage_indicator/damage_indicator_component.tscn" id="9_ut6fr"]
+[ext_resource type="Shader" path="res://resources/shader/ufo_explosion/ufo_explosion.gdshader" id="10_t4sbb"]
+[ext_resource type="Texture2D" uid="uid://cwt3tev0411w0" path="res://resources/sprite/ufo/strong_ufo.png" id="11_3a18b"]
+[ext_resource type="PackedScene" uid="uid://cykkf088brpwm" path="res://scenes/components/hurtbox/hurtbox_component.tscn" id="12_ktbvr"]
+[ext_resource type="PackedScene" uid="uid://k3ejxmxw8n5c" path="res://scenes/components/hitbox/hitbox_component.tscn" id="13_56cjl"]
+[ext_resource type="AudioStream" uid="uid://bgy6i5klwg87e" path="res://resources/sfx/hq_is_hit.ogg" id="14_mknd5"]
+[ext_resource type="AudioStream" uid="uid://d0q4iki4ej5gj" path="res://resources/sfx/ufo_implodes.ogg" id="15_g6fq6"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_apa3s"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hh1eo"]
+resource_local_to_scene = true
+shader = ExtResource("10_t4sbb")
+shader_parameter/fragment_number = Vector2(30, 30)
+shader_parameter/dissolve_state = 1.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_w4m1p"]
+radius = 37.0135
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0yy11"]
+radius = 12.0
+height = 40.0
+
+[sub_resource type="Animation" id="Animation_bbyh2"]
+resource_name = "Die"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Body/Sprite:material:shader_parameter/dissolve_state")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DieSound:pitch_scale")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1.6245),
+"update": 0,
+"values": [1.66, 2.4, 1.38, 1.8]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("DieSound:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Body/HitboxComponent/CollisionShape2D:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.0001),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="Animation" id="Animation_ip2mi"]
+resource_name = "Hit"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HitSound:playing")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Body:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0001, 0.1, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1e-05, 1e-05), Vector2(1.1, 1.1), Vector2(2.08165e-12, 2.08165e-12)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Body/DamageIndicatorComponent:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.0001),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Body/HitboxComponent/CollisionShape2D:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_jex6g"]
+resource_name = "Move"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Body/Sprite:rotation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.0523599, -0.0523599, 3.48787e-16]
+}
+
+[sub_resource type="Animation" id="Animation_auu2n"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Body/Sprite:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("HitSound:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Body:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Body/DamageIndicatorComponent:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Body/Sprite:material:shader_parameter/dissolve_state")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("DieSound:pitch_scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("DieSound:playing")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Body/HitboxComponent/CollisionShape2D:disabled")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_yf28u"]
+_data = {
+"Die": SubResource("Animation_bbyh2"),
+"Hit": SubResource("Animation_ip2mi"),
+"Move": SubResource("Animation_jex6g"),
+"RESET": SubResource("Animation_auu2n")
+}
+
+[node name="MediumUfo" type="Area2D"]
+editor_description = "Wekeast of thems ufos
+
+The collection of everything in Body which has shape is due to how the movment works. we simply rotate and use the area2ds translation to move forward.
+
+we dont want the rotation to impact the sprite or collisionshapes. so they are marked as \"toplevel\" but remotetransform2d pushes the correct position and scale"
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_7kc3m")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_apa3s")
+
+[node name="UfoStateMachine" parent="." instance=ExtResource("2_vpgdt")]
+
+[node name="Move" parent="UfoStateMachine" instance=ExtResource("3_1jb5w")]
+
+[node name="Hit" parent="UfoStateMachine" instance=ExtResource("4_rsymi")]
+
+[node name="Die" parent="UfoStateMachine" instance=ExtResource("5_e5f6k")]
+
+[node name="HealthComponent" parent="." instance=ExtResource("6_hcr5k")]
+unique_name_in_owner = true
+max_health = 20.0
+
+[node name="MovementComponent" parent="." instance=ExtResource("7_6yack")]
+unique_name_in_owner = true
+speed = 80.0
+
+[node name="NavigationComponent" parent="." instance=ExtResource("8_hj5lm")]
+unique_name_in_owner = true
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="."]
+remote_path = NodePath("../Body")
+update_rotation = false
+
+[node name="Body" type="Node2D" parent="."]
+top_level = true
+
+[node name="DamageIndicatorComponent" parent="Body" node_paths=PackedStringArray("health_component") instance=ExtResource("9_ut6fr")]
+health_component = NodePath("../../HealthComponent")
+show_smoke_when_health_lower = 0.2
+
+[node name="Sprite" type="Sprite2D" parent="Body"]
+material = SubResource("ShaderMaterial_hh1eo")
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("11_3a18b")
+
+[node name="HurtboxComponent" parent="Body" node_paths=PackedStringArray("health_component") instance=ExtResource("12_ktbvr")]
+unique_name_in_owner = true
+collision_mask = 4
+health_component = NodePath("../../HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Body/HurtboxComponent"]
+shape = SubResource("CircleShape2D_w4m1p")
+
+[node name="HitboxComponent" parent="Body" instance=ExtResource("13_56cjl")]
+unique_name_in_owner = true
+collision_layer = 2
+damage = 3.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Body/HitboxComponent"]
+shape = SubResource("CapsuleShape2D_0yy11")
+debug_color = Color(0.945098, 0, 0.87451, 0.419608)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+autoplay = "Move"
+libraries = {
+"": SubResource("AnimationLibrary_yf28u")
+}
+
+[node name="HitSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("14_mknd5")
+volume_db = -10.0
+pitch_scale = 0.6
+
+[node name="DieSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("15_g6fq6")
+volume_db = -15.0
