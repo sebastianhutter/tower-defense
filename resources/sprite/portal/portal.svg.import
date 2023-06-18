@@ -3,16 +3,17 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cp7h0ob77fnip"
+path.s3tc="res://.godot/imported/portal.svg-5cd552cface42ce08aaca21e7d0820fa.s3tc.ctex"
 path.etc2="res://.godot/imported/portal.svg-5cd552cface42ce08aaca21e7d0820fa.etc2.ctex"
 metadata={
-"imported_formats": ["etc2_astc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://resources/sprite/portal/portal.svg"
-dest_files=["res://.godot/imported/portal.svg-5cd552cface42ce08aaca21e7d0820fa.etc2.ctex"]
+dest_files=["res://.godot/imported/portal.svg-5cd552cface42ce08aaca21e7d0820fa.s3tc.ctex", "res://.godot/imported/portal.svg-5cd552cface42ce08aaca21e7d0820fa.etc2.ctex"]
 
 [params]
 
