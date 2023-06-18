@@ -17,7 +17,7 @@ func test_managers_registered() -> void:
 	var scene: Main = create_scene()
 	var runner: GdUnitSceneRunner = scene_runner(scene)
 	
-	assert_int(scene.get_child_count(2)).is_equal(2)
+	assert_int(scene.get_child_count()).is_equal(4)
 	for child in scene.get_children():
 		assert_object(child).is_not_null()
 		

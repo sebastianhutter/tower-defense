@@ -23,7 +23,6 @@ func test_ensure_signals_are_registered() -> void:
 	assert_signal(game_events).is_signal_exists("tower_card_clicked")
 	assert_signal(game_events).is_signal_exists("tower_build_started")
 	assert_signal(game_events).is_signal_exists("tower_build_completed")
-	
 	assert_signal(game_events).is_signal_exists("tower_build_completed")
 	assert_signal(game_events).is_signal_exists("tower_upgrade_started")
 	assert_signal(game_events).is_signal_exists("tower_sold")
@@ -36,4 +35,4 @@ func test_ensure_signals_are_registered() -> void:
 	assert_signal(game_events).is_signal_exists("wave_defeated")
 	assert_signal(game_events).is_signal_exists("send_wave")
 	assert_signal(game_events).is_signal_exists("increase_gold")
-	assert_signal(game_events).is_isgnal_exists("hq_hit")
+	assert_signal(game_events).is_signal_exists("hq_hit")
