@@ -268,6 +268,7 @@ we dont want the rotation to impact the sprite or collisionshapes. so they are m
 collision_layer = 4
 collision_mask = 0
 script = ExtResource("1_fiepn")
+incrase_gold_by = 45
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_apa3s")

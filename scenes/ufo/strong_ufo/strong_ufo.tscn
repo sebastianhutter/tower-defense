@@ -268,6 +268,7 @@ we dont want the rotation to impact the sprite or collisionshapes. so they are m
 collision_layer = 4
 collision_mask = 0
 script = ExtResource("1_7kc3m")
+incrase_gold_by = 55
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_apa3s")
@@ -282,11 +283,11 @@ shape = SubResource("CircleShape2D_apa3s")
 
 [node name="HealthComponent" parent="." instance=ExtResource("6_hcr5k")]
 unique_name_in_owner = true
-max_health = 20.0
+max_health = 23.0
 
 [node name="MovementComponent" parent="." instance=ExtResource("7_6yack")]
 unique_name_in_owner = true
-speed = 80.0
+speed = 90.0
 
 [node name="NavigationComponent" parent="." instance=ExtResource("8_hj5lm")]
 unique_name_in_owner = true

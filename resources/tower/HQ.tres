@@ -13,7 +13,7 @@ build_time = 0.0
 sell_value = 0
 shoot_damage = 1.0
 shoot_speed = 1.5
-shoot_range = 1.5
+shoot_range = 1.1
 
 [resource]
 script = ExtResource("1_iehy6")

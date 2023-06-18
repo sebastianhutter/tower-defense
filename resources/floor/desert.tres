@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="FloorResource" load_steps=12 format=3 uid="uid://7vrl87q7m2uv"]
+[gd_resource type="Resource" script_class="FloorResource" load_steps=21 format=3 uid="uid://7vrl87q7m2uv"]
 
 [ext_resource type="Script" path="res://resources/floor/floor_resource.gd" id="1_3mnoq"]
 [ext_resource type="PackedScene" uid="uid://em8prdtptc5y" path="res://scenes/floor/desert/desert_floor.tscn" id="1_w1yj0"]
@@ -6,27 +6,59 @@
 [ext_resource type="Script" path="res://resources/wave/wave_resource.gd" id="4_pnjbt"]
 [ext_resource type="PackedScene" uid="uid://d0n7w41v514bb" path="res://scenes/ufo/weak_ufo/weak_ufo.tscn" id="5_nrsey"]
 [ext_resource type="Script" path="res://resources/wave/wave_group_resource.gd" id="6_vfhc4"]
+[ext_resource type="PackedScene" uid="uid://c7ih5bigv2lgt" path="res://scenes/ufo/medium_ufo/medium_ufo.tscn" id="7_lrlve"]
+[ext_resource type="PackedScene" uid="uid://bo4f107w5hl18" path="res://scenes/ufo/strong_ufo/strong_ufo.tscn" id="8_61ubf"]
 
 [sub_resource type="Resource" id="Resource_h6bbt"]
 script = ExtResource("6_vfhc4")
-entities = Array[PackedScene]([ExtResource("5_nrsey")])
+entities = Array[PackedScene]([ExtResource("5_nrsey"), ExtResource("5_nrsey"), ExtResource("5_nrsey"), ExtResource("5_nrsey")])
 
 [sub_resource type="Resource" id="Resource_nkjtf"]
 script = ExtResource("6_vfhc4")
-entities = Array[PackedScene]([ExtResource("5_nrsey")])
+entities = Array[PackedScene]([ExtResource("5_nrsey"), ExtResource("5_nrsey"), ExtResource("5_nrsey"), ExtResource("5_nrsey")])
 
 [sub_resource type="Resource" id="Resource_mvnd0"]
 script = ExtResource("6_vfhc4")
-entities = Array[PackedScene]([ExtResource("5_nrsey")])
+entities = Array[PackedScene]([ExtResource("5_nrsey"), ExtResource("5_nrsey"), ExtResource("5_nrsey"), ExtResource("5_nrsey")])
 
 [sub_resource type="Resource" id="Resource_n1xcm"]
 script = ExtResource("6_vfhc4")
-entities = Array[PackedScene]([ExtResource("5_nrsey")])
+entities = Array[PackedScene]([ExtResource("5_nrsey"), ExtResource("5_nrsey"), ExtResource("5_nrsey"), ExtResource("5_nrsey")])
 
 [sub_resource type="Resource" id="Resource_ex6mj"]
 script = ExtResource("4_pnjbt")
-start_delay = 0.0
+start_delay = 30.0
 spawn_groups = Array[ExtResource("6_vfhc4")]([SubResource("Resource_h6bbt"), SubResource("Resource_nkjtf"), SubResource("Resource_mvnd0"), SubResource("Resource_n1xcm")])
+
+[sub_resource type="Resource" id="Resource_fflj8"]
+script = ExtResource("6_vfhc4")
+entities = Array[PackedScene]([ExtResource("7_lrlve"), ExtResource("7_lrlve"), ExtResource("7_lrlve"), ExtResource("7_lrlve")])
+
+[sub_resource type="Resource" id="Resource_m52n2"]
+script = ExtResource("6_vfhc4")
+entities = Array[PackedScene]([ExtResource("7_lrlve"), ExtResource("7_lrlve"), ExtResource("7_lrlve"), ExtResource("7_lrlve")])
+
+[sub_resource type="Resource" id="Resource_5yc37"]
+script = ExtResource("4_pnjbt")
+start_delay = 60.0
+spawn_groups = Array[ExtResource("6_vfhc4")]([SubResource("Resource_fflj8"), SubResource("Resource_m52n2")])
+
+[sub_resource type="Resource" id="Resource_ci1yx"]
+script = ExtResource("6_vfhc4")
+entities = Array[PackedScene]([ExtResource("7_lrlve"), ExtResource("7_lrlve"), ExtResource("7_lrlve"), ExtResource("8_61ubf"), ExtResource("8_61ubf")])
+
+[sub_resource type="Resource" id="Resource_hw6y1"]
+script = ExtResource("6_vfhc4")
+entities = Array[PackedScene]([ExtResource("8_61ubf"), ExtResource("8_61ubf"), ExtResource("7_lrlve"), ExtResource("7_lrlve"), ExtResource("7_lrlve")])
+
+[sub_resource type="Resource" id="Resource_v5jy7"]
+script = ExtResource("6_vfhc4")
+entities = Array[PackedScene]([ExtResource("7_lrlve"), ExtResource("7_lrlve"), ExtResource("8_61ubf"), ExtResource("8_61ubf"), ExtResource("7_lrlve")])
+
+[sub_resource type="Resource" id="Resource_1sjtn"]
+script = ExtResource("4_pnjbt")
+start_delay = 90.0
+spawn_groups = Array[ExtResource("6_vfhc4")]([SubResource("Resource_ci1yx"), SubResource("Resource_hw6y1"), SubResource("Resource_v5jy7")])
 
 [resource]
 script = ExtResource("1_3mnoq")
@@ -36,9 +68,9 @@ name = "Desert"
 description = "Not alot of resources but many portals! This level was never really tested ... so ..."
 floor_scene = ExtResource("1_w1yj0")
 preview = ExtResource("2_x0ruc")
-gold_starting_amount = 250
+gold_starting_amount = 1200
 gold_enemy_increase_enabled = true
 gold_auto_increase_enabled = false
 gold_auto_increase_time = 0.0
 gold_auto_increase_amount = 0
-waves = Array[ExtResource("4_pnjbt")]([SubResource("Resource_ex6mj")])
+waves = Array[ExtResource("4_pnjbt")]([SubResource("Resource_ex6mj"), SubResource("Resource_5yc37"), SubResource("Resource_1sjtn")])

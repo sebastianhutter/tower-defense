@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="FloorResource" load_steps=10 format=3 uid="uid://cyoaq6u5kovuy"]
+[gd_resource type="Resource" script_class="FloorResource" load_steps=24 format=3 uid="uid://cyoaq6u5kovuy"]
 
 [ext_resource type="PackedScene" uid="uid://d07nwt14mpora" path="res://scenes/floor/winter/winter_floor.tscn" id="1_lfxlh"]
 [ext_resource type="Texture2D" uid="uid://b1fk0cl1p02sm" path="res://resources/sprite/UI/floor_preview/winter.png" id="2_cl0lg"]
@@ -6,19 +6,73 @@
 [ext_resource type="Script" path="res://resources/wave/wave_resource.gd" id="4_bfdsx"]
 [ext_resource type="PackedScene" uid="uid://d0n7w41v514bb" path="res://scenes/ufo/weak_ufo/weak_ufo.tscn" id="5_u2xrj"]
 [ext_resource type="Script" path="res://resources/wave/wave_group_resource.gd" id="6_r0uts"]
+[ext_resource type="PackedScene" uid="uid://c7ih5bigv2lgt" path="res://scenes/ufo/medium_ufo/medium_ufo.tscn" id="7_qd71f"]
+[ext_resource type="PackedScene" uid="uid://bo4f107w5hl18" path="res://scenes/ufo/strong_ufo/strong_ufo.tscn" id="8_r7hmo"]
 
 [sub_resource type="Resource" id="Resource_lrmch"]
 script = ExtResource("6_r0uts")
-entities = Array[PackedScene]([ExtResource("5_u2xrj"), ExtResource("5_u2xrj")])
+entities = Array[PackedScene]([ExtResource("5_u2xrj"), ExtResource("5_u2xrj"), ExtResource("5_u2xrj"), ExtResource("5_u2xrj"), ExtResource("5_u2xrj")])
 
 [sub_resource type="Resource" id="Resource_xiws1"]
 script = ExtResource("6_r0uts")
-entities = Array[PackedScene]([ExtResource("5_u2xrj"), ExtResource("5_u2xrj"), ExtResource("5_u2xrj")])
+entities = Array[PackedScene]([ExtResource("5_u2xrj"), ExtResource("5_u2xrj"), ExtResource("5_u2xrj"), ExtResource("5_u2xrj"), ExtResource("5_u2xrj")])
 
 [sub_resource type="Resource" id="Resource_j2ykw"]
 script = ExtResource("4_bfdsx")
-start_delay = 0.0
+start_delay = 15.0
 spawn_groups = Array[ExtResource("6_r0uts")]([SubResource("Resource_lrmch"), SubResource("Resource_xiws1")])
+
+[sub_resource type="Resource" id="Resource_fc81l"]
+script = ExtResource("6_r0uts")
+entities = Array[PackedScene]([ExtResource("5_u2xrj"), ExtResource("5_u2xrj"), ExtResource("5_u2xrj"), ExtResource("7_qd71f")])
+
+[sub_resource type="Resource" id="Resource_ic0f3"]
+script = ExtResource("6_r0uts")
+entities = Array[PackedScene]([ExtResource("7_qd71f"), ExtResource("7_qd71f"), ExtResource("5_u2xrj"), ExtResource("5_u2xrj"), ExtResource("8_r7hmo")])
+
+[sub_resource type="Resource" id="Resource_ic41k"]
+script = ExtResource("4_bfdsx")
+start_delay = 30.0
+spawn_groups = Array[ExtResource("6_r0uts")]([SubResource("Resource_fc81l"), SubResource("Resource_ic0f3")])
+
+[sub_resource type="Resource" id="Resource_pv0go"]
+script = ExtResource("6_r0uts")
+entities = Array[PackedScene]([ExtResource("5_u2xrj"), ExtResource("5_u2xrj"), ExtResource("5_u2xrj"), ExtResource("7_qd71f"), ExtResource("7_qd71f")])
+
+[sub_resource type="Resource" id="Resource_pd6or"]
+script = ExtResource("6_r0uts")
+entities = Array[PackedScene]([ExtResource("7_qd71f"), ExtResource("7_qd71f"), ExtResource("7_qd71f"), ExtResource("8_r7hmo"), ExtResource("8_r7hmo")])
+
+[sub_resource type="Resource" id="Resource_aic3v"]
+script = ExtResource("4_bfdsx")
+start_delay = 45.0
+spawn_groups = Array[ExtResource("6_r0uts")]([SubResource("Resource_pv0go"), SubResource("Resource_pd6or")])
+
+[sub_resource type="Resource" id="Resource_boou2"]
+script = ExtResource("6_r0uts")
+entities = Array[PackedScene]([ExtResource("7_qd71f"), ExtResource("7_qd71f"), ExtResource("7_qd71f"), ExtResource("7_qd71f"), ExtResource("7_qd71f")])
+
+[sub_resource type="Resource" id="Resource_hf746"]
+script = ExtResource("6_r0uts")
+entities = Array[PackedScene]([ExtResource("7_qd71f"), ExtResource("7_qd71f"), ExtResource("7_qd71f"), ExtResource("7_qd71f"), ExtResource("7_qd71f")])
+
+[sub_resource type="Resource" id="Resource_p2npv"]
+script = ExtResource("4_bfdsx")
+start_delay = 60.0
+spawn_groups = Array[ExtResource("6_r0uts")]([SubResource("Resource_boou2"), SubResource("Resource_hf746")])
+
+[sub_resource type="Resource" id="Resource_x03by"]
+script = ExtResource("6_r0uts")
+entities = Array[PackedScene]([ExtResource("8_r7hmo"), ExtResource("8_r7hmo"), ExtResource("8_r7hmo"), ExtResource("8_r7hmo")])
+
+[sub_resource type="Resource" id="Resource_a028f"]
+script = ExtResource("6_r0uts")
+entities = Array[PackedScene]([ExtResource("8_r7hmo"), ExtResource("8_r7hmo"), ExtResource("8_r7hmo"), ExtResource("8_r7hmo")])
+
+[sub_resource type="Resource" id="Resource_t5ej5"]
+script = ExtResource("4_bfdsx")
+start_delay = 75.0
+spawn_groups = Array[ExtResource("6_r0uts")]([SubResource("Resource_x03by"), SubResource("Resource_a028f")])
 
 [resource]
 script = ExtResource("2_s082l")
@@ -28,9 +82,9 @@ name = "Winter"
 description = "We are besieged but our resources will last trough the harsh winter months"
 floor_scene = ExtResource("1_lfxlh")
 preview = ExtResource("2_cl0lg")
-gold_starting_amount = 500
+gold_starting_amount = 600
 gold_enemy_increase_enabled = true
-gold_auto_increase_enabled = true
-gold_auto_increase_time = 15.0
-gold_auto_increase_amount = 10
-waves = Array[ExtResource("4_bfdsx")]([SubResource("Resource_j2ykw")])
+gold_auto_increase_enabled = false
+gold_auto_increase_time = 30.0
+gold_auto_increase_amount = 30
+waves = Array[ExtResource("4_bfdsx")]([SubResource("Resource_j2ykw"), SubResource("Resource_ic41k"), SubResource("Resource_aic3v"), SubResource("Resource_p2npv"), SubResource("Resource_t5ej5")])
