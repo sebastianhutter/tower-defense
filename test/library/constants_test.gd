@@ -21,3 +21,6 @@ func test_scene_tower_build_construction_site() -> void:
 
 func test_scene_portal_scene() -> void:
 	assert_file(Constants.SCENE_PORTAL_SCENE).exists()
+
+func test_scene_floating_text() -> void:
+	assert_file(Constants.SCENE_FLOATING_TEXT).exists()

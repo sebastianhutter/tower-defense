@@ -37,6 +37,7 @@ description = "Not alot of resources but many portals! This level was never real
 floor_scene = ExtResource("1_w1yj0")
 preview = ExtResource("2_x0ruc")
 gold_starting_amount = 250
+gold_enemy_increase_enabled = true
 gold_auto_increase_enabled = false
 gold_auto_increase_time = 0.0
 gold_auto_increase_amount = 0

@@ -10,6 +10,7 @@ class_name FloorResource
 
 # starting gold resources
 @export var gold_starting_amount: int
+@export var gold_enemy_increase_enabled: bool
 @export var gold_auto_increase_enabled: bool
 @export var gold_auto_increase_time: float
 @export var gold_auto_increase_amount: int

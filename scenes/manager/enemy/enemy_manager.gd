@@ -117,6 +117,9 @@ func _on_enemy_decrease_wave_count(wave_id: int) -> void:
 		if _game_events:
 			_game_events.wave_defeated.emit(wave_id)
 
+func _on_enemy_increase_gold(gold: int) -> void:
+	""" pass the event to the game events """
+	_game_events.increase_gold.emit(gold)
 
 func _on_wave_incoming(wave_id: int) -> void:
 	""" incoming wave, set wait timer and preload enemy scenes """
@@ -145,6 +148,8 @@ func _on_wave_incoming(wave_id: int) -> void:
 			e_scene.wave_id = incoming_wave
 			if e_scene.has_signal("decrease_wave_count"):
 				e_scene.decrease_wave_count.connect(_on_enemy_decrease_wave_count)
+			if e_scene.has_signal("increase_gold"):
+				e_scene.increase_gold.connect(_on_enemy_increase_gold)
 			preloaded_enemies.append(e_scene as Ufo)
 	preloaded_enemies_per_wave.append(preloaded_enemies)
 	# store the count of the preloaded enemies for the wave. this number will be decresed each

@@ -1,5 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://bk1psgwkkx5g2"]
+[gd_scene load_steps=4 format=3 uid="uid://bk1psgwkkx5g2"]
 
+[ext_resource type="Script" path="res://scenes/vignette/vignette.gd" id="1_mt0je"]
 [ext_resource type="Shader" path="res://resources/shader/vignette/vignette.gdshader" id="1_os4rw"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_lq7tw"]
@@ -9,8 +10,10 @@ shader_parameter/vignette_opacity = 0.12
 shader_parameter/vignette_rgb = Color(0.623529, 0.27451, 0.227451, 1)
 
 [node name="Vignette" type="CanvasLayer"]
+script = ExtResource("1_mt0je")
 
 [node name="ColorRect" type="ColorRect" parent="."]
+unique_name_in_owner = true
 material = SubResource("ShaderMaterial_lq7tw")
 anchors_preset = 15
 anchor_right = 1.0

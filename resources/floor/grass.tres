@@ -10,7 +10,7 @@
 
 [sub_resource type="Resource" id="Resource_fr00t"]
 script = ExtResource("5_sfoeu")
-entities = Array[PackedScene]([ExtResource("6_lm2tb"), ExtResource("6_lm2tb"), ExtResource("6_lm2tb"), ExtResource("6_lm2tb"), ExtResource("6_lm2tb"), ExtResource("6_lm2tb"), ExtResource("5_f534f"), ExtResource("5_f534f"), ExtResource("5_f534f"), ExtResource("5_f534f")])
+entities = Array[PackedScene]([ExtResource("5_f534f"), ExtResource("5_f534f"), ExtResource("6_lm2tb"), ExtResource("6_lm2tb"), ExtResource("6_lm2tb"), ExtResource("6_lm2tb"), ExtResource("5_f534f"), ExtResource("5_f534f"), ExtResource("5_f534f"), ExtResource("5_f534f")])
 
 [sub_resource type="Resource" id="Resource_l25iu"]
 script = ExtResource("4_lgnf1")
@@ -26,7 +26,8 @@ description = "A lush environment with enough resources for everyone. If it wasn
 floor_scene = ExtResource("1_eujpc")
 preview = ExtResource("2_sneb7")
 gold_starting_amount = 5000
-gold_auto_increase_enabled = false
-gold_auto_increase_time = 10.0
+gold_enemy_increase_enabled = true
+gold_auto_increase_enabled = true
+gold_auto_increase_time = 3.0
 gold_auto_increase_amount = 50
 waves = Array[ExtResource("4_lgnf1")]([SubResource("Resource_l25iu")])

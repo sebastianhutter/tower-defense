@@ -37,6 +37,13 @@ signal wave_incoming(time_to_wave: float, current_wave: int, next_wave: int, wav
 signal wave_started(wave: int)
 signal wave_defeated(wave: int)
 signal send_wave()
+signal increase_gold(gold: int)
+# emitted if the hq is hit
+signal hq_hit(health_left: float)
+
+# end of round signals
+signal victory()
+signal defeat()
 
 # ========
 # class onready vars

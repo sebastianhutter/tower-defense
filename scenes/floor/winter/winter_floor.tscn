@@ -5,9 +5,9 @@
 [ext_resource type="PackedScene" uid="uid://2c848wdr7l8r" path="res://scenes/tilemap/tile_map.tscn" id="3_3vct1"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_vedlq"]
-vertices = PackedVector2Array(-1372, -401, -1617, -544, -1606, -548, -1371, -410, -743, -767, -744, -775, -494, -627, -507, -628, -993, -335, -1009, -333, -620, -117, -621, -130, -370, -260, -371, -271, 756, 388, 743, 388, 384, 608, 371, 610, 752, 825, 750, 813, 1525, 372, 1526, 380)
+vertices = PackedVector2Array(-1372, -401, -1617, -544, -1594, -558, -1372, -412, -743, -767, -744, -775, -494, -627, -507, -628, -993, -335, -1009, -333, -620, -117, -621, -130, -370, -260, -371, -271, 761, 388, 739, 386, 390, 609, 368, 608, 752, 825, 750, 813, 1525, 372, 1526, 380)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 0, 3, 5), PackedInt32Array(4, 5, 6, 7), PackedInt32Array(7, 6, 8, 9), PackedInt32Array(10, 9, 8, 11), PackedInt32Array(12, 10, 11, 13), PackedInt32Array(12, 13, 14, 15), PackedInt32Array(15, 14, 16, 17), PackedInt32Array(18, 17, 16, 19), PackedInt32Array(19, 20, 21, 18)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(-1617, -544, -1372, -401, -743, -767, -507, -628, -1009, -333, -620, -117, -370, -260, 743, 388, 371, 610, 752, 825, 1526, 380, 1525, 372, 750, 813, 384, 608, 756, 388, -371, -271, -621, -130, -993, -335, -494, -627, -744, -775, -1371, -410, -1606, -548)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-1617, -544, -1372, -401, -743, -767, -507, -628, -1009, -333, -620, -117, -370, -260, 739, 386, 368, 608, 752, 825, 1526, 380, 1525, 372, 750, 813, 390, 609, 761, 388, -371, -271, -621, -130, -993, -335, -494, -627, -744, -775, -1372, -412, -1594, -558)])
 
 [node name="WinterFloor" type="Node2D"]
 script = ExtResource("1_4ahpv")

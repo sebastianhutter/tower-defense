@@ -29,6 +29,7 @@ description = "We are besieged but our resources will last trough the harsh wint
 floor_scene = ExtResource("1_lfxlh")
 preview = ExtResource("2_cl0lg")
 gold_starting_amount = 500
+gold_enemy_increase_enabled = true
 gold_auto_increase_enabled = true
 gold_auto_increase_time = 15.0
 gold_auto_increase_amount = 10

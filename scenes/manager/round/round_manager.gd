@@ -30,6 +30,7 @@ var waves_defeated: int = 0 :
 	set(value):
 		waves_defeated = value
 		if waves_defeated >= waves_to_defeat:
+			_game_events.victory.emit()
 			_game_events.game_state_changed.emit(Types.GameState.GAME_OVER, {'did_player_win': true})
 
 # ========
@@ -57,6 +58,7 @@ func _on_tower_destroyed(id: Types.Tower, position: Vector2) -> void:
 	if id != Types.Tower.HQ:
 		return
 
+	_game_events.defeat.emit()
 	_game_events.game_state_changed.emit(Types.GameState.GAME_OVER, {'did_player_win': false})
 
 func _on_wave_incoming(_time_to_wave: float, _current_wave: int, _next_wave: int, wave_count: int) -> void:

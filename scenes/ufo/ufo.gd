@@ -9,12 +9,16 @@ class_name Ufo
 # export vars
 # ========
 
+@export var increase_gold_on_kill: bool = true
+@export var incrase_gold_by: int = 50
+
 # ========
 # class signals
 # ========
 
 signal hit_player_hq()
 signal decrease_wave_count(wave_id: int)
+signal increase_gold(gold: int)
 
 # ========
 # class onready vars
@@ -42,6 +46,9 @@ func _ready():
 	if hurtbox_component:
 		hurtbox_component.area_entered.connect(_on_hurtbox_area_entered)
 
+	if health_component:
+		health_component.died.connect(_on_died)
+
 func _exit_tree():
 	""" when the object is removed from the scene ensure the enemy manager can remove it from the wave counter """
 
@@ -62,6 +69,12 @@ func _on_hurtbox_area_entered(area: Area2D) -> void:
 
 	(parent_node as Projectile).hit_count += 1
 
+
+func _on_died() -> void:
+	""" emit the increase gold signal so resource manager can increase the gold by the given amount """
+
+	if increase_gold_on_kill:
+		increase_gold.emit(incrase_gold_by)
 
 # ========
 # class functions

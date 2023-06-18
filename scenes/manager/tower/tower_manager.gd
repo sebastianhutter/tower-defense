@@ -198,14 +198,17 @@ func _on_tower_context_menu_upgrade_button_clicked(node_id: int) -> void:
 			upgrade_component.upgrade_tower()	
 			return
 
-
+func _on_hq_hit(health_left: float) -> void:
+	""" pass along hq hit for screen effects """
+	_game_events.hq_hit.emit(health_left)
 
 # ========
 # class functions
 # ========
 
 func _enter_game_loop() -> void:
-	spawn_tower_by_id(Types.Tower.HQ, Vector2.ZERO+Constants.TOWER_HQ_OFFSET)
+	var hq: Tower = spawn_tower_by_id(Types.Tower.HQ, Vector2.ZERO+Constants.TOWER_HQ_OFFSET) as HQ
+	hq.hq_hit.connect(_on_hq_hit)
 
 func find_tower_resource(id: int) -> TowerResource:
 	"""
@@ -219,7 +222,7 @@ func find_tower_resource(id: int) -> TowerResource:
 	return null
 
 					
-func spawn_tower_by_id(id: int, pos: Vector2) -> void:
+func spawn_tower_by_id(id: int, pos: Vector2) -> Tower:
 	"""
 	spawns the tower with the given id at the given position
 	"""
@@ -229,10 +232,11 @@ func spawn_tower_by_id(id: int, pos: Vector2) -> void:
 		print_debug("TowerManager: could not find tower with id: " + str(id))
 		return
 
-	spawn_tower(tower, pos)
-	
+	var tower_instance: Tower = spawn_tower(tower, pos)
+	return tower_instance
 
-func spawn_tower(resource: TowerResource, pos: Vector2) -> void:
+
+func spawn_tower(resource: TowerResource, pos: Vector2) -> Tower:
 	"""
 	spawns the tower at the given position
 	"""
@@ -250,13 +254,17 @@ func spawn_tower(resource: TowerResource, pos: Vector2) -> void:
 	tower_scene.position = pos
 	floor.towers.add_child(tower_scene)
 	tower_scene.initialize(resource)
+	
 	# connect tower signals to manager
 	tower_scene.tower_destroyed.connect(_on_tower_destroyed)
 	tower_scene.tower_sold.connect(_on_tower_sold)
 	tower_scene.tower_upgrade_finished.connect(_on_tower_upgrade_finished)
 	tower_scene.tower_upgrade_started.connect(_on_tower_upgrade_started)
 	tower_scene.tower_clicked.connect(_on_tower_clicked)
+	
 	# connect the resource gold changed signal to the towers upgrade manager if available
 	var upgrade_component: TowerUpgradeComponent = tower_scene.tower_upgrade_component as TowerUpgradeComponent
 	if upgrade_component:
 		_game_events.resource_gold_amount_changed.connect(upgrade_component._on_resource_gold_amount_changed)
+
+	return tower_scene

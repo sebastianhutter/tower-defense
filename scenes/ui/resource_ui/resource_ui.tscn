@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://f3c0lkg34utv"]
+[gd_scene load_steps=4 format=3 uid="uid://f3c0lkg34utv"]
 
 [ext_resource type="Script" path="res://scenes/ui/resource_ui/resource_ui.gd" id="1_8wpam"]
 [ext_resource type="Texture2D" uid="uid://d0xcl6pma3ruh" path="res://resources/sprite/UI/resource_bar/gold_coin.png" id="2_m0msn"]
+[ext_resource type="AudioStream" uid="uid://c1wwdi4ro0qws" path="res://resources/sfx/gold.ogg" id="3_3sy4i"]
 
 [node name="ResourceUi" type="CanvasLayer"]
 script = ExtResource("1_8wpam")
@@ -23,9 +24,16 @@ layout_mode = 2
 text = "1234"
 
 [node name="GoldIcon" type="TextureRect" parent="VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(1, 1)
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
 texture = ExtResource("2_m0msn")
 stretch_mode = 2
+
+[node name="GoldSound" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("3_3sy4i")
+volume_db = -15.0
+bus = &"sfx"

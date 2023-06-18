@@ -76,6 +76,9 @@ func _on_tower_build_completed(resource: TowerResource, position: Vector2) -> vo
 	# increase gold by 0 to emit the signal
 	increase_gold(0)
 
+func _on_increase_gold(gold: int) -> void:
+	increase_gold(gold)
+
 # ========
 # class functions
 # ========
@@ -106,6 +109,9 @@ func load_floor():
 
 	if _game_data.selected_floor.gold_auto_increase_time:
 		gold_timer.wait_time = _game_data.selected_floor.gold_auto_increase_time
+
+	if _game_data.selected_floor.gold_enemy_increase_enabled:
+		_game_events.increase_gold.connect(_on_increase_gold)
 		
 func start_gold_timer():
 	""" start the gold timer """

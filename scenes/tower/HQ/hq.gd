@@ -13,6 +13,8 @@ class_name HQ
 # class signals
 # ========
 
+signal hq_hit(health_left)
+
 # ========
 # class onready vars
 # ========
@@ -42,6 +44,10 @@ func _on_health_changed() -> void:
 
 func _on_hurtbox_area_entered(area: Area2D) -> void:
 	""" we send the enemy that hit the hq the hit signal so it goes puff """
+
+	# this could also be achieved by sending a game event
+	# the enemy listening on the game event with its area2d id
+	# and reacting on it but this seems like a lot of overhead
 	
 	var parent_node = area.owner
 	if not parent_node is Ufo:
@@ -49,6 +55,9 @@ func _on_hurtbox_area_entered(area: Area2D) -> void:
 
 	if parent_node.has_method("hit_feedback_from_hq"):
 		parent_node.hit_feedback_from_hq()
+
+	# emit hq hit so tower manager can push the event to game events
+	hq_hit.emit(health_component.get_health_percent())
 
 # ========
 # class functions
