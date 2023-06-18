@@ -15,6 +15,13 @@ func _sort_by_int_id(a: Resource, b: Resource) -> bool:
 	
 	return false
 
+# as it turns out tres files are packed binary when exported:
+# Note: If ProjectSettings.editor/export/convert_text_resources_to_binary is true, @GDScript.load will not be able to 
+# read converted files in an exported project. If you rely on run-time loading of files present within the PCK, set 
+# ProjectSettings.editor/export/convert_text_resources_to_binary to false.
+# as this is the default behaviour I assume the idea of dynamically loading custom resources for using them
+# in scripts need to be done a different way !
+# a lesson for the next project... 
 func find_tres_files(folder: String) -> Array[Resource]:
 	"""returns a list of .tres files in one folder and one level of subfolders"""
 
