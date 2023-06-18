@@ -1,13 +1,64 @@
-[gd_scene load_steps=4 format=3 uid="uid://mgxyv085bb0r"]
+[gd_scene load_steps=7 format=3 uid="uid://mgxyv085bb0r"]
 
 [ext_resource type="Script" path="res://scenes/ui/tower_card/tower_card.gd" id="1_4bvf3"]
 [ext_resource type="Texture2D" uid="uid://btmg2e8ioglt" path="res://resources/sprite/tower/Wizard/wizard_level_1.png" id="2_nplmj"]
 [ext_resource type="AudioStream" uid="uid://csulrky7d8d1k" path="res://resources/sfx/button_click.ogg" id="3_3432e"]
 
+[sub_resource type="Animation" id="Animation_5bl2a"]
+resource_name = "hover"
+length = 0.2
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, -0.0872665, -0.0872665, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_wp17x"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AudioStreamPlayer:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ga05q"]
+_data = {
+"RESET": SubResource("Animation_wp17x"),
+"hover": SubResource("Animation_5bl2a")
+}
+
 [node name="TowerCard" type="PanelContainer"]
 custom_minimum_size = Vector2(100, 100)
-offset_right = 18.0
-offset_bottom = 18.0
+offset_right = 102.0
+offset_bottom = 149.0
+pivot_offset = Vector2(51, 74)
 size_flags_horizontal = 4
 size_flags_vertical = 4
 script = ExtResource("1_4bvf3")
@@ -44,3 +95,9 @@ layout_mode = 2
 text = "Gold: 1000"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="HoverAnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+libraries = {
+"": SubResource("AnimationLibrary_ga05q")
+}

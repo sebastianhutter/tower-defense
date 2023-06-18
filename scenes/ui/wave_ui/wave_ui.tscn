@@ -1,8 +1,16 @@
-[gd_scene load_steps=4 format=3 uid="uid://desaosxwdpa0c"]
+[gd_scene load_steps=5 format=3 uid="uid://desaosxwdpa0c"]
 
 [ext_resource type="Script" path="res://scenes/ui/wave_ui/wave_ui.gd" id="1_kh2tq"]
 [ext_resource type="Texture2D" uid="uid://cg0pbixx5j25f" path="res://resources/sprite/UI/wave_bar/wave_icon.png" id="2_ly27v"]
 [ext_resource type="PackedScene" uid="uid://d0xuj2fyubr35" path="res://scenes/ui/sound_button/sound_button.tscn" id="3_ib6um"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mycjd"]
+bg_color = Color(0.901961, 0.564706, 0.305882, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.8, 0.8, 0.8, 0)
 
 [node name="WaveUi" type="CanvasLayer"]
 script = ExtResource("1_kh2tq")
@@ -55,9 +63,10 @@ grow_vertical = 2
 
 [node name="WaveTimerBar" type="ProgressBar" parent="Control/VBoxContainer"]
 unique_name_in_owner = true
-modulate = Color(0.25098, 0.588235, 1, 1)
+custom_minimum_size = Vector2(2.08165e-12, 8)
 layout_mode = 2
 size_flags_vertical = 1
+theme_override_styles/fill = SubResource("StyleBoxFlat_mycjd")
 max_value = 1.0
 step = 0.001
 value = 1.0

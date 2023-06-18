@@ -1,13 +1,13 @@
 [gd_resource type="Resource" script_class="TowerResource" load_steps=6 format=3 uid="uid://cdxecwwfyk2ee"]
 
 [ext_resource type="Script" path="res://resources/tower/tower_resource.gd" id="1_iehy6"]
-[ext_resource type="Texture2D" uid="uid://cuh4k7x8q4smd" path="res://resources/sprite/tower/HQ/hq_level_1.png" id="1_netkh"]
+[ext_resource type="Texture2D" uid="uid://d04s8kqpd0xe4" path="res://resources/sprite/tower/HQ/hq_level_3.png" id="1_juct5"]
 [ext_resource type="PackedScene" uid="uid://crx7v2qie73tg" path="res://scenes/tower/HQ/hq.tscn" id="2_6s14w"]
 [ext_resource type="Script" path="res://resources/tower/tower_level_resource.gd" id="2_jcyuq"]
 
 [sub_resource type="Resource" id="Resource_l2dt8"]
 script = ExtResource("2_jcyuq")
-body = ExtResource("1_netkh")
+body = ExtResource("1_juct5")
 build_costs = 0
 build_time = 0.0
 sell_value = 0

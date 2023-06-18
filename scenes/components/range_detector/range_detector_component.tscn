@@ -7,7 +7,7 @@
 shader = ExtResource("2_60m1n")
 shader_parameter/blur_amount = -0.0479999
 shader_parameter/mix_amount = 0.366
-shader_parameter/color_over = Color(1, 0.00392157, 0.858824, 1)
+shader_parameter/color_over = Color(0.623529, 0.27451, 0.227451, 1)
 
 [node name="RangeDetectorComponent" type="Area2D"]
 editor_description = "Detects enemies in the tower range

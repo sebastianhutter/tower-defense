@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://bjx8wyah36f0b"]
+[gd_scene load_steps=6 format=3 uid="uid://bjx8wyah36f0b"]
 
 [ext_resource type="Script" path="res://scenes/main/main.gd" id="1_jel8x"]
 [ext_resource type="PackedScene" uid="uid://cfmjq2ho0dqfl" path="res://scenes/game_music/game_music_player.tscn" id="2_1o0x4"]
 [ext_resource type="PackedScene" uid="uid://confljugi6357" path="res://scenes/background/background.tscn" id="2_vpsk1"]
 [ext_resource type="PackedScene" uid="uid://bbga1pt06xble" path="res://scenes/manager/managers.tscn" id="3_6lmyi"]
+[ext_resource type="PackedScene" uid="uid://bk1psgwkkx5g2" path="res://scenes/vignette/vignette.tscn" id="4_br43h"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_jel8x")
@@ -11,5 +12,7 @@ script = ExtResource("1_jel8x")
 [node name="GameMusicPlayer" parent="." instance=ExtResource("2_1o0x4")]
 
 [node name="Background" parent="." instance=ExtResource("2_vpsk1")]
+
+[node name="Vignette" parent="." instance=ExtResource("4_br43h")]
 
 [node name="Managers" parent="." instance=ExtResource("3_6lmyi")]

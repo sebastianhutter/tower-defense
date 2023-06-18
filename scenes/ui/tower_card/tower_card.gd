@@ -24,6 +24,7 @@ signal tower_card_clicked(tower_resource: Resource)
 @onready var tower_cost_label: Label = $%TowerCostLabel
 @onready var background: Panel = $%Background
 @onready var audio_stream_player: AudioStreamPlayer = $%AudioStreamPlayer
+@onready var animation_player: AnimationPlayer = $%HoverAnimationPlayer
 
 # ========
 # class vars
@@ -38,7 +39,6 @@ var can_be_build: bool = false
 
 func _ready():
 	mouse_entered.connect(_gui_mouse_entered)
-	mouse_exited.connect(_gui_mouse_exited)
 
 func _gui_input(event):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed  and can_be_build:
@@ -53,22 +53,12 @@ func _gui_input(event):
 func _gui_mouse_entered() -> void:
 	"""highlight the card when the mouse enters"""
 
-	if not background:
-		print_debug("TowerCard: background is null")
-		return
-	
-	if can_be_build:
-		background.modulate.a = 255
+	print('entering card')
 
-func _gui_mouse_exited() -> void:
-	"""unhighlight the card when the mouse exits"""
-
-	if not background:
-		print_debug("TowerCard: background is null")
-		return
-
-	background.modulate.a = 0
-
+	if animation_player:
+		if animation_player.is_playing():
+			return
+		animation_player.play("hover")
 
 # ========
 # class functions

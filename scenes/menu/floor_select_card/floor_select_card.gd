@@ -75,6 +75,8 @@ func select():
 
 	print_debug("select floor card " + floor_resource.name)
 	if audio_stream_player:
+		if audio_stream_player.playing:
+			return
 		audio_stream_player.play()
 	floor_selected.emit(floor_resource)
 	floor_card_color_rect.show()

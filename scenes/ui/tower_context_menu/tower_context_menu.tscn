@@ -9,6 +9,7 @@ script = ExtResource("1_xlibt")
 unique_name_in_owner = true
 offset_right = 324.0
 offset_bottom = 133.0
+theme_type_variation = &"TransparentPanelContainer"
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="PanelContainer"]
 layout_mode = 2
