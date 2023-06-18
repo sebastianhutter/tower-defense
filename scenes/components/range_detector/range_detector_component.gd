@@ -61,9 +61,6 @@ func _ready():
 
 func _on_area_entered(area: Area2D):
 
-
-	print(area)
-
 	if not area is Ufo:
 		return
 

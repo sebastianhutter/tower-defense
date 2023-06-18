@@ -26,6 +26,7 @@ class_name Portal
 # ========
 
 var portal_open: bool = false
+var send_wave_requested: bool = false
 
 # ========
 # godot functions
@@ -45,24 +46,27 @@ func _ready():
 # ========
 
 func _on_timer_timeout():
+	if portal_open:
+		return
+
 	portal_open = true
 	animation_player.play("portal")
 
 func _on_wave_incoming(time_to_wave: float, current_wave: int, next_wave: int, wave_count: int) -> void:
 	""" setup an internal timer to end shortly before the wave arrives """
 
-	if portal_open:
-		return
+	if send_wave_requested:
+		return 
 
 	if not timer:
 		print_debug("no timer node found")
 		return
-
-	timer.wait_time = time_to_wave - 0.55 # the animation time of the open animation is ~ 0.5s
-	timer.start()
+	timer.start(time_to_wave - 0.55)
 
 func _on_send_wave() -> void:
 	""" if the player requests the first wave immediately there is no way of waiting """
+
+	send_wave_requested = true
 
 	timer.start(0.1)
 

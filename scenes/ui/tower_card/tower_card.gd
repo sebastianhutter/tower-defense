@@ -53,8 +53,6 @@ func _gui_input(event):
 func _gui_mouse_entered() -> void:
 	"""highlight the card when the mouse enters"""
 
-	print('entering card')
-
 	if animation_player:
 		if animation_player.is_playing():
 			return

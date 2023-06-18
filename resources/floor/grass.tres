@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="FloorResource" load_steps=10 format=3 uid="uid://72veugdwhist"]
+[gd_resource type="Resource" script_class="FloorResource" load_steps=15 format=3 uid="uid://72veugdwhist"]
 
 [ext_resource type="PackedScene" uid="uid://cuol0u1i8ev53" path="res://scenes/floor/grass/grass_floor.tscn" id="1_eujpc"]
 [ext_resource type="Script" path="res://resources/floor/floor_resource.gd" id="2_l0var"]
@@ -7,15 +7,34 @@
 [ext_resource type="PackedScene" uid="uid://d0n7w41v514bb" path="res://scenes/ufo/weak_ufo/weak_ufo.tscn" id="5_f534f"]
 [ext_resource type="Script" path="res://resources/wave/wave_group_resource.gd" id="5_sfoeu"]
 [ext_resource type="PackedScene" uid="uid://bo4f107w5hl18" path="res://scenes/ufo/strong_ufo/strong_ufo.tscn" id="6_lm2tb"]
+[ext_resource type="PackedScene" uid="uid://c7ih5bigv2lgt" path="res://scenes/ufo/medium_ufo/medium_ufo.tscn" id="7_sdinx"]
 
 [sub_resource type="Resource" id="Resource_fr00t"]
 script = ExtResource("5_sfoeu")
-entities = Array[PackedScene]([ExtResource("5_f534f"), ExtResource("5_f534f"), ExtResource("6_lm2tb"), ExtResource("6_lm2tb"), ExtResource("6_lm2tb"), ExtResource("6_lm2tb"), ExtResource("5_f534f"), ExtResource("5_f534f"), ExtResource("5_f534f"), ExtResource("5_f534f")])
+entities = Array[PackedScene]([ExtResource("5_f534f"), ExtResource("5_f534f"), ExtResource("5_f534f"), ExtResource("5_f534f"), ExtResource("5_f534f")])
 
 [sub_resource type="Resource" id="Resource_l25iu"]
 script = ExtResource("4_lgnf1")
-start_delay = 90.0
+start_delay = 15.0
 spawn_groups = Array[ExtResource("5_sfoeu")]([SubResource("Resource_fr00t")])
+
+[sub_resource type="Resource" id="Resource_ve28x"]
+script = ExtResource("5_sfoeu")
+entities = Array[PackedScene]([ExtResource("5_f534f"), ExtResource("5_f534f"), ExtResource("5_f534f"), ExtResource("5_f534f"), ExtResource("5_f534f"), ExtResource("7_sdinx"), ExtResource("7_sdinx"), ExtResource("7_sdinx"), ExtResource("5_f534f"), ExtResource("5_f534f")])
+
+[sub_resource type="Resource" id="Resource_2bcao"]
+script = ExtResource("4_lgnf1")
+start_delay = 30.0
+spawn_groups = Array[ExtResource("5_sfoeu")]([SubResource("Resource_ve28x")])
+
+[sub_resource type="Resource" id="Resource_5h5c5"]
+script = ExtResource("5_sfoeu")
+entities = Array[PackedScene]([ExtResource("5_f534f"), ExtResource("5_f534f"), ExtResource("5_f534f"), ExtResource("7_sdinx"), ExtResource("7_sdinx"), ExtResource("7_sdinx"), ExtResource("6_lm2tb"), ExtResource("6_lm2tb"), ExtResource("7_sdinx"), ExtResource("7_sdinx"), ExtResource("6_lm2tb"), ExtResource("6_lm2tb")])
+
+[sub_resource type="Resource" id="Resource_qbn7f"]
+script = ExtResource("4_lgnf1")
+start_delay = 45.0
+spawn_groups = Array[ExtResource("5_sfoeu")]([SubResource("Resource_5h5c5")])
 
 [resource]
 script = ExtResource("2_l0var")
@@ -30,4 +49,4 @@ gold_enemy_increase_enabled = true
 gold_auto_increase_enabled = true
 gold_auto_increase_time = 3.0
 gold_auto_increase_amount = 50
-waves = Array[ExtResource("4_lgnf1")]([SubResource("Resource_l25iu")])
+waves = Array[ExtResource("4_lgnf1")]([SubResource("Resource_l25iu"), SubResource("Resource_2bcao"), SubResource("Resource_qbn7f")])

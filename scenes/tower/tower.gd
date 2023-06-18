@@ -175,8 +175,6 @@ func get_second_next_tower_level_resource() -> TowerLevel:
 
 func highligh_tower(is_higlighted: bool) -> void:
 
-	print("highlight?")
-
 	if not body or not body.material:
 		return
 

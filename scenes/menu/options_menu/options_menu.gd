@@ -84,9 +84,6 @@ func update_options_display() -> void:
 	if DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_FULLSCREEN:
 		window_button.text = "Fullscreen"
 
-	print(sfx_slider.value)
-	print( get_bus_volume_percent("sfx"))
-
 	sfx_slider.value = get_bus_volume_percent("sfx")
 	music_slider.value = get_bus_volume_percent("music")
 

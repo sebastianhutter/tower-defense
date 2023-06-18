@@ -40,9 +40,6 @@ func _ready() -> void:
 func _on_pressed() -> void:
 	""" play a click sound everytime the button is pressed """
 
-
-
-	print("pppplplpalpalplaplaplpalpalpalp")
 	audio_stream_player.play()
 
 # ========

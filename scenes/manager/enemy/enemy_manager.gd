@@ -69,11 +69,7 @@ func _ready():
 
 func _on_send_wave() -> void:
 	""" send in the next wave - we cheat alittle bit by just setting the remaining time of the incoming timer to close to 0 """
-	print("****************************")
-	print("timer?")
-	print(wave_incoming_timer.is_stopped())
-	print(wave_incoming_timer.time_left)
-
+	
 	if wave_incoming_timer.is_stopped():
 		# timer is not running, either round hasnt started yet or 
 		# all waves are already in progress
