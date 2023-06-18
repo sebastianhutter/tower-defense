@@ -3,6 +3,22 @@
 ![Alt text](<CleanShot 2023-06-18 at 20.37.46.png>)
 
 
+## Assets
+
+All used assets are freely available. The full list of assets used in this project is:
+
+- https://assetstore.unity.com/packages/2d/environments/isometric-tower-defense-pack-183472
+- https://dinvstudio.itch.io/dynamic-space-background-lite-free
+- https://vespere-clivus.itch.io/coins-with-pattern
+- https://kenney.nl/assets/ui-pack-rpg-expansion
+- https://kenney.nl/assets/ui-pack
+- https://kenney.nl/assets/rpg-audio
+- https://kenney.nl/assets/sci-fi-sounds
+- https://kenney.nl/assets/impact-sounds
+- https://kenney.nl/assets/ui-audio
+- https://nimblebeastscollective.itch.io/nb-pixel-font-bundle-2
+- https://freepd.com/music/Black%20Knight.mp3
+
 ## Releasing
 
 The pipeline can create github releases if it detects a new tag.
